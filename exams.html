@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Exams · Super App</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Surfaces */
+      --bg: #FAFAFA;
+      --surface: #FFFFFF;
+      --surface-sunken: #F2F2F2;
+      --surface-hover: #F5F5F5;
+      --surface-active: #EDEDED;
+
+      /* Borders */
+      --border: #EAEAEA;
+      --border-strong: #D4D4D4;
+      --border-control: #A3A3A3;
+
+      /* Text */
+      --text-primary: #111111;
+      --text-secondary: #5C5C5C;
+      --text-placeholder: #737373;
+
+      /* Accent (the only brand color) */
+      --accent: #2563EB;
+      --accent-hover: #1D4ED8;
+      --accent-active: #1E40AF;
+      --accent-soft: #EFF4FF;
+      --accent-text: #1D4ED8;
+      --accent-ring: rgba(37, 99, 235, 0.20);
+      --on-accent: #FFFFFF;
+
+      /* Status */
+      --success: #15803D;
+      --success-soft: #F0FDF4;
+      --error: #B91C1C;
+      --error-soft: #FEF2F2;
+      --error-ring: rgba(185, 28, 28, 0.18);
+
+      /* Disabled */
+      --disabled-bg: #F2F2F2;
+      --disabled-text: #8A8A8A;
+
+      /* Effects */
+      --scrim: rgba(0, 0, 0, 0.40);
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+      --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06);
+      --shadow-sheet: 0 -8px 24px rgba(0, 0, 0, 0.08);
+
+      /* Radius */
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-full: 999px;
+
+      /* Spacing */
+      --sp-4: 0.25rem;
+      --sp-8: 0.5rem;
+      --sp-12: 0.75rem;
+      --sp-16: 1rem;
+      --sp-24: 1.5rem;
+      --sp-32: 2rem;
+      --sp-48: 3rem;
+      --nav-h: 4rem;
+
+      --font: "Inter", "Roboto", system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #0A0A0A;
+        --surface: #141414;
+        --surface-sunken: #1F1F1F;
+        --surface-hover: #1A1A1A;
+        --surface-active: #262626;
+        --border: #262626;
+        --border-strong: #3A3A3A;
+        --border-control: #6B6B6B;
+        --text-primary: #EDEDED;
+        --text-secondary: #A3A3A3;
+        --text-placeholder: #8A8A8A;
+        --accent: #60A5FA;
+        --accent-hover: #93C5FD;
+        --accent-active: #BFDBFE;
+        --accent-soft: #16233F;
+        --accent-text: #93C5FD;
+        --accent-ring: rgba(96, 165, 250, 0.30);
+        --on-accent: #0A0A0A;
+        --success: #4ADE80;
+        --success-soft: #0F2A1A;
+        --error: #F87171;
+        --error-soft: #331416;
+        --error-ring: rgba(248, 113, 113, 0.25);
+        --disabled-bg: #1F1F1F;
+        --disabled-text: #6B6B6B;
+        --scrim: rgba(0, 0, 0, 0.60);
+        --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.40);
+        --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.40);
+        --shadow-sheet: 0 -8px 24px rgba(0, 0, 0, 0.50);
+      }
+    }
+
+    :root[data-theme="dark"] {
+      --bg: #0A0A0A;
+      --surface: #141414;
+      --surface-sunken: #1F1F1F;
+      --surface-hover: #1A1A1A;
+      --surface-active: #262626;
+      --border: #262626;
+      --border-strong: #3A3A3A;
+      --border-control: #6B6B6B;
+      --text-primary: #EDEDED;
+      --text-secondary: #A3A3A3;
+      --text-placeholder: #8A8A8A;
+      --accent: #60A5FA;
+      --accent-hover: #93C5FD;
+      --accent-active: #BFDBFE;
+      --accent-soft: #16233F;
+      --accent-text: #93C5FD;
+      --accent-ring: rgba(96, 165, 250, 0.30);
+      --on-accent: #0A0A0A;
+      --success: #4ADE80;
+      --success-soft: #0F2A1A;
+      --error: #F87171;
+      --error-soft: #331416;
+      --error-ring: rgba(248, 113, 113, 0.25);
+      --disabled-bg: #1F1F1F;
+      --disabled-text: #6B6B6B;
+      --scrim: rgba(0, 0, 0, 0.60);
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.40);
+      --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.40);
+      --shadow-sheet: 0 -8px 24px rgba(0, 0, 0, 0.50);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { font-size: 100%; -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text-primary);
+      font: 400 1rem/1.5rem var(--font);
+      -webkit-font-smoothing: antialiased;
+    }
+    .num { font-variant-numeric: tabular-nums; }
+    button, input, select, textarea { font: inherit; color: inherit; }
+
+    .app {
+      max-width: 430px;
+      margin: 0 auto;
+      min-height: 100dvh;
+      background: var(--bg);
+      position: relative;
+    }
+    @media (min-width: 480px) {
+      body { background: var(--surface-sunken); }
+      .app { border-left: 1px solid var(--border); border-right: 1px solid var(--border); }
+    }
+
+    .screen {
+      padding: 0 var(--sp-16) var(--sp-24);
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-24);
+    }
+    .screen--nav {
+      padding-bottom: calc(var(--nav-h) + var(--sp-24) + env(safe-area-inset-bottom, 0px));
+    }
+
+    .app-header {
+      position: sticky; top: 0; z-index: 10; background: var(--bg);
+      display: flex; align-items: center; justify-content: space-between; gap: var(--sp-12);
+      min-height: 3.5rem; padding: var(--sp-8) var(--sp-16); margin: 0 calc(var(--sp-16) * -1);
+    }
+
+    h1, .t-h1 { font: 600 1.75rem/2.125rem var(--font); letter-spacing: -0.0375rem; margin: 0; }
+    h2, .t-h2 { font: 600 1.375rem/1.75rem var(--font); letter-spacing: -0.025rem; margin: 0; }
+    h3, .t-h3 { font: 600 1.0625rem/1.5rem var(--font); letter-spacing: -0.0125rem; margin: 0; }
+    p { margin: 0; }
+    .t-small { font: 400 0.875rem/1.25rem var(--font); }
+    .t-caption { font: 500 0.75rem/1rem var(--font); letter-spacing: 0.0125rem; }
+    .t-muted { color: var(--text-secondary); }
+
+    .segmented { display: flex; gap: var(--sp-4); padding: var(--sp-4); background: var(--surface-sunken); border-radius: var(--radius-md); }
+    .segmented > a {
+      flex: 1; min-height: 2.75rem; height: 2.75rem; border: 0; border-radius: var(--radius-sm); cursor: pointer;
+      background: transparent; color: var(--text-secondary); font: 500 .875rem/1.25rem var(--font);
+      display: inline-flex; align-items: center; justify-content: center; text-decoration: none;
+    }
+    .segmented > a.is-active { background: var(--surface); color: var(--text-primary); box-shadow: var(--shadow-sm); }
+
+    .stack-12 { display: flex; flex-direction: column; gap: var(--sp-12); }
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: var(--sp-16);
+      box-shadow: var(--shadow-sm);
+      display: flex; flex-direction: column; gap: var(--sp-12);
+    }
+    .card__head { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-12); }
+
+    .badge {
+      display: inline-flex; align-items: center; height: 1.5rem; padding: 0 var(--sp-8);
+      border-radius: var(--radius-full); font: 500 .75rem/1rem var(--font); letter-spacing: .0125rem;
+      background: var(--surface-sunken); color: var(--text-secondary); white-space: nowrap;
+    }
+    .badge--progress { background: var(--accent-soft); color: var(--accent-text); }
+
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: var(--sp-8);
+      min-height: 3rem; height: 3rem; padding: 0 var(--sp-24);
+      font: 500 1rem/1.5rem var(--font);
+      border: 1px solid transparent; border-radius: var(--radius-md);
+      cursor: pointer; text-decoration: none; white-space: nowrap;
+      transition: background-color .15s ease, border-color .15s ease, transform .05s ease;
+      box-sizing: border-box;
+    }
+    .btn--block { width: 100%; }
+    .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .btn--primary { background: var(--accent); color: var(--on-accent); box-shadow: var(--shadow-sm); }
+    .btn--primary:hover { background: var(--accent-hover); }
+    .btn--primary:active { background: var(--accent-active); transform: translateY(1px); }
+    .btn--ghost { background: transparent; color: var(--text-secondary); }
+    .btn--ghost:hover { background: var(--surface-hover); color: var(--text-primary); }
+
+    /* Overlay Sheet */
+    .sheet-overlay { display: none; position: fixed; inset: 0; z-index: 30; }
+    .sheet-overlay:target { display: block; }
+    .scrim-close { position: fixed; inset: 0; background: var(--scrim); cursor: default; }
+    .sheet {
+      position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); z-index: 31;
+      width: min(100%, 430px); max-height: 90dvh; overflow-y: auto;
+      background: var(--surface); border: 1px solid var(--border); border-bottom: 0;
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0; box-shadow: var(--shadow-sheet);
+      padding: var(--sp-8) var(--sp-16) calc(var(--sp-24) + env(safe-area-inset-bottom, 0px));
+      display: flex; flex-direction: column; gap: var(--sp-16);
+    }
+    .sheet__handle { width: 2.5rem; height: .25rem; border-radius: var(--radius-full); background: var(--border-strong); margin: 0 auto; }
+
+    .field { display: flex; flex-direction: column; gap: var(--sp-8); }
+    .field__label { font: 500 .875rem/1.25rem var(--font); color: var(--text-primary); }
+    .input, .select {
+      width: 100%; min-height: 3rem; height: 3rem; padding: 0 var(--sp-16);
+      font: 400 1rem/1.5rem var(--font); color: var(--text-primary);
+      background: var(--surface); border: 1px solid var(--border-strong);
+      border-radius: var(--radius-md); box-shadow: var(--shadow-sm);
+      appearance: none; -webkit-appearance: none;
+    }
+    .input:focus, .select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-ring); }
+    .select-wrap { position: relative; }
+    .select { padding-right: 2.75rem; }
+    .select-wrap > svg { position: absolute; right: var(--sp-16); top: 50%; width: 20px; height: 20px;
+      transform: translateY(-50%); color: var(--text-secondary); pointer-events: none; }
+
+    /* Bottom Nav */
+    .bottom-nav {
+      position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+      width: min(100%, 430px); z-index: 20;
+      height: calc(var(--nav-h) + env(safe-area-inset-bottom, 0px)); padding-bottom: env(safe-area-inset-bottom, 0px);
+      display: grid; grid-template-columns: repeat(5, 1fr); align-items: center;
+      background: var(--surface); border-top: 1px solid var(--border);
+    }
+    .nav-item {
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--sp-4);
+      min-height: 44px; height: var(--nav-h); color: var(--text-secondary); text-decoration: none;
+      font: 500 .75rem/1rem var(--font); letter-spacing: .0125rem;
+    }
+    .nav-item svg { width: 24px; height: 24px; }
+    .nav-item[aria-current="page"] { color: var(--accent-text); }
+    .nav-add {
+      justify-self: center; display: grid; place-items: center;
+      width: 3rem; height: 3rem; min-width: 44px; min-height: 44px; border-radius: var(--radius-full);
+      background: var(--accent); color: var(--on-accent); border: 0; box-shadow: var(--shadow-md); cursor: pointer; text-decoration: none;
+    }
+    .nav-add:hover { background: var(--accent-hover); }
+    .nav-add:active { background: var(--accent-active); }
+    .nav-add svg { width: 24px; height: 24px; }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <main class="screen screen--nav">
+      <header class="app-header">
+        <h1 class="t-h1">Plan</h1>
+        <div style="width: 2.75rem;"></div>
+      </header>
+
+      <div class="segmented" role="navigation" aria-label="Plan category">
+        <a href="plan.html">Tasks</a>
+        <a href="assignments.html">Assignments</a>
+        <a href="exams.html" class="is-active" aria-current="page">Exams</a>
+      </div>
+
+      <div class="stack-12" role="region" aria-label="Upcoming Exams">
+        <article class="card">
+          <div class="card__head">
+            <h3 class="t-h3">Computer Networks Midterm</h3>
+            <span class="badge badge--progress num">In 4 days</span>
+          </div>
+          <p class="t-small t-muted num">Sun, 25 Oct 2026 · 10:00 AM – 12:00 PM</p>
+          <p class="t-small t-muted">Venue: Hall B-204 · Closed book</p>
+        </article>
+
+        <article class="card">
+          <div class="card__head">
+            <h3 class="t-h3">Database Systems Endsem</h3>
+            <span class="badge badge--progress num">In 12 days</span>
+          </div>
+          <p class="t-small t-muted num">Mon, 02 Nov 2026 · 2:00 PM – 5:00 PM</p>
+          <p class="t-small t-muted">Venue: Auditorium 1 · 1 cheat sheet allowed</p>
+        </article>
+
+        <article class="card">
+          <div class="card__head">
+            <h3 class="t-h3">Linear Algebra Quiz 2</h3>
+            <span class="badge badge--progress num">In 18 days</span>
+          </div>
+          <p class="t-small t-muted num">Sun, 08 Nov 2026 · 9:30 AM – 11:30 AM</p>
+          <p class="t-small t-muted">Venue: Hall A-102 · Calculator permitted</p>
+        </article>
+      </div>
+
+      <a href="#add-exam" class="btn btn--primary btn--block">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width: 20px; height: 20px;">
+          <line x1="12" y1="5" x2="12" y2="19"/>
+          <line x1="5" y1="12" x2="19" y2="12"/>
+        </svg>
+        <span>Add Exam</span>
+      </a>
+    </main>
+
+    <!-- Add Exam Bottom Sheet Modal -->
+    <div id="add-exam" class="sheet-overlay">
+      <a href="#" class="scrim-close" aria-label="Close modal"></a>
+      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="modal-exam-title">
+        <div class="sheet__handle" aria-hidden="true"></div>
+        <h2 class="t-h2" id="modal-exam-title">Add Exam</h2>
+
+        <form action="exams.html" method="get" style="display: flex; flex-direction: column; gap: var(--sp-16);">
+          <div class="field">
+            <label class="field__label" for="exam-subject">Subject / Course Name</label>
+            <input class="input" type="text" id="exam-subject" name="subject" placeholder="e.g. Operating Systems Finals" required>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="exam-date">Date</label>
+            <input class="input" type="date" id="exam-date" name="date" value="2026-11-15">
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="exam-time">Time</label>
+            <input class="input" type="time" id="exam-time" name="time" value="10:00">
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="exam-venue">Venue (optional)</label>
+            <input class="input" type="text" id="exam-venue" name="venue" placeholder="e.g. Hall C-301">
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="exam-reminder">Reminder</label>
+            <div class="select-wrap">
+              <select class="select" id="exam-reminder" name="reminder">
+                <option value="7d">7 days &amp; 1 day before</option>
+                <option value="1d">1 day before</option>
+                <option value="none">No reminder</option>
+              </select>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </div>
+          </div>
+
+          <a href="exams.html" class="btn btn--primary btn--block">Save Exam</a>
+          <a href="#" class="btn btn--ghost btn--block">Cancel</a>
+        </form>
+      </div>
+    </div>
+
+    <!-- Bottom Nav -->
+    <nav class="bottom-nav" aria-label="Main navigation">
+      <a href="home.html" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        <span>Home</span>
+      </a>
+
+      <a href="money.html" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/>
+          <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/>
+        </svg>
+        <span>Money</span>
+      </a>
+
+      <a href="quick-add.html" class="nav-add" aria-label="Quick Add">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="12" y1="5" x2="12" y2="19"/>
+          <line x1="5" y1="12" x2="19" y2="12"/>
+        </svg>
+      </a>
+
+      <a href="plan.html" class="nav-item" aria-current="page">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="m3 17 2 2 4-4"/>
+          <path d="m3 7 2 2 4-4"/>
+          <path d="M13 6h8"/>
+          <path d="M13 12h8"/>
+          <path d="M13 18h8"/>
+        </svg>
+        <span>Plan</span>
+      </a>
+
+      <a href="settings.html" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="1"/>
+          <circle cx="19" cy="12" r="1"/>
+          <circle cx="5" cy="12" r="1"/>
+        </svg>
+        <span>More</span>
+      </a>
+    </nav>
+  </div>
+</body>
+</html>

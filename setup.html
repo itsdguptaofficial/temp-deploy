@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Profile &amp; Money Setup · Super App</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Surfaces */
+      --bg: #FAFAFA;
+      --surface: #FFFFFF;
+      --surface-sunken: #F2F2F2;
+      --surface-hover: #F5F5F5;
+      --surface-active: #EDEDED;
+
+      /* Borders */
+      --border: #EAEAEA;
+      --border-strong: #D4D4D4;
+      --border-control: #A3A3A3;
+
+      /* Text */
+      --text-primary: #111111;
+      --text-secondary: #5C5C5C;
+      --text-placeholder: #737373;
+
+      /* Accent (the only brand color) */
+      --accent: #2563EB;
+      --accent-hover: #1D4ED8;
+      --accent-active: #1E40AF;
+      --accent-soft: #EFF4FF;
+      --accent-text: #1D4ED8;
+      --accent-ring: rgba(37, 99, 235, 0.20);
+      --on-accent: #FFFFFF;
+
+      /* Status */
+      --success: #15803D;
+      --success-soft: #F0FDF4;
+      --error: #B91C1C;
+      --error-soft: #FEF2F2;
+      --error-ring: rgba(185, 28, 28, 0.18);
+
+      /* Disabled */
+      --disabled-bg: #F2F2F2;
+      --disabled-text: #8A8A8A;
+
+      /* Effects */
+      --scrim: rgba(0, 0, 0, 0.40);
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+      --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06);
+      --shadow-sheet: 0 -8px 24px rgba(0, 0, 0, 0.08);
+
+      /* Radius */
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-full: 999px;
+
+      /* Spacing */
+      --sp-4: 0.25rem;
+      --sp-8: 0.5rem;
+      --sp-12: 0.75rem;
+      --sp-16: 1rem;
+      --sp-24: 1.5rem;
+      --sp-32: 2rem;
+      --sp-48: 3rem;
+      --nav-h: 4rem;
+
+      --font: "Inter", "Roboto", system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #0A0A0A;
+        --surface: #141414;
+        --surface-sunken: #1F1F1F;
+        --surface-hover: #1A1A1A;
+        --surface-active: #262626;
+        --border: #262626;
+        --border-strong: #3A3A3A;
+        --border-control: #6B6B6B;
+        --text-primary: #EDEDED;
+        --text-secondary: #A3A3A3;
+        --text-placeholder: #8A8A8A;
+        --accent: #60A5FA;
+        --accent-hover: #93C5FD;
+        --accent-active: #BFDBFE;
+        --accent-soft: #16233F;
+        --accent-text: #93C5FD;
+        --accent-ring: rgba(96, 165, 250, 0.30);
+        --on-accent: #0A0A0A;
+        --success: #4ADE80;
+        --success-soft: #0F2A1A;
+        --error: #F87171;
+        --error-soft: #331416;
+        --error-ring: rgba(248, 113, 113, 0.25);
+        --disabled-bg: #1F1F1F;
+        --disabled-text: #6B6B6B;
+        --scrim: rgba(0, 0, 0, 0.60);
+        --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.40);
+        --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.40);
+        --shadow-sheet: 0 -8px 24px rgba(0, 0, 0, 0.50);
+      }
+    }
+
+    :root[data-theme="dark"] {
+      --bg: #0A0A0A;
+      --surface: #141414;
+      --surface-sunken: #1F1F1F;
+      --surface-hover: #1A1A1A;
+      --surface-active: #262626;
+      --border: #262626;
+      --border-strong: #3A3A3A;
+      --border-control: #6B6B6B;
+      --text-primary: #EDEDED;
+      --text-secondary: #A3A3A3;
+      --text-placeholder: #8A8A8A;
+      --accent: #60A5FA;
+      --accent-hover: #93C5FD;
+      --accent-active: #BFDBFE;
+      --accent-soft: #16233F;
+      --accent-text: #93C5FD;
+      --accent-ring: rgba(96, 165, 250, 0.30);
+      --on-accent: #0A0A0A;
+      --success: #4ADE80;
+      --success-soft: #0F2A1A;
+      --error: #F87171;
+      --error-soft: #331416;
+      --error-ring: rgba(248, 113, 113, 0.25);
+      --disabled-bg: #1F1F1F;
+      --disabled-text: #6B6B6B;
+      --scrim: rgba(0, 0, 0, 0.60);
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.40);
+      --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.40);
+      --shadow-sheet: 0 -8px 24px rgba(0, 0, 0, 0.50);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { font-size: 100%; -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text-primary);
+      font: 400 1rem/1.5rem var(--font);
+      -webkit-font-smoothing: antialiased;
+    }
+    .num { font-variant-numeric: tabular-nums; }
+    button, input, select, textarea { font: inherit; color: inherit; }
+
+    .app {
+      max-width: 430px;
+      margin: 0 auto;
+      min-height: 100dvh;
+      background: var(--bg);
+      position: relative;
+    }
+    @media (min-width: 480px) {
+      body { background: var(--surface-sunken); }
+      .app { border-left: 1px solid var(--border); border-right: 1px solid var(--border); }
+    }
+
+    .screen {
+      padding: var(--sp-16) var(--sp-16) var(--sp-24);
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-24);
+    }
+
+    .dots { display: flex; justify-content: center; gap: var(--sp-8); margin-top: var(--sp-8); }
+    .dots > span { width: .5rem; height: .5rem; border-radius: var(--radius-full); background: var(--border-strong); }
+    .dots > .is-active { width: 1.5rem; background: var(--accent); }
+
+    h1, .t-h1 { font: 600 1.75rem/2.125rem var(--font); letter-spacing: -0.0375rem; margin: 0; }
+    h2, .t-h2 { font: 600 1.375rem/1.75rem var(--font); letter-spacing: -0.025rem; margin: 0; }
+    h3, .t-h3 { font: 600 1.0625rem/1.5rem var(--font); letter-spacing: -0.0125rem; margin: 0; }
+    p { margin: 0; }
+    .t-small { font: 400 0.875rem/1.25rem var(--font); }
+    .t-muted { color: var(--text-secondary); }
+
+    .stack { display: flex; flex-direction: column; gap: var(--sp-16); }
+    .stack-12 { display: flex; flex-direction: column; gap: var(--sp-12); }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-12); }
+
+    .field { display: flex; flex-direction: column; gap: var(--sp-8); }
+    .field__label { font: 500 .875rem/1.25rem var(--font); color: var(--text-primary); }
+
+    .input, .select {
+      width: 100%; min-height: 3rem; height: 3rem; padding: 0 var(--sp-16);
+      font: 400 1rem/1.5rem var(--font); color: var(--text-primary);
+      background: var(--surface); border: 1px solid var(--border-strong);
+      border-radius: var(--radius-md); box-shadow: var(--shadow-sm);
+      transition: border-color .15s ease, box-shadow .15s ease;
+      appearance: none; -webkit-appearance: none;
+    }
+    .input::placeholder { color: var(--text-placeholder); }
+    .input:focus, .select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-ring); }
+
+    .select-wrap { position: relative; }
+    .select { padding-right: 2.75rem; }
+    .select-wrap > svg { position: absolute; right: var(--sp-16); top: 50%; width: 20px; height: 20px;
+      transform: translateY(-50%); color: var(--text-secondary); pointer-events: none; }
+
+    .input-affix { position: relative; }
+    .input-affix > span { position: absolute; left: var(--sp-16); top: 50%; transform: translateY(-50%); color: var(--text-secondary); font-weight: 500; }
+    .input-affix > .input { padding-left: 2.25rem; font-variant-numeric: tabular-nums; }
+
+    .chip-row { display: flex; flex-wrap: wrap; gap: var(--sp-8); }
+    .chip {
+      display: inline-flex; align-items: center; justify-content: center; gap: var(--sp-8);
+      min-height: 2.75rem; height: 2.75rem; padding: 0 var(--sp-16);
+      background: var(--surface); color: var(--text-primary); border: 1px solid var(--border-strong);
+      border-radius: var(--radius-full); font: 500 .875rem/1.25rem var(--font); cursor: pointer; white-space: nowrap; text-decoration: none;
+    }
+    .chip:hover { background: var(--surface-hover); }
+    .chip[aria-pressed="true"], .chip.is-active { background: var(--accent-soft); color: var(--accent-text); border-color: var(--accent); }
+
+    .list { list-style: none; margin: 0; padding: 0; background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-md); box-shadow: var(--shadow-sm); overflow: hidden; }
+    .row { display: flex; align-items: center; gap: var(--sp-12); min-height: 4rem; padding: var(--sp-12) var(--sp-16);
+      color: inherit; text-decoration: none; }
+    .row + .row { border-top: 1px solid var(--border); }
+    .row__icon { flex: none; display: grid; place-items: center; width: 2.5rem; height: 2.5rem;
+      background: var(--surface-sunken); color: var(--text-secondary); border-radius: var(--radius-sm); }
+    .row__icon svg { width: 20px; height: 20px; }
+    .row__body { flex: 1; min-width: 0; }
+    .row__title { font: 500 1rem/1.5rem var(--font); }
+    .row__meta { font: 400 .875rem/1.25rem var(--font); color: var(--text-secondary); }
+    .row__trail { flex: none; font: 600 1rem/1.5rem var(--font); font-variant-numeric: tabular-nums; text-align: right; }
+
+    .push-bottom { margin-top: auto; display: flex; flex-direction: column; gap: var(--sp-12); padding-top: var(--sp-16); }
+
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: var(--sp-8);
+      min-height: 3rem; height: 3rem; padding: 0 var(--sp-24);
+      font: 500 1rem/1.5rem var(--font);
+      border: 1px solid transparent; border-radius: var(--radius-md);
+      cursor: pointer; text-decoration: none; white-space: nowrap;
+      transition: background-color .15s ease, border-color .15s ease, transform .05s ease;
+      box-sizing: border-box;
+    }
+    .btn--block { width: 100%; }
+    .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .btn--primary { background: var(--accent); color: var(--on-accent); box-shadow: var(--shadow-sm); }
+    .btn--primary:hover { background: var(--accent-hover); }
+    .btn--primary:active { background: var(--accent-active); transform: translateY(1px); }
+    .btn--ghost { background: transparent; color: var(--accent-text); }
+    .btn--ghost:hover { background: var(--accent-soft); }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <main class="screen">
+      <div class="dots" aria-label="Step 4 of 5">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span class="is-active" aria-current="step"></span>
+        <span aria-hidden="true"></span>
+      </div>
+
+      <div>
+        <h1 class="t-h1">Profile &amp; Money Setup</h1>
+        <p class="t-small t-muted" style="margin-top: var(--sp-4);">Tailor your budget categories and college schedule.</p>
+      </div>
+
+      <div class="stack">
+        <div class="field">
+          <label class="field__label" for="student-name">Full name</label>
+          <input class="input" type="text" id="student-name" name="name" value="Divyansh Gupta" placeholder="Your name">
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="college-name">College (optional)</label>
+          <input class="input" type="text" id="college-name" name="college" value="IIT Bombay" placeholder="College or university">
+        </div>
+
+        <div class="grid-2">
+          <div class="field">
+            <label class="field__label" for="study-year">Year of study</label>
+            <div class="select-wrap">
+              <select class="select" id="study-year" name="year">
+                <option value="1">1st Year</option>
+                <option value="2">2nd Year</option>
+                <option value="3" selected>3rd Year</option>
+                <option value="4">4th Year</option>
+                <option value="pg">Postgrad</option>
+              </select>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </div>
+          </div>
+
+          <div class="field">
+            <span class="field__label" id="living-label">Lives in</span>
+            <div class="chip-row" role="group" aria-labelledby="living-label">
+              <button type="button" class="chip" aria-pressed="false">Home</button>
+              <button type="button" class="chip" aria-pressed="true">Hostel</button>
+              <button type="button" class="chip" aria-pressed="false">PG</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="stack">
+        <h2 class="t-h2">Monthly Money</h2>
+        <div class="field">
+          <label class="field__label" for="pocket-money">Monthly pocket money</label>
+          <div class="input-affix">
+            <span aria-hidden="true">₹</span>
+            <input class="input num" type="number" id="pocket-money" name="pocket_money" value="12000" placeholder="12,000">
+          </div>
+        </div>
+
+        <div class="field">
+          <span class="field__label" id="income-label">Income source</span>
+          <div class="chip-row" role="group" aria-labelledby="income-label">
+            <button type="button" class="chip" aria-pressed="true">Parents</button>
+            <button type="button" class="chip" aria-pressed="false">Scholarship</button>
+            <button type="button" class="chip" aria-pressed="false">Part-time</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="stack-12">
+        <h3 class="t-h3">Suggested budget split</h3>
+        <ul class="list" role="list">
+          <li class="row">
+            <div class="row__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 2v6a3 3 0 0 1-3 3 3 3 0 0 1-3-3V2"/>
+                <path d="M15 2v18"/>
+                <path d="M4 2v4a3 3 0 0 0 3 3v11"/>
+                <path d="M4 2c1.33 0 2.67 1.33 2.67 4"/>
+              </svg>
+            </div>
+            <div class="row__body">
+              <div class="row__title">Food &amp; Canteen</div>
+              <div class="row__meta">50% recommended split</div>
+            </div>
+            <div class="row__trail num">₹ 6,000</div>
+          </li>
+
+          <li class="row">
+            <div class="row__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M8 6v6"/>
+                <path d="M16 6v6"/>
+                <path d="M4 6v8a4 4 0 0 0 4 4h8a4 4 0 0 0 4-4V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2z"/>
+                <circle cx="7" cy="18" r="2"/>
+                <circle cx="17" cy="18" r="2"/>
+              </svg>
+            </div>
+            <div class="row__body">
+              <div class="row__title">Travel &amp; Commute</div>
+              <div class="row__meta">25% recommended split</div>
+            </div>
+            <div class="row__trail num">₹ 3,000</div>
+          </li>
+
+          <li class="row">
+            <div class="row__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+              </svg>
+            </div>
+            <div class="row__body">
+              <div class="row__title">College Supplies</div>
+              <div class="row__meta">25% recommended split</div>
+            </div>
+            <div class="row__trail num">₹ 3,000</div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="push-bottom">
+        <a href="notifications.html" class="btn btn--primary btn--block">Continue</a>
+        <a href="notifications.html" class="btn btn--ghost btn--block">Skip for now</a>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Add Expense · Super App</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Surfaces */
+      --bg: #FAFAFA;
+      --surface: #FFFFFF;
+      --surface-sunken: #F2F2F2;
+      --surface-hover: #F5F5F5;
+      --surface-active: #EDEDED;
+
+      /* Borders */
+      --border: #EAEAEA;
+      --border-strong: #D4D4D4;
+      --border-control: #A3A3A3;
+
+      /* Text */
+      --text-primary: #111111;
+      --text-secondary: #5C5C5C;
+      --text-placeholder: #737373;
+
+      /* Accent (the only brand color) */
+      --accent: #2563EB;
+      --accent-hover: #1D4ED8;
+      --accent-active: #1E40AF;
+      --accent-soft: #EFF4FF;
+      --accent-text: #1D4ED8;
+      --accent-ring: rgba(37, 99, 235, 0.20);
+      --on-accent: #FFFFFF;
+
+      /* Status */
+      --success: #15803D;
+      --success-soft: #F0FDF4;
+      --error: #B91C1C;
+      --error-soft: #FEF2F2;
+      --error-ring: rgba(185, 28, 28, 0.18);
+
+      /* Disabled */
+      --disabled-bg: #F2F2F2;
+      --disabled-text: #8A8A8A;
+
+      /* Effects */
+      --scrim: rgba(0, 0, 0, 0.40);
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+      --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06);
+      --shadow-sheet: 0 -8px 24px rgba(0, 0, 0, 0.08);
+
+      /* Radius */
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-full: 999px;
+
+      /* Spacing */
+      --sp-4: 0.25rem;
+      --sp-8: 0.5rem;
+      --sp-12: 0.75rem;
+      --sp-16: 1rem;
+      --sp-24: 1.5rem;
+      --sp-32: 2rem;
+      --sp-48: 3rem;
+      --nav-h: 4rem;
+
+      --font: "Inter", "Roboto", system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #0A0A0A;
+        --surface: #141414;
+        --surface-sunken: #1F1F1F;
+        --surface-hover: #1A1A1A;
+        --surface-active: #262626;
+        --border: #262626;
+        --border-strong: #3A3A3A;
+        --border-control: #6B6B6B;
+        --text-primary: #EDEDED;
+        --text-secondary: #A3A3A3;
+        --text-placeholder: #8A8A8A;
+        --accent: #60A5FA;
+        --accent-hover: #93C5FD;
+        --accent-active: #BFDBFE;
+        --accent-soft: #16233F;
+        --accent-text: #93C5FD;
+        --accent-ring: rgba(96, 165, 250, 0.30);
+        --on-accent: #0A0A0A;
+        --success: #4ADE80;
+        --success-soft: #0F2A1A;
+        --error: #F87171;
+        --error-soft: #331416;
+        --error-ring: rgba(248, 113, 113, 0.25);
+        --disabled-bg: #1F1F1F;
+        --disabled-text: #6B6B6B;
+        --scrim: rgba(0, 0, 0, 0.60);
+        --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.40);
+        --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.40);
+        --shadow-sheet: 0 -8px 24px rgba(0, 0, 0, 0.50);
+      }
+    }
+
+    :root[data-theme="dark"] {
+      --bg: #0A0A0A;
+      --surface: #141414;
+      --surface-sunken: #1F1F1F;
+      --surface-hover: #1A1A1A;
+      --surface-active: #262626;
+      --border: #262626;
+      --border-strong: #3A3A3A;
+      --border-control: #6B6B6B;
+      --text-primary: #EDEDED;
+      --text-secondary: #A3A3A3;
+      --text-placeholder: #8A8A8A;
+      --accent: #60A5FA;
+      --accent-hover: #93C5FD;
+      --accent-active: #BFDBFE;
+      --accent-soft: #16233F;
+      --accent-text: #93C5FD;
+      --accent-ring: rgba(96, 165, 250, 0.30);
+      --on-accent: #0A0A0A;
+      --success: #4ADE80;
+      --success-soft: #0F2A1A;
+      --error: #F87171;
+      --error-soft: #331416;
+      --error-ring: rgba(248, 113, 113, 0.25);
+      --disabled-bg: #1F1F1F;
+      --disabled-text: #6B6B6B;
+      --scrim: rgba(0, 0, 0, 0.60);
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.40);
+      --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.40);
+      --shadow-sheet: 0 -8px 24px rgba(0, 0, 0, 0.50);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { font-size: 100%; -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text-primary);
+      font: 400 1rem/1.5rem var(--font);
+      -webkit-font-smoothing: antialiased;
+    }
+    .num { font-variant-numeric: tabular-nums; }
+    button, input, select, textarea { font: inherit; color: inherit; }
+
+    .app {
+      max-width: 430px;
+      margin: 0 auto;
+      min-height: 100dvh;
+      background: var(--bg);
+      position: relative;
+    }
+    @media (min-width: 480px) {
+      body { background: var(--surface-sunken); }
+      .app { border-left: 1px solid var(--border); border-right: 1px solid var(--border); }
+    }
+
+    .screen {
+      padding: 0 var(--sp-16) var(--sp-24);
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-16);
+    }
+
+    .app-header {
+      position: sticky; top: 0; z-index: 10; background: var(--bg);
+      display: flex; align-items: center; justify-content: space-between; gap: var(--sp-12);
+      min-height: 3.5rem; padding: var(--sp-8) var(--sp-16); margin: 0 calc(var(--sp-16) * -1);
+    }
+    .app-header__title { font: 600 1.0625rem/1.5rem var(--font); text-align: center; flex: 1; }
+
+    .icon-btn {
+      display: inline-grid; place-items: center; width: 2.75rem; height: 2.75rem; min-width: 44px; min-height: 44px;
+      background: transparent; color: var(--text-primary); border: 0; border-radius: var(--radius-full); cursor: pointer; text-decoration: none;
+    }
+    .icon-btn:hover { background: var(--surface-hover); }
+    .icon-btn:active { background: var(--surface-active); }
+    .icon-btn svg { width: 24px; height: 24px; }
+
+    /* Amount */
+    .amount {
+      display: flex; align-items: baseline; justify-content: center; gap: var(--sp-8); padding: var(--sp-16) 0;
+      font: 600 3.5rem/4rem var(--font); letter-spacing: -0.09rem; font-variant-numeric: tabular-nums;
+    }
+    .amount__currency { color: var(--text-secondary); }
+    .amount__value { color: var(--text-primary); }
+
+    .chip-row { display: flex; flex-wrap: wrap; gap: var(--sp-8); justify-content: center; }
+    .chip {
+      display: inline-flex; align-items: center; gap: var(--sp-8); min-height: 2.75rem; height: 2.75rem; padding: 0 var(--sp-16);
+      background: var(--surface); color: var(--text-primary); border: 1px solid var(--border-strong);
+      border-radius: var(--radius-full); font: 500 .875rem/1.25rem var(--font); cursor: pointer; white-space: nowrap; text-decoration: none;
+    }
+    .chip:hover { background: var(--surface-hover); }
+    .chip[aria-pressed="true"], .chip.is-active { background: var(--accent-soft); color: var(--accent-text); border-color: var(--accent); }
+
+    .field { display: flex; flex-direction: column; gap: var(--sp-8); }
+    .field__label { font: 500 .875rem/1.25rem var(--font); color: var(--text-primary); }
+    .input {
+      width: 100%; min-height: 3rem; height: 3rem; padding: 0 var(--sp-16);
+      font: 400 1rem/1.5rem var(--font); color: var(--text-primary);
+      background: var(--surface); border: 1px solid var(--border-strong);
+      border-radius: var(--radius-md); box-shadow: var(--shadow-sm);
+      appearance: none; -webkit-appearance: none;
+    }
+    .input::placeholder { color: var(--text-placeholder); }
+    .input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-ring); }
+
+    .row-card {
+      display: flex; align-items: center; justify-content: space-between; gap: var(--sp-12);
+      min-height: 3.5rem; padding: var(--sp-12) var(--sp-16); background: var(--surface);
+      border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow-sm);
+      color: var(--text-primary); text-decoration: none; font: 500 .875rem/1.25rem var(--font);
+    }
+    .row-card svg { width: 20px; height: 20px; color: var(--text-secondary); }
+
+    /* Keypad */
+    .keypad { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-8); margin-top: auto; }
+    .key {
+      min-height: 3.5rem; height: 3.5rem; display: grid; place-items: center; background: transparent; border: 0;
+      border-radius: var(--radius-sm); color: var(--text-primary); font: 500 1.5rem/2rem var(--font);
+      font-variant-numeric: tabular-nums; cursor: pointer; text-decoration: none;
+    }
+    .key:hover { background: var(--surface-hover); }
+    .key:active { background: var(--surface-active); }
+    .key svg { width: 24px; height: 24px; }
+
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: var(--sp-8);
+      min-height: 3rem; height: 3rem; padding: 0 var(--sp-24);
+      font: 500 1rem/1.5rem var(--font);
+      border: 1px solid transparent; border-radius: var(--radius-md);
+      cursor: pointer; text-decoration: none; white-space: nowrap;
+      transition: background-color .15s ease, border-color .15s ease, transform .05s ease;
+      box-sizing: border-box;
+    }
+    .btn--block { width: 100%; }
+    .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .btn--primary { background: var(--accent); color: var(--on-accent); box-shadow: var(--shadow-sm); }
+    .btn--primary:hover { background: var(--accent-hover); }
+    .btn--primary:active { background: var(--accent-active); transform: translateY(1px); }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <main class="screen">
+      <header class="app-header">
+        <a href="money.html" class="icon-btn" aria-label="Close Add Expense">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </a>
+        <div class="app-header__title">Add Expense</div>
+        <div style="width: 2.75rem;"></div>
+      </header>
+
+      <div class="amount" aria-label="Amount to spend">
+        <span class="amount__currency">₹</span>
+        <span class="amount__value">240</span>
+      </div>
+
+      <div class="chip-row" role="group" aria-label="Expense Category">
+        <button type="button" class="chip" aria-pressed="true">Food</button>
+        <button type="button" class="chip" aria-pressed="false">Travel</button>
+        <button type="button" class="chip" aria-pressed="false">College Supplies</button>
+      </div>
+
+      <div class="field">
+        <label class="field__label" for="expense-note">Add a note (optional)</label>
+        <input class="input" type="text" id="expense-note" name="note" placeholder="Lunch at canteen, lab printouts..." value="Canteen thali lunch">
+      </div>
+
+      <div class="row-card">
+        <span>Today · UPI Payment</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </div>
+
+      <div class="keypad" aria-label="Amount keypad">
+        <button type="button" class="key">1</button>
+        <button type="button" class="key">2</button>
+        <button type="button" class="key">3</button>
+        <button type="button" class="key">4</button>
+        <button type="button" class="key">5</button>
+        <button type="button" class="key">6</button>
+        <button type="button" class="key">7</button>
+        <button type="button" class="key">8</button>
+        <button type="button" class="key">9</button>
+        <button type="button" class="key">.</button>
+        <button type="button" class="key">0</button>
+        <button type="button" class="key" aria-label="Delete">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/>
+            <line x1="18" y1="9" x2="12" y2="15"/>
+            <line x1="12" y1="9" x2="18" y2="15"/>
+          </svg>
+        </button>
+      </div>
+
+      <a href="money.html" class="btn btn--primary btn--block">Save Expense</a>
+    </main>
+  </div>
+</body>
+</html>

@@ -188,8 +188,8 @@
     .segmented { display: flex; gap: var(--sp-4); padding: var(--sp-4); background: var(--surface-sunken); border-radius: var(--radius-md); }
     .segmented > a {
       flex: 1; min-height: 2.75rem; height: 2.75rem; border: 0; border-radius: var(--radius-sm); cursor: pointer;
-      background: transparent; color: var(--text-secondary); font: 500 .875rem/1.25rem var(--font);
-      display: inline-flex; align-items: center; justify-content: center; text-decoration: none;
+      background: transparent; color: var(--text-secondary); font: 500 .8125rem/1.25rem var(--font);
+      display: inline-flex; align-items: center; justify-content: center; text-decoration: none; text-align: center;
     }
     .segmented > a.is-active { background: var(--surface); color: var(--text-primary); box-shadow: var(--shadow-sm); }
 
@@ -290,8 +290,10 @@
         <div style="width: 2.75rem;"></div>
       </header>
 
-      <div class="segmented" role="navigation" aria-label="Plan category">
-        <a href="plan.html">Tasks</a>
+      <!-- Unified Plan Segmented Navigation -->
+      <div class="segmented" role="navigation" aria-label="Academic views">
+        <a href="today.html">Today's Focus</a>
+        <a href="plan.html">All Tasks</a>
         <a href="assignments.html">Assignments</a>
         <a href="exams.html" class="is-active" aria-current="page">Exams</a>
       </div>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Today · Super App</title>
+  <title>Today's Focus · Super App</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -192,6 +192,14 @@
     .t-caption { font: 500 0.75rem/1rem var(--font); letter-spacing: 0.0125rem; }
     .t-muted { color: var(--text-secondary); }
 
+    .segmented { display: flex; gap: var(--sp-4); padding: var(--sp-4); background: var(--surface-sunken); border-radius: var(--radius-md); }
+    .segmented > a {
+      flex: 1; min-height: 2.75rem; height: 2.75rem; border: 0; border-radius: var(--radius-sm); cursor: pointer;
+      background: transparent; color: var(--text-secondary); font: 500 .8125rem/1.25rem var(--font);
+      display: inline-flex; align-items: center; justify-content: center; text-decoration: none; text-align: center;
+    }
+    .segmented > a.is-active { background: var(--surface); color: var(--text-primary); box-shadow: var(--shadow-sm); }
+
     .card {
       background: var(--surface); border: 1px solid var(--border);
       border-radius: var(--radius-md); padding: var(--sp-16);
@@ -290,7 +298,7 @@
     <main class="screen screen--nav">
       <header class="app-header">
         <div>
-          <span class="t-small t-muted">Daily Focus</span>
+          <span class="t-small t-muted num">Daily Pacing: ₹ 485 safe spend today</span>
           <h1 class="t-h1">Wed, 21 Oct</h1>
         </div>
         <a href="quick-capture.html" class="icon-btn" aria-label="Quick capture new task">
@@ -300,6 +308,14 @@
           </svg>
         </a>
       </header>
+
+      <!-- Unified Plan Segmented Navigation -->
+      <div class="segmented" role="navigation" aria-label="Academic views">
+        <a href="today.html" class="is-active" aria-current="page">Today's Focus</a>
+        <a href="plan.html">All Tasks</a>
+        <a href="assignments.html">Assignments</a>
+        <a href="exams.html">Exams</a>
+      </div>
 
       <section class="card" aria-label="Completion progress">
         <div class="card__head">
@@ -353,7 +369,7 @@
 
       <a href="assignments.html" class="strip" aria-label="Upcoming assignment: Socket Programming Lab">
         <div class="strip__body">
-          <div class="t-caption t-muted">UPCOMING DEADLINE</div>
+          <div class="t-caption t-muted">NEXT DEADLINE</div>
           <div style="font-weight: 500;">Socket Programming Lab · Tomorrow, 11:59 PM</div>
         </div>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -361,7 +377,7 @@
         </svg>
       </a>
 
-      <a href="plan.html" class="btn btn--secondary btn--block">View all tasks</a>
+      <a href="plan.html" class="btn btn--secondary btn--block">View All Tasks (Backlog) &rarr;</a>
 
       <!-- Empty State Annotation/Preview -->
       <section class="card" aria-label="Tomorrow preview">
@@ -382,7 +398,7 @@
       </section>
     </main>
 
-    <!-- Bottom Nav -->
+    <!-- Bottom Nav with Plan active -->
     <nav class="bottom-nav" aria-label="Main navigation">
       <a href="home.html" class="nav-item">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -407,7 +423,7 @@
         </svg>
       </a>
 
-      <a href="plan.html" class="nav-item" aria-current="page">
+      <a href="today.html" class="nav-item" aria-current="page">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="m3 17 2 2 4-4"/>
           <path d="m3 7 2 2 4-4"/>

@@ -205,6 +205,21 @@
     a.card:hover { background: var(--surface-hover); }
     .card__head { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-12); }
 
+    /* Cross-Domain Insight Card */
+    .cross-insight {
+      background: var(--accent-soft);
+      border: 1px solid var(--accent);
+      border-radius: var(--radius-md);
+      padding: var(--sp-12) var(--sp-16);
+      display: flex;
+      align-items: center;
+      gap: var(--sp-12);
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+    .cross-insight svg { width: 22px; height: 22px; color: var(--accent-text); flex: none; }
+    .cross-insight p { font-size: 0.875rem; line-height: 1.25rem; }
+
     .progress { height: .5rem; background: var(--surface-sunken); border-radius: var(--radius-full); overflow: hidden; }
     .progress__bar { height: 100%; width: var(--value, 0%); background: var(--accent); border-radius: var(--radius-full); }
 
@@ -241,6 +256,15 @@
     .strip:hover { background: var(--surface-hover); }
     .strip__body { flex: 1; min-width: 0; }
     .strip svg { width: 20px; height: 20px; color: var(--text-secondary); }
+
+    /* Toast */
+    .toast {
+      position: fixed; left: 50%; bottom: calc(var(--nav-h) + var(--sp-16) + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%);
+      z-index: 40; display: flex; align-items: center; gap: var(--sp-16); width: max-content; max-width: calc(100% - 2rem);
+      padding: var(--sp-12) var(--sp-16); background: var(--text-primary); color: var(--bg);
+      border-radius: var(--radius-md); box-shadow: var(--shadow-md); font: 500 .875rem/1.25rem var(--font);
+    }
+    .toast__action { background: none; border: 0; color: inherit; font: 600 .875rem/1.25rem var(--font); text-decoration: underline; cursor: pointer; padding: 0; }
 
     /* Bottom Nav */
     .bottom-nav {
@@ -285,15 +309,27 @@
         </a>
       </header>
 
+      <!-- Super App Cross-Domain Intelligence -->
+      <a href="exams.html" class="cross-insight" aria-label="Exam week buffer insight: Exam in 4 days">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="8" x2="12" y2="12"/>
+          <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        <p><strong>Midterms in 4 days:</strong> We reserved a ₹ 300 buffer in your Supplies envelope for lab printouts &amp; study snacks.</p>
+      </a>
+
+      <!-- Money Hero Card -->
       <a href="money.html" class="card card--hero" aria-label="Money left this month: ₹ 4,850. Tap to open Money dashboard">
         <p class="t-small t-muted">Money left this month</p>
         <p class="t-display">₹ 4,850</p>
-        <p class="t-small t-muted num">10 days left · about ₹485/day</p>
+        <p class="t-small t-muted num">10 days left · about ₹485/day safe spend</p>
         <div class="progress" style="--value: 62%;" role="progressbar" aria-valuenow="62" aria-valuemin="0" aria-valuemax="100">
           <div class="progress__bar"></div>
         </div>
       </a>
 
+      <!-- Today's Top 3 Card -->
       <div class="card">
         <div class="card__head">
           <div>
@@ -345,6 +381,7 @@
         </div>
       </div>
 
+      <!-- Next Deadline Strip -->
       <a href="assignments.html" class="strip" aria-label="Next assignment: Socket Programming Lab due tomorrow at 11:59 PM">
         <div class="strip__body">
           <div class="t-caption t-muted">NEXT DEADLINE</div>
@@ -355,6 +392,12 @@
         </svg>
       </a>
     </main>
+
+    <!-- Context Confirmation Toast on Home -->
+    <div id="saved-toast" class="toast" role="status" aria-live="polite">
+      <span>Logged ₹ 240 Canteen Lunch</span>
+      <a href="money.html" class="toast__action" style="color: inherit;">View Transactions</a>
+    </div>
 
     <nav class="bottom-nav" aria-label="Main navigation">
       <a href="home.html" class="nav-item" aria-current="page">
@@ -380,7 +423,7 @@
         </svg>
       </a>
 
-      <a href="plan.html" class="nav-item">
+      <a href="today.html" class="nav-item">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="m3 17 2 2 4-4"/>
           <path d="m3 7 2 2 4-4"/>

@@ -186,8 +186,8 @@
     .segmented { display: flex; gap: var(--sp-4); padding: var(--sp-4); background: var(--surface-sunken); border-radius: var(--radius-md); }
     .segmented > a {
       flex: 1; min-height: 2.75rem; height: 2.75rem; border: 0; border-radius: var(--radius-sm); cursor: pointer;
-      background: transparent; color: var(--text-secondary); font: 500 .875rem/1.25rem var(--font);
-      display: inline-flex; align-items: center; justify-content: center; text-decoration: none;
+      background: transparent; color: var(--text-secondary); font: 500 .8125rem/1.25rem var(--font);
+      display: inline-flex; align-items: center; justify-content: center; text-decoration: none; text-align: center;
     }
     .segmented > a.is-active { background: var(--surface); color: var(--text-primary); box-shadow: var(--shadow-sm); }
 
@@ -233,6 +233,10 @@
     .btn--primary { background: var(--accent); color: var(--on-accent); box-shadow: var(--shadow-sm); }
     .btn--primary:hover { background: var(--accent-hover); }
     .btn--primary:active { background: var(--accent-active); transform: translateY(1px); }
+    .btn--secondary { background: var(--surface); color: var(--text-primary); border-color: var(--border-strong); }
+    .btn--secondary:hover { background: var(--surface-hover); }
+    .btn--secondary:active { background: var(--surface-active); transform: translateY(1px); }
+    .btn--sm { min-height: 2.75rem; height: 2.75rem; padding: 0 var(--sp-12); font-size: .8125rem; }
     .btn--ghost { background: transparent; color: var(--text-secondary); }
     .btn--ghost:hover { background: var(--surface-hover); color: var(--text-primary); }
 
@@ -298,8 +302,10 @@
         <div style="width: 2.75rem;"></div>
       </header>
 
-      <div class="segmented" role="navigation" aria-label="Plan category">
-        <a href="plan.html">Tasks</a>
+      <!-- Unified Plan Segmented Navigation -->
+      <div class="segmented" role="navigation" aria-label="Academic views">
+        <a href="today.html">Today's Focus</a>
+        <a href="plan.html">All Tasks</a>
         <a href="assignments.html" class="is-active" aria-current="page">Assignments</a>
         <a href="exams.html">Exams</a>
       </div>
@@ -307,13 +313,17 @@
       <!-- Course Group 1 -->
       <div>
         <p class="group-label">COMPUTER NETWORKS (CS 302)</p>
-        <div class="card card--overdue">
-          <div class="row" style="padding: 0;">
+        <div class="card card--overdue" style="padding: var(--sp-12) var(--sp-16);">
+          <div class="row" style="padding: 0; min-height: auto;">
             <div class="row__body">
               <div class="row__title" style="font-weight: 600;">Socket Programming Lab</div>
               <div class="row__meta">Due Yesterday, 11:59 PM</div>
             </div>
             <span class="badge badge--overdue">Overdue</span>
+          </div>
+          <div style="display: flex; gap: var(--sp-8); margin-top: var(--sp-12);">
+            <a href="today.html" class="btn btn--sm btn--primary" style="flex: 1;">+ Pin to Today</a>
+            <a href="#add-assignment" class="btn btn--sm btn--secondary" style="flex: 1;">Reschedule</a>
           </div>
         </div>
 

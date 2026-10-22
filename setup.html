@@ -227,7 +227,8 @@
     .row__body { flex: 1; min-width: 0; }
     .row__title { font: 500 1rem/1.5rem var(--font); }
     .row__meta { font: 400 .875rem/1.25rem var(--font); color: var(--text-secondary); }
-    .row__trail { flex: none; font: 600 1rem/1.5rem var(--font); font-variant-numeric: tabular-nums; text-align: right; }
+    .row__input-wrap { width: 5.5rem; }
+    .row__input-wrap .input { height: 2.5rem; min-height: 2.5rem; padding: 0 var(--sp-8); text-align: right; }
 
     .push-bottom { margin-top: auto; display: flex; flex-direction: column; gap: var(--sp-12); padding-top: var(--sp-16); }
 
@@ -254,7 +255,7 @@
 <body>
   <div class="app">
     <main class="screen">
-      <div class="dots" aria-label="Step 4 of 5">
+      <div class="dots" aria-label="Step 4 of 5: Profile & Envelopes">
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
@@ -263,8 +264,8 @@
       </div>
 
       <div>
-        <h1 class="t-h1">Profile &amp; Money Setup</h1>
-        <p class="t-small t-muted" style="margin-top: var(--sp-4);">Tailor your budget categories and college schedule.</p>
+        <h1 class="t-h1">Profile &amp; Envelopes</h1>
+        <p class="t-small t-muted" style="margin-top: var(--sp-4);">Customize your monthly pocket money envelopes and college schedule.</p>
       </div>
 
       <div class="stack">
@@ -327,7 +328,10 @@
       </div>
 
       <div class="stack-12">
-        <h3 class="t-h3">Suggested budget split</h3>
+        <div class="card__head">
+          <h3 class="t-h3">Customize envelope split</h3>
+          <span class="t-small t-muted num">Total: ₹ 12,000</span>
+        </div>
         <ul class="list" role="list">
           <li class="row">
             <div class="row__icon" aria-hidden="true">
@@ -340,9 +344,12 @@
             </div>
             <div class="row__body">
               <div class="row__title">Food &amp; Canteen</div>
-              <div class="row__meta">50% recommended split</div>
+              <div class="row__meta">50% suggested</div>
             </div>
-            <div class="row__trail num">₹ 6,000</div>
+            <div class="row__input-wrap">
+              <label for="env-food" class="sr-only">Food envelope budget</label>
+              <input class="input num" type="number" id="env-food" name="env_food" value="6000">
+            </div>
           </li>
 
           <li class="row">
@@ -357,9 +364,12 @@
             </div>
             <div class="row__body">
               <div class="row__title">Travel &amp; Commute</div>
-              <div class="row__meta">25% recommended split</div>
+              <div class="row__meta">25% suggested</div>
             </div>
-            <div class="row__trail num">₹ 3,000</div>
+            <div class="row__input-wrap">
+              <label for="env-travel" class="sr-only">Travel envelope budget</label>
+              <input class="input num" type="number" id="env-travel" name="env_travel" value="3000">
+            </div>
           </li>
 
           <li class="row">
@@ -371,9 +381,12 @@
             </div>
             <div class="row__body">
               <div class="row__title">College Supplies</div>
-              <div class="row__meta">25% recommended split</div>
+              <div class="row__meta">25% suggested</div>
             </div>
-            <div class="row__trail num">₹ 3,000</div>
+            <div class="row__input-wrap">
+              <label for="env-supplies" class="sr-only">Supplies envelope budget</label>
+              <input class="input num" type="number" id="env-supplies" name="env_supplies" value="3000">
+            </div>
           </li>
         </ul>
       </div>

@@ -247,13 +247,17 @@
     .btn--primary { background: var(--accent); color: var(--on-accent); box-shadow: var(--shadow-sm); }
     .btn--primary:hover { background: var(--accent-hover); }
     .btn--primary:active { background: var(--accent-active); transform: translateY(1px); }
+    .btn--ghost { background: transparent; color: var(--text-secondary); }
+    .btn--ghost:hover { background: var(--surface-hover); color: var(--text-primary); }
+
+    .save-actions { display: flex; flex-direction: column; gap: var(--sp-8); }
   </style>
 </head>
 <body>
   <div class="app">
     <main class="screen">
       <header class="app-header">
-        <a href="money.html" class="icon-btn" aria-label="Close Add Expense">
+        <a href="home.html" class="icon-btn" aria-label="Cancel and return to Home">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <line x1="18" y1="6" x2="6" y2="18"/>
             <line x1="6" y1="6" x2="18" y2="18"/>
@@ -307,7 +311,12 @@
         </button>
       </div>
 
-      <a href="money.html" class="btn btn--primary btn--block">Save Expense</a>
+      <div class="save-actions">
+        <!-- Return directly to Home context with confirmation toast -->
+        <a href="home.html#saved-toast" class="btn btn--primary btn--block">Save &amp; Return to Home</a>
+        <!-- Secondary option to jump directly to transactions -->
+        <a href="money.html" class="btn btn--ghost btn--block">Save &amp; View in Transactions &rarr;</a>
+      </div>
     </main>
   </div>
 </body>

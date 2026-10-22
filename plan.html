@@ -192,10 +192,18 @@
     .segmented { display: flex; gap: var(--sp-4); padding: var(--sp-4); background: var(--surface-sunken); border-radius: var(--radius-md); }
     .segmented > a {
       flex: 1; min-height: 2.75rem; height: 2.75rem; border: 0; border-radius: var(--radius-sm); cursor: pointer;
-      background: transparent; color: var(--text-secondary); font: 500 .875rem/1.25rem var(--font);
-      display: inline-flex; align-items: center; justify-content: center; text-decoration: none;
+      background: transparent; color: var(--text-secondary); font: 500 .8125rem/1.25rem var(--font);
+      display: inline-flex; align-items: center; justify-content: center; text-decoration: none; text-align: center;
     }
     .segmented > a.is-active { background: var(--surface); color: var(--text-primary); box-shadow: var(--shadow-sm); }
+
+    .pin-btn {
+      display: inline-grid; place-items: center; width: 2.75rem; height: 2.75rem; min-width: 44px; min-height: 44px;
+      background: transparent; color: var(--text-secondary); border: 0; border-radius: var(--radius-full); cursor: pointer; text-decoration: none; flex: none;
+    }
+    .pin-btn:hover { background: var(--surface-hover); color: var(--accent); }
+    .pin-btn svg { width: 18px; height: 18px; }
+    .pin-btn.is-pinned { color: var(--accent); }
 
     .tabs { display: flex; gap: var(--sp-24); border-bottom: 1px solid var(--border); }
     .tab {
@@ -270,8 +278,10 @@
         </a>
       </header>
 
-      <div class="segmented" role="navigation" aria-label="Plan category">
-        <a href="plan.html" class="is-active" aria-current="page">Tasks</a>
+      <!-- Unified Plan Segmented Navigation -->
+      <div class="segmented" role="navigation" aria-label="Academic views">
+        <a href="today.html">Today's Focus</a>
+        <a href="plan.html" class="is-active" aria-current="page">All Tasks</a>
         <a href="assignments.html">Assignments</a>
         <a href="exams.html">Exams</a>
       </div>
@@ -294,6 +304,12 @@
               <div class="row__meta">Today · 5:00 PM</div>
             </div>
             <span class="badge">MA 201</span>
+            <a href="today.html" class="pin-btn is-pinned" aria-label="Pinned to Today's Focus" title="Pinned to Today's Focus">
+              <svg viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="12" y1="17" x2="12" y2="22" stroke-width="1.75"/>
+                <path d="M5 17h14v-2l-3-3V5a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v7l-3 3v2z"/>
+              </svg>
+            </a>
           </li>
 
           <li class="row">
@@ -306,6 +322,12 @@
               <div class="row__meta">Today · 7:30 PM</div>
             </div>
             <span class="badge">CS 302</span>
+            <a href="today.html" class="pin-btn" aria-label="Pin to Today's Focus" title="Pin to Today's Focus">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="12" y1="17" x2="12" y2="22"/>
+                <path d="M5 17h14v-2l-3-3V5a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v7l-3 3v2z"/>
+              </svg>
+            </a>
           </li>
 
           <li class="row row--done">

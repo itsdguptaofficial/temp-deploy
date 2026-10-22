@@ -183,6 +183,7 @@
     .icon-btn svg { width: 24px; height: 24px; }
 
     h1, .t-h1 { font: 600 1.75rem/2.125rem var(--font); letter-spacing: -0.0375rem; margin: 0; }
+    h2, .t-h2 { font: 600 1.375rem/1.75rem var(--font); letter-spacing: -0.025rem; margin: 0; }
     p { margin: 0; }
     .t-small { font: 400 0.875rem/1.25rem var(--font); }
     .t-muted { color: var(--text-secondary); }
@@ -219,6 +220,21 @@
     .btn--primary { background: var(--accent); color: var(--on-accent); box-shadow: var(--shadow-sm); }
     .btn--primary:hover { background: var(--accent-hover); }
     .btn--primary:active { background: var(--accent-active); transform: translateY(1px); }
+    .btn--ghost { background: transparent; color: var(--text-secondary); }
+
+    /* Policy sheet modal */
+    .sheet-overlay { display: none; position: fixed; inset: 0; z-index: 30; }
+    .sheet-overlay:target { display: block; }
+    .scrim-close { position: fixed; inset: 0; background: var(--scrim); cursor: default; }
+    .sheet {
+      position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); z-index: 31;
+      width: min(100%, 430px); max-height: 85dvh; overflow-y: auto;
+      background: var(--surface); border: 1px solid var(--border); border-bottom: 0;
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0; box-shadow: var(--shadow-sheet);
+      padding: var(--sp-8) var(--sp-16) calc(var(--sp-24) + env(safe-area-inset-bottom, 0px));
+      display: flex; flex-direction: column; gap: var(--sp-16);
+    }
+    .sheet__handle { width: 2.5rem; height: .25rem; border-radius: var(--radius-full); background: var(--border-strong); margin: 0 auto; }
   </style>
 </head>
 <body>
@@ -285,9 +301,24 @@
       </div>
 
       <div class="push-bottom">
-        <a href="setup.html" class="btn btn--primary btn--block">Got it</a>
+        <a href="setup.html" class="btn btn--primary btn--block">Got it, let's set up</a>
       </div>
     </main>
+
+    <!-- In-page Full Policy Sheet Modal -->
+    <div id="full-policy" class="sheet-overlay">
+      <a href="#" class="scrim-close" aria-label="Close policy"></a>
+      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="policy-title">
+        <div class="sheet__handle" aria-hidden="true"></div>
+        <h2 class="t-h2" id="policy-title">Student Privacy Charter</h2>
+        <div class="t-small t-muted" style="display: flex; flex-direction: column; gap: var(--sp-12);">
+          <p><strong>1. Local Storage First:</strong> All task titles, course schedules, and transaction amounts are saved in your phone's private sandbox storage.</p>
+          <p><strong>2. Bank SMS Safety:</strong> If you choose to enable SMS auto-detection, the app parses only UPI sender references and amounts. Account numbers and balances are discarded.</p>
+          <p><strong>3. Zero Cloud Requirement:</strong> You can export and wipe your local database at any time from Settings &rarr; Privacy.</p>
+        </div>
+        <a href="#" class="btn btn--primary btn--block">Close Policy</a>
+      </div>
+    </div>
   </div>
 </body>
 </html>

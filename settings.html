@@ -26,7 +26,7 @@
       --text-secondary: #5C5C5C;
       --text-placeholder: #737373;
 
-      /* Accent (the only brand color) */
+      /* Accent */
       --accent: #2563EB;
       --accent-hover: #1D4ED8;
       --accent-active: #1E40AF;
@@ -177,12 +177,14 @@
     }
 
     h1, .t-h1 { font: 600 1.75rem/2.125rem var(--font); letter-spacing: -0.0375rem; margin: 0; }
+    h2, .t-h2 { font: 600 1.125rem/1.5rem var(--font); letter-spacing: -0.025rem; margin: 0; }
+    h3, .t-h3 { font: 600 0.9375rem/1.375rem var(--font); margin: 0; }
     p { margin: 0; }
     .t-small { font: 400 0.875rem/1.25rem var(--font); }
     .t-caption { font: 500 0.75rem/1rem var(--font); letter-spacing: 0.0125rem; }
     .t-muted { color: var(--text-secondary); }
 
-    .group-label { font: 500 .75rem/1rem var(--font); letter-spacing: .0125rem; color: var(--text-secondary); margin: 0 0 var(--sp-8); }
+    .group-label { font: 600 .75rem/1rem var(--font); letter-spacing: .025rem; color: var(--text-secondary); margin: 0 0 var(--sp-8); }
     .list { list-style: none; margin: 0; padding: 0; background: var(--surface); border: 1px solid var(--border);
       border-radius: var(--radius-md); box-shadow: var(--shadow-sm); overflow: hidden; }
     .row { display: flex; align-items: center; gap: var(--sp-12); min-height: 4rem; padding: var(--sp-12) var(--sp-16);
@@ -193,8 +195,8 @@
       background: var(--surface-sunken); color: var(--text-secondary); border-radius: var(--radius-sm); }
     .row__icon svg { width: 20px; height: 20px; }
     .row__body { flex: 1; min-width: 0; }
-    .row__title { font: 500 1rem/1.5rem var(--font); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .row__meta { font: 400 .875rem/1.25rem var(--font); color: var(--text-secondary); }
+    .row__title { font: 500 0.9375rem/1.375rem var(--font); }
+    .row__meta { font: 400 .8125rem/1.25rem var(--font); color: var(--text-secondary); }
     .row__trail { flex: none; display: flex; align-items: center; gap: var(--sp-8); font: 400 .875rem/1.25rem var(--font); color: var(--text-secondary); }
     .row__trail svg { width: 20px; height: 20px; }
 
@@ -217,42 +219,96 @@
     .switch input:checked + .switch__track::after { transform: translateX(1.25rem); }
     .switch input:focus-visible + .switch__track { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: var(--sp-8);
+      min-height: 2.75rem; height: 2.75rem; padding: 0 var(--sp-16);
+      font: 500 0.9375rem/1.25rem var(--font);
+      border: 1px solid transparent; border-radius: var(--radius-sm);
+      cursor: pointer; text-decoration: none; white-space: nowrap;
+    }
+    .btn--block { width: 100%; }
+    .btn--primary { background: var(--accent); color: var(--on-accent); }
+    .btn--primary:hover { background: var(--accent-hover); }
+    .btn--primary:active { background: var(--accent-active); }
+    .btn--secondary { background: var(--surface); color: var(--text-primary); border-color: var(--border-control); }
+    .btn--secondary:hover { background: var(--surface-hover); }
+    .btn--secondary:active { background: var(--surface-active); }
+
+    /* Overlay Sheet */
+    .sheet-overlay {
+      position: fixed; inset: 0; z-index: 100;
+      background: var(--scrim);
+      display: none; align-items: flex-end; justify-content: center;
+    }
+    .sheet-overlay:target { display: flex; }
+    .scrim-close { position: absolute; inset: 0; cursor: default; }
+    .sheet {
+      position: relative; z-index: 101; width: 100%; max-width: 430px;
+      max-height: 90vh; overflow-y: auto; background: var(--surface);
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      padding: var(--sp-24) var(--sp-16) calc(var(--sp-24) + env(safe-area-inset-bottom, 0px));
+      box-shadow: var(--shadow-sheet); display: flex; flex-direction: column; gap: var(--sp-16);
+    }
+    .sheet__handle {
+      width: 2.5rem; height: 4px; background: var(--border-strong);
+      border-radius: var(--radius-full); margin: 0 auto var(--sp-8);
+    }
+
+    .trust-card {
+      padding: var(--sp-12); border-radius: var(--radius-md); background: var(--surface-sunken);
+      border: 1px solid var(--border); display: flex; flex-direction: column; gap: var(--sp-4);
+    }
+    .trust-card h3 { font: 600 0.875rem/1.25rem var(--font); margin: 0; }
+    .trust-card p { font: 400 0.8125rem/1.125rem var(--font); color: var(--text-secondary); margin: 0; }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-12); }
+    .qa-card {
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--sp-8);
+      padding: var(--sp-16); border-radius: var(--radius-md); background: var(--surface-sunken);
+      border: 1px solid var(--border); text-decoration: none; color: var(--text-primary); min-height: 5.5rem;
+    }
+    .qa-card:hover { background: var(--surface-hover); }
+    .qa-icon {
+      width: 2.25rem; height: 2.25rem; border-radius: var(--radius-full);
+      background: var(--surface); display: inline-grid; place-items: center; color: var(--accent);
+    }
+    .qa-icon svg { width: 18px; height: 18px; }
+    .qa-label { font: 500 0.8125rem/1.125rem var(--font); text-align: center; }
 
     /* Bottom Nav */
     .bottom-nav {
       position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
-      width: min(100%, 430px); z-index: 20;
-      height: calc(var(--nav-h) + env(safe-area-inset-bottom, 0px)); padding-bottom: env(safe-area-inset-bottom, 0px);
-      display: grid; grid-template-columns: repeat(5, 1fr); align-items: center;
+      width: 100%; max-width: 430px; height: var(--nav-h);
       background: var(--surface); border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-around;
+      z-index: 50; padding: 0 var(--sp-8) env(safe-area-inset-bottom, 0px);
     }
     .nav-item {
-      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--sp-4);
-      min-height: 44px; height: var(--nav-h); color: var(--text-secondary); text-decoration: none;
-      font: 500 .75rem/1rem var(--font); letter-spacing: .0125rem;
+      flex: 1; height: 100%; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: var(--sp-4);
+      color: var(--text-secondary); text-decoration: none; font: 500 0.6875rem/0.875rem var(--font);
+      min-width: 44px; min-height: 44px;
     }
-    .nav-item svg { width: 24px; height: 24px; }
-    .nav-item[aria-current="page"] { color: var(--accent-text); }
+    .nav-item svg { width: 20px; height: 20px; }
+    .nav-item[aria-current="page"] { color: var(--accent); font-weight: 600; }
     .nav-add {
-      justify-self: center; display: grid; place-items: center;
-      width: 3rem; height: 3rem; min-width: 44px; min-height: 44px; border-radius: var(--radius-full);
-      background: var(--accent); color: var(--on-accent); border: 0; box-shadow: var(--shadow-md); cursor: pointer; text-decoration: none;
+      width: 2.75rem; height: 2.75rem; min-width: 44px; min-height: 44px;
+      border-radius: var(--radius-full); background: var(--accent); color: var(--on-accent);
+      display: inline-grid; place-items: center; text-decoration: none; box-shadow: var(--shadow-md);
+      margin: 0 var(--sp-4);
     }
-    .nav-add:hover { background: var(--accent-hover); }
-    .nav-add:active { background: var(--accent-active); }
-    .nav-add svg { width: 24px; height: 24px; }
+    .nav-add svg { width: 22px; height: 22px; }
   </style>
 </head>
 <body>
   <div class="app">
     <main class="screen screen--nav">
+      <!-- Header -->
       <header class="app-header">
         <h1 class="t-h1">Settings</h1>
-        <div style="width: 2.75rem;"></div>
       </header>
 
-      <!-- Profile Section -->
+      <!-- Student Profile Card -->
       <section aria-label="Student Profile">
         <ul class="list" role="list">
           <li>
@@ -279,7 +335,7 @@
 
       <!-- Appearance -->
       <section aria-label="Appearance preferences">
-        <p class="group-label">APPEARANCE</p>
+        <h2 class="group-label">APPEARANCE</h2>
         <div class="segmented" role="tablist" aria-label="Theme mode selector">
           <button type="button" role="tab" aria-selected="false">Light</button>
           <button type="button" role="tab" aria-selected="false">Dark</button>
@@ -287,18 +343,18 @@
         </div>
       </section>
 
-      <!-- Notifications -->
+      <!-- Consolidated Reminders -->
       <section aria-label="Notification alerts">
-        <p class="group-label">NOTIFICATIONS</p>
+        <h2 class="group-label">NOTIFICATIONS &amp; REMINDERS</h2>
         <ul class="list" role="list">
           <li class="row">
             <div class="row__body">
-              <div class="row__title">Deadlines</div>
-              <div class="row__meta">Assignment due date reminders</div>
+              <label for="deadlines-switch" class="row__title">Assignment Deadlines</label>
+              <div class="row__meta">24h and 2h before due time</div>
             </div>
             <div class="row__trail">
               <label class="switch">
-                <input type="checkbox" class="sr-only" role="switch" checked aria-label="Toggle deadline reminders">
+                <input type="checkbox" id="deadlines-switch" class="sr-only" role="switch" checked aria-label="Toggle assignment deadline reminders">
                 <span class="switch__track" aria-hidden="true"></span>
               </label>
             </div>
@@ -306,12 +362,12 @@
 
           <li class="row">
             <div class="row__body">
-              <div class="row__title">Exams</div>
-              <div class="row__meta">Exam schedule countdowns</div>
+              <label for="exams-switch" class="row__title">Upcoming Exams</label>
+              <div class="row__meta">7-day and 1-day countdown alerts</div>
             </div>
             <div class="row__trail">
               <label class="switch">
-                <input type="checkbox" class="sr-only" role="switch" checked aria-label="Toggle exam countdowns">
+                <input type="checkbox" id="exams-switch" class="sr-only" role="switch" checked aria-label="Toggle exam countdown reminders">
                 <span class="switch__track" aria-hidden="true"></span>
               </label>
             </div>
@@ -319,12 +375,12 @@
 
           <li class="row">
             <div class="row__body">
-              <div class="row__title">Budget warnings</div>
+              <label for="budget-switch" class="row__title">Over-Budget Warnings</label>
               <div class="row__meta">Alerts when nearing category limits</div>
             </div>
             <div class="row__trail">
               <label class="switch">
-                <input type="checkbox" class="sr-only" role="switch" checked aria-label="Toggle budget warnings">
+                <input type="checkbox" id="budget-switch" class="sr-only" role="switch" checked aria-label="Toggle over-budget warnings">
                 <span class="switch__track" aria-hidden="true"></span>
               </label>
             </div>
@@ -332,12 +388,12 @@
 
           <li class="row">
             <div class="row__body">
-              <div class="row__title">Quiet hours</div>
+              <label for="quiet-switch" class="row__title">Quiet Hours</label>
               <div class="row__meta">Muted overnight (10 PM – 7 AM)</div>
             </div>
             <div class="row__trail">
               <label class="switch">
-                <input type="checkbox" class="sr-only" role="switch" checked aria-label="Toggle quiet hours">
+                <input type="checkbox" id="quiet-switch" class="sr-only" role="switch" checked aria-label="Toggle quiet hours">
                 <span class="switch__track" aria-hidden="true"></span>
               </label>
             </div>
@@ -345,38 +401,87 @@
         </ul>
       </section>
 
-      <!-- Privacy -->
+      <!-- Privacy & Local-First -->
       <section aria-label="Privacy settings">
-        <p class="group-label">PRIVACY &amp; DATA</p>
+        <h2 class="group-label">LOCAL-FIRST PRIVACY</h2>
         <ul class="list" role="list">
           <li class="row">
             <div class="row__body">
-              <div class="row__title">SMS auto-tracking</div>
-              <div class="row__meta">Parse bank spend SMS locally</div>
+              <label for="sms-switch" class="row__title">SMS auto-tracking</label>
+              <div class="row__meta">Parse bank spend SMS entirely on device</div>
             </div>
             <div class="row__trail">
-              <span>Off</span>
+              <label class="switch">
+                <input type="checkbox" id="sms-switch" class="sr-only" role="switch" aria-label="Toggle SMS auto-tracking">
+                <span class="switch__track" aria-hidden="true"></span>
+              </label>
             </div>
           </li>
 
           <li class="row">
             <div class="row__body">
-              <div class="row__title">Local-only mode</div>
-              <div class="row__meta">No cloud backup or account sync</div>
+              <label for="local-switch" class="row__title">Local-only mode</label>
+              <div class="row__meta">Zero server uploads or third-party tracking</div>
             </div>
             <div class="row__trail">
               <label class="switch">
-                <input type="checkbox" class="sr-only" role="switch" aria-label="Toggle local-only mode">
+                <input type="checkbox" id="local-switch" class="sr-only" role="switch" checked aria-label="Toggle local-only mode">
                 <span class="switch__track" aria-hidden="true"></span>
               </label>
             </div>
           </li>
 
           <li>
-            <a href="privacy.html" class="row">
+            <a href="#full-policy" class="row">
               <div class="row__body">
                 <div class="row__title">Privacy Promise</div>
-                <div class="row__meta">Read our student-first guarantee</div>
+                <div class="row__meta">Read our student-first data guarantee</div>
+              </div>
+              <div class="row__trail" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 18 15 12 9 6"/>
+                </svg>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </section>
+
+      <!-- Account & App Security -->
+      <section aria-label="Account security">
+        <h2 class="group-label">ACCOUNT &amp; SECURITY</h2>
+        <ul class="list" role="list">
+          <li>
+            <a href="login.html" class="row" aria-label="Lock app and return to PIN screen">
+              <div class="row__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                </svg>
+              </div>
+              <div class="row__body">
+                <div class="row__title">Lock App</div>
+                <div class="row__meta">Require PIN to open (data stays preserved)</div>
+              </div>
+              <div class="row__trail" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 18 15 12 9 6"/>
+                </svg>
+              </div>
+            </a>
+          </li>
+
+          <li>
+            <a href="signup.html" class="row" aria-label="Reset PIN or create new local profile">
+              <div class="row__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="3"/>
+                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                </svg>
+              </div>
+              <div class="row__body">
+                <div class="row__title">Change PIN / Profile</div>
+                <div class="row__meta">Update local credentials</div>
               </div>
               <div class="row__trail" aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
@@ -407,14 +512,14 @@
         <span>Money</span>
       </a>
 
-      <a href="quick-add.html" class="nav-add" aria-label="Quick Add">
+      <a href="#quick-add" class="nav-add" aria-label="Quick Add">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <line x1="12" y1="5" x2="12" y2="19"/>
           <line x1="5" y1="12" x2="19" y2="12"/>
         </svg>
       </a>
 
-      <a href="plan.html" class="nav-item">
+      <a href="today.html" class="nav-item">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="m3 17 2 2 4-4"/>
           <path d="m3 7 2 2 4-4"/>
@@ -422,7 +527,7 @@
           <path d="M13 12h8"/>
           <path d="M13 18h8"/>
         </svg>
-        <span>Plan</span>
+        <span>Study</span>
       </a>
 
       <a href="settings.html" class="nav-item" aria-current="page">
@@ -431,9 +536,75 @@
           <circle cx="19" cy="12" r="1"/>
           <circle cx="5" cy="12" r="1"/>
         </svg>
-        <span>More</span>
+        <span>Settings</span>
       </a>
     </nav>
+
+    <!-- In-Page Privacy Policy Sheet (#full-policy) -->
+    <div id="full-policy" class="sheet-overlay">
+      <a href="#" class="scrim-close" aria-label="Close Privacy Policy"></a>
+      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="policy-title">
+        <div class="sheet__handle" aria-hidden="true"></div>
+        <h2 class="t-h2" id="policy-title">Privacy Promise</h2>
+
+        <div style="display: flex; flex-direction: column; gap: var(--sp-12);">
+          <div class="trust-card">
+            <h3>No Advertisements</h3>
+            <p>We do not display ads, affiliate banners, or sponsored suggestions.</p>
+          </div>
+
+          <div class="trust-card">
+            <h3>No Data Selling</h3>
+            <p>Your academic schedule and transactions are stored strictly in local device storage.</p>
+          </div>
+
+          <div class="trust-card">
+            <h3>You Control SMS Access</h3>
+            <p>SMS auto-tracking is disabled by default. When enabled, parsing happens on-device only.</p>
+          </div>
+        </div>
+
+        <div style="margin-top: var(--sp-8);">
+          <a href="#" class="btn btn--primary btn--block">Got it</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contextual Quick Add Sheet -->
+    <div id="quick-add" class="sheet-overlay">
+      <a href="#" class="scrim-close" aria-label="Close Quick Add"></a>
+      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="qa-title">
+        <div class="sheet__handle" aria-hidden="true"></div>
+        <h2 class="t-h2" id="qa-title">Quick Add</h2>
+        <div class="grid-2">
+          <a href="add-expense.html" class="qa-card">
+            <span class="qa-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg>
+            </span>
+            <span class="qa-label">Log Expense</span>
+          </a>
+          <a href="quick-capture.html" class="qa-card">
+            <span class="qa-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            </span>
+            <span class="qa-label">Add Task</span>
+          </a>
+          <a href="split.html#add-split" class="qa-card">
+            <span class="qa-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </span>
+            <span class="qa-label">Split Bill</span>
+          </a>
+          <a href="assignments.html#add-assignment" class="qa-card">
+            <span class="qa-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            </span>
+            <span class="qa-label">Add Assignment</span>
+          </a>
+        </div>
+        <a href="#" class="btn btn--secondary btn--block">Cancel</a>
+      </div>
+    </div>
   </div>
 </body>
 </html>

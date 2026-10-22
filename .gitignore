@@ -1,0 +1,7 @@
+# Ignore markdown specifications and documentation
+requirements.md
+design.md
+Design.md
+RULES.md
+tasks.md
+*.md

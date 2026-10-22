@@ -261,14 +261,45 @@
     .btn--primary { background: var(--accent); color: var(--on-accent); box-shadow: var(--shadow-sm); }
     .btn--primary:hover { background: var(--accent-hover); }
     .btn--primary:active { background: var(--accent-active); transform: translateY(1px); }
+    .btn--secondary { background: var(--surface); color: var(--text-primary); border-color: var(--border-strong); }
+    .btn--secondary:hover { background: var(--surface-hover); }
+    .btn--secondary:active { background: var(--surface-active); transform: translateY(1px); }
+
+    /* Bottom Sheet (:target Engine) */
+    .sheet-overlay { display: none; position: fixed; inset: 0; z-index: 50; }
+    .sheet-overlay:target { display: block; }
+    .scrim-close { position: fixed; inset: 0; background: var(--scrim); cursor: default; }
+    .sheet {
+      position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); z-index: 51;
+      width: min(100%, 430px); max-height: 90dvh; overflow-y: auto;
+      background: var(--surface); border: 1px solid var(--border); border-bottom: 0;
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0; box-shadow: var(--shadow-sheet);
+      padding: var(--sp-8) var(--sp-16) calc(var(--sp-24) + env(safe-area-inset-bottom, 0px));
+      display: flex; flex-direction: column; gap: var(--sp-16);
+    }
+    .sheet__handle { width: 2.5rem; height: .25rem; border-radius: var(--radius-full); background: var(--border-strong); margin: 0 auto; }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-12); }
+    .qa-card {
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--sp-8);
+      min-height: 4.5rem; padding: var(--sp-16); background: var(--surface-sunken); border: 1px solid var(--border);
+      border-radius: var(--radius-md); color: var(--text-primary); text-decoration: none; text-align: center;
+      transition: background-color .15s ease, border-color .15s ease;
+    }
+    .qa-card:hover { background: var(--surface-hover); border-color: var(--border-strong); }
+    .qa-card:active { background: var(--surface-active); transform: translateY(1px); }
+    .qa-icon svg { width: 24px; height: 24px; color: var(--accent); }
+    .qa-label { font: 500 .875rem/1.25rem var(--font); }
 
     /* Toast */
     .toast {
+      display: none;
       position: fixed; left: 50%; bottom: calc(var(--nav-h) + var(--sp-16) + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%);
-      z-index: 40; display: flex; align-items: center; gap: var(--sp-16); width: max-content; max-width: calc(100% - 2rem);
+      z-index: 40; align-items: center; gap: var(--sp-12); width: max-content; max-width: calc(100% - 2rem);
       padding: var(--sp-12) var(--sp-16); background: var(--text-primary); color: var(--bg);
       border-radius: var(--radius-md); box-shadow: var(--shadow-md); font: 500 .875rem/1.25rem var(--font);
     }
+    .toast:target { display: flex; }
     .toast__action { background: none; border: 0; color: inherit; font: 600 .875rem/1.25rem var(--font); text-decoration: underline; cursor: pointer; padding: 0; }
 
     /* Bottom Nav */
@@ -325,9 +356,12 @@
         </div>
       </section>
 
+      <!-- Money Tab Group Navigation -->
       <div class="segmented" role="navigation" aria-label="Money view">
-        <a href="money.html" class="is-active" aria-current="page">Transactions</a>
+        <a href="money.html" class="is-active" aria-current="page">Ledger</a>
         <a href="budget.html">Budget</a>
+        <a href="insights.html">Insights</a>
+        <a href="split.html">Split</a>
       </div>
 
       <!-- Category Filter Chips -->
@@ -421,9 +455,10 @@
     </main>
 
     <!-- Saved Toast -->
-    <div class="toast" role="status" aria-live="polite">
-      <span>Saved · ₹ 120 Canteen Thali</span>
-      <button type="button" class="toast__action">Undo</button>
+    <div id="saved-toast" class="toast" role="status" aria-live="polite">
+      <span>Saved · ₹ 240 Canteen Lunch</span>
+      <a href="#" class="toast__action">Undo</a>
+      <a href="add-expense.html" class="toast__action" style="margin-left: var(--sp-8); border-left: 1px solid var(--border-control); padding-left: var(--sp-8);">+ Add another</a>
     </div>
 
     <!-- Bottom Nav -->
@@ -444,14 +479,14 @@
         <span>Money</span>
       </a>
 
-      <a href="quick-add.html" class="nav-add" aria-label="Quick Add">
+      <a href="#quick-add" class="nav-add" aria-label="Quick Add">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <line x1="12" y1="5" x2="12" y2="19"/>
           <line x1="5" y1="12" x2="19" y2="12"/>
         </svg>
       </a>
 
-      <a href="plan.html" class="nav-item">
+      <a href="today.html" class="nav-item">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="m3 17 2 2 4-4"/>
           <path d="m3 7 2 2 4-4"/>
@@ -459,7 +494,7 @@
           <path d="M13 12h8"/>
           <path d="M13 18h8"/>
         </svg>
-        <span>Plan</span>
+        <span>Study</span>
       </a>
 
       <a href="settings.html" class="nav-item">
@@ -468,9 +503,45 @@
           <circle cx="19" cy="12" r="1"/>
           <circle cx="5" cy="12" r="1"/>
         </svg>
-        <span>More</span>
+        <span>Settings</span>
       </a>
     </nav>
+
+    <!-- Contextual Quick Add Sheet -->
+    <div id="quick-add" class="sheet-overlay">
+      <a href="#" class="scrim-close" aria-label="Close Quick Add"></a>
+      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="qa-title">
+        <div class="sheet__handle" aria-hidden="true"></div>
+        <h2 class="t-h2" id="qa-title">Quick Add</h2>
+        <div class="grid-2">
+          <a href="add-expense.html" class="qa-card">
+            <span class="qa-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg>
+            </span>
+            <span class="qa-label">Log Expense</span>
+          </a>
+          <a href="quick-capture.html" class="qa-card">
+            <span class="qa-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            </span>
+            <span class="qa-label">Add Task</span>
+          </a>
+          <a href="split.html#add-split" class="qa-card">
+            <span class="qa-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </span>
+            <span class="qa-label">Split Bill</span>
+          </a>
+          <a href="assignments.html#add-assignment" class="qa-card">
+            <span class="qa-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            </span>
+            <span class="qa-label">Add Assignment</span>
+          </a>
+        </div>
+        <a href="#" class="btn btn--secondary btn--block">Cancel</a>
+      </div>
+    </div>
   </div>
 </body>
 </html>

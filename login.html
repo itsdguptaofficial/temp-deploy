@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Log In · Super App</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Surfaces */
+      --bg: #FAFAFA;
+      --surface: #FFFFFF;
+      --surface-sunken: #F2F2F2;
+      --surface-hover: #F5F5F5;
+      --surface-active: #EDEDED;
+
+      /* Borders */
+      --border: #EAEAEA;
+      --border-strong: #D4D4D4;
+      --border-control: #A3A3A3;
+
+      /* Text */
+      --text-primary: #111111;
+      --text-secondary: #5C5C5C;
+      --text-placeholder: #737373;
+
+      /* Accent (Single Brand Color) */
+      --accent: #2563EB;
+      --accent-hover: #1D4ED8;
+      --accent-active: #1E40AF;
+      --accent-soft: #EFF4FF;
+      --accent-text: #1D4ED8;
+      --accent-ring: rgba(37, 99, 235, 0.20);
+      --on-accent: #FFFFFF;
+
+      /* Status */
+      --success: #15803D;
+      --success-soft: #F0FDF4;
+      --error: #B91C1C;
+      --error-soft: #FEF2F2;
+      --error-ring: rgba(185, 28, 28, 0.18);
+
+      /* Disabled */
+      --disabled-bg: #F2F2F2;
+      --disabled-text: #8A8A8A;
+
+      /* Effects */
+      --scrim: rgba(0, 0, 0, 0.40);
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+      --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06);
+      --shadow-sheet: 0 -8px 24px rgba(0, 0, 0, 0.08);
+
+      /* Radius */
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-full: 999px;
+
+      /* Spacing */
+      --sp-4: 0.25rem;
+      --sp-8: 0.5rem;
+      --sp-12: 0.75rem;
+      --sp-16: 1rem;
+      --sp-24: 1.5rem;
+      --sp-32: 2rem;
+      --sp-48: 3rem;
+      --nav-h: 4rem;
+
+      --font: "Inter", "Roboto", system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #0A0A0A;
+        --surface: #141414;
+        --surface-sunken: #1F1F1F;
+        --surface-hover: #1A1A1A;
+        --surface-active: #262626;
+        --border: #262626;
+        --border-strong: #3A3A3A;
+        --border-control: #6B6B6B;
+        --text-primary: #EDEDED;
+        --text-secondary: #A3A3A3;
+        --text-placeholder: #8A8A8A;
+        --accent: #60A5FA;
+        --accent-hover: #93C5FD;
+        --accent-active: #BFDBFE;
+        --accent-soft: #16233F;
+        --accent-text: #93C5FD;
+        --accent-ring: rgba(96, 165, 250, 0.30);
+        --on-accent: #0A0A0A;
+        --success: #4ADE80;
+        --success-soft: #0F2A1A;
+        --error: #F87171;
+        --error-soft: #331416;
+        --error-ring: rgba(248, 113, 113, 0.25);
+        --disabled-bg: #1F1F1F;
+        --disabled-text: #6B6B6B;
+        --scrim: rgba(0, 0, 0, 0.60);
+        --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.40);
+        --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.40);
+        --shadow-sheet: 0 -8px 24px rgba(0, 0, 0, 0.50);
+      }
+    }
+
+    :root[data-theme="dark"] {
+      --bg: #0A0A0A;
+      --surface: #141414;
+      --surface-sunken: #1F1F1F;
+      --surface-hover: #1A1A1A;
+      --surface-active: #262626;
+      --border: #262626;
+      --border-strong: #3A3A3A;
+      --border-control: #6B6B6B;
+      --text-primary: #EDEDED;
+      --text-secondary: #A3A3A3;
+      --text-placeholder: #8A8A8A;
+      --accent: #60A5FA;
+      --accent-hover: #93C5FD;
+      --accent-active: #BFDBFE;
+      --accent-soft: #16233F;
+      --accent-text: #93C5FD;
+      --accent-ring: rgba(96, 165, 250, 0.30);
+      --on-accent: #0A0A0A;
+      --success: #4ADE80;
+      --success-soft: #0F2A1A;
+      --error: #F87171;
+      --error-soft: #331416;
+      --error-ring: rgba(248, 113, 113, 0.25);
+      --disabled-bg: #1F1F1F;
+      --disabled-text: #6B6B6B;
+      --scrim: rgba(0, 0, 0, 0.60);
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.40);
+      --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.40);
+      --shadow-sheet: 0 -8px 24px rgba(0, 0, 0, 0.50);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { font-size: 100%; -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text-primary);
+      font: 400 1rem/1.5rem var(--font);
+      -webkit-font-smoothing: antialiased;
+    }
+    button, input, select, textarea { font: inherit; color: inherit; }
+
+    .app {
+      max-width: 430px;
+      margin: 0 auto;
+      min-height: 100dvh;
+      background: var(--bg);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    @media (min-width: 480px) {
+      body { background: var(--surface-sunken); }
+      .app { border-left: 1px solid var(--border); border-right: 1px solid var(--border); }
+    }
+
+    .app-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 3.5rem;
+      padding: var(--sp-8) var(--sp-16);
+    }
+
+    .icon-btn {
+      display: inline-grid;
+      place-items: center;
+      width: 2.75rem;
+      height: 2.75rem;
+      min-width: 44px;
+      min-height: 44px;
+      background: transparent;
+      color: var(--text-primary);
+      border: 0;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .icon-btn:hover { background: var(--surface-hover); }
+    .icon-btn:active { background: var(--surface-active); }
+    .icon-btn svg { width: 24px; height: 24px; }
+
+    .screen {
+      padding: 0 var(--sp-16) var(--sp-24);
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-24);
+      flex: 1;
+    }
+
+    h1, .t-h1 { font: 600 1.75rem/2.125rem var(--font); letter-spacing: -0.0375rem; margin: 0; }
+    h2, .t-h2 { font: 600 1.375rem/1.75rem var(--font); letter-spacing: -0.025rem; margin: 0; }
+    p { margin: 0; }
+    .t-small { font: 400 0.875rem/1.25rem var(--font); }
+    .t-muted { color: var(--text-secondary); }
+
+    .link {
+      color: var(--accent-text);
+      font-weight: 500;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .link:hover { color: var(--accent-hover); }
+
+    .assurance-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-8);
+      padding: var(--sp-8) var(--sp-12);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font: 400 0.8125rem/1.125rem var(--font);
+      color: var(--text-secondary);
+      box-shadow: var(--shadow-sm);
+    }
+    .assurance-pill svg { width: 16px; height: 16px; color: var(--success); flex: none; }
+
+    .field { display: flex; flex-direction: column; gap: var(--sp-8); }
+    .field__label { font: 500 0.875rem/1.25rem var(--font); color: var(--text-primary); }
+    .input {
+      width: 100%;
+      min-height: 3rem;
+      height: 3rem;
+      padding: 0 var(--sp-16);
+      font: 400 1rem/1.5rem var(--font);
+      color: var(--text-primary);
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      transition: border-color .15s ease, box-shadow .15s ease;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    .input::placeholder { color: var(--text-placeholder); }
+    .input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-ring); }
+    
+    .input:invalid:not(:placeholder-shown) {
+      border-color: var(--error);
+      box-shadow: 0 0 0 3px var(--error-ring);
+    }
+    .field__error {
+      display: none;
+      font: 400 0.75rem/1rem var(--font);
+      color: var(--error);
+    }
+    .input:invalid:not(:placeholder-shown) + .field__error {
+      display: block;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--sp-8);
+      min-height: 3rem;
+      height: 3rem;
+      padding: 0 var(--sp-24);
+      font: 500 1rem/1.5rem var(--font);
+      border: 1px solid transparent;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background-color .15s ease, border-color .15s ease, transform .05s ease;
+      box-sizing: border-box;
+    }
+    .btn--block { width: 100%; }
+    .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .btn--primary { background: var(--accent); color: var(--on-accent); box-shadow: var(--shadow-sm); }
+    .btn--primary:hover { background: var(--accent-hover); }
+    .btn--primary:active { background: var(--accent-active); transform: translateY(1px); }
+    .btn--secondary { background: var(--surface); color: var(--text-primary); border-color: var(--border-strong); }
+    .btn--secondary:hover { background: var(--surface-hover); }
+    .btn--secondary:active { background: var(--surface-active); transform: translateY(1px); }
+    .btn--destructive { background: var(--error); color: var(--on-accent); box-shadow: var(--shadow-sm); }
+    .btn--destructive:hover { background: var(--error); filter: brightness(0.9); }
+
+    .stack-16 { display: flex; flex-direction: column; gap: var(--sp-16); }
+
+    /* Bottom Sheet (:target Engine) */
+    .sheet-overlay { display: none; position: fixed; inset: 0; z-index: 50; }
+    .sheet-overlay:target { display: block; }
+    .scrim-close { position: fixed; inset: 0; background: var(--scrim); cursor: default; }
+    .sheet {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 51;
+      width: min(100%, 430px);
+      max-height: 90dvh;
+      overflow-y: auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-bottom: 0;
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      box-shadow: var(--shadow-sheet);
+      padding: var(--sp-8) var(--sp-16) calc(var(--sp-24) + env(safe-area-inset-bottom, 0px));
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-16);
+    }
+    .sheet__handle {
+      width: 2.5rem;
+      height: .25rem;
+      border-radius: var(--radius-full);
+      background: var(--border-strong);
+      margin: 0 auto;
+    }
+
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="app-header">
+      <a href="index.html" class="icon-btn" aria-label="Back to welcome screen">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="19" y1="12" x2="5" y2="12"/>
+          <polyline points="12 19 5 12 12 5"/>
+        </svg>
+      </a>
+      <div style="width: 2.75rem;"></div>
+    </header>
+
+    <main class="screen">
+      <div>
+        <h1 class="t-h1">Welcome back</h1>
+        <div style="margin-top: var(--sp-8);">
+          <div class="assurance-pill">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+            <span>Your data stays on this device. No ads, no data selling.</span>
+          </div>
+        </div>
+      </div>
+
+      <form class="stack-16" action="home.html" method="get">
+        <div class="field">
+          <label class="field__label" for="login-identifier">Phone number or email</label>
+          <input
+            class="input"
+            type="text"
+            id="login-identifier"
+            name="identifier"
+            placeholder="e.g. 9876543210 or name@college.edu"
+            required
+            autocomplete="username"
+          >
+          <span class="field__error" role="alert">Please enter your registered phone or email.</span>
+        </div>
+
+        <div class="field">
+          <div style="display: flex; justify-content: space-between; align-items: baseline;">
+            <label class="field__label" for="login-pin">4-digit PIN</label>
+            <a href="#forgot-pin" class="link t-small">Forgot PIN?</a>
+          </div>
+          <input
+            class="input"
+            type="password"
+            id="login-pin"
+            name="pin"
+            placeholder="••••"
+            pattern="[0-9]{4}"
+            maxlength="4"
+            inputmode="numeric"
+            required
+            autocomplete="current-password"
+          >
+          <span class="field__error" role="alert">PIN must be exactly 4 numeric digits.</span>
+        </div>
+
+        <button type="submit" class="btn btn--primary btn--block">Log In</button>
+      </form>
+
+      <div style="margin-top: auto; display: flex; flex-direction: column; align-items: center; gap: var(--sp-12); padding-top: var(--sp-16);">
+        <p class="t-small t-muted">
+          New here? <a href="signup.html" class="link">Create account</a>
+        </p>
+      </div>
+    </main>
+
+    <!-- Forgot PIN Sheet Modal -->
+    <div id="forgot-pin" class="sheet-overlay">
+      <a href="#" class="scrim-close" aria-label="Close forgot pin modal"></a>
+      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="forgot-title">
+        <div class="sheet__handle" aria-hidden="true"></div>
+        <h2 class="t-h2" id="forgot-title">Reset Local PIN</h2>
+        
+        <div style="padding: var(--sp-12); background: var(--error-soft); border: 1px solid var(--error-ring); border-radius: var(--radius-sm);">
+          <p class="t-small" style="color: var(--error); font-weight: 500;">
+            ⚠️ Data Privacy Notice: Your data is stored only on this device. We do not store your PIN on any remote server.
+          </p>
+        </div>
+
+        <p class="t-small t-muted">
+          Resetting your PIN will clear your local app profile and require you to set up a new account. Your previous logs cannot be recovered from the cloud.
+        </p>
+
+        <a href="signup.html" class="btn btn--destructive btn--block">Reset PIN &amp; Clear Data</a>
+        <a href="#" class="btn btn--secondary btn--block">Cancel</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

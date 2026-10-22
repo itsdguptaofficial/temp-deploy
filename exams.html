@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Exams · Super App</title>
+  <title>Exams &amp; Countdowns · Super App</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -26,7 +26,7 @@
       --text-secondary: #5C5C5C;
       --text-placeholder: #737373;
 
-      /* Accent (the only brand color) */
+      /* Accent */
       --accent: #2563EB;
       --accent-hover: #1D4ED8;
       --accent-active: #1E40AF;
@@ -177,9 +177,17 @@
       min-height: 3.5rem; padding: var(--sp-8) var(--sp-16); margin: 0 calc(var(--sp-16) * -1);
     }
 
+    .icon-btn {
+      display: inline-grid; place-items: center; width: 2.75rem; height: 2.75rem; min-width: 44px; min-height: 44px;
+      background: transparent; color: var(--text-primary); border: 0; border-radius: var(--radius-full); cursor: pointer; text-decoration: none;
+    }
+    .icon-btn:hover { background: var(--surface-hover); }
+    .icon-btn:active { background: var(--surface-active); }
+    .icon-btn svg { width: 20px; height: 20px; }
+
     h1, .t-h1 { font: 600 1.75rem/2.125rem var(--font); letter-spacing: -0.0375rem; margin: 0; }
-    h2, .t-h2 { font: 600 1.375rem/1.75rem var(--font); letter-spacing: -0.025rem; margin: 0; }
-    h3, .t-h3 { font: 600 1.0625rem/1.5rem var(--font); letter-spacing: -0.0125rem; margin: 0; }
+    h2, .t-h2 { font: 600 1.125rem/1.5rem var(--font); letter-spacing: -0.025rem; margin: 0; }
+    h3, .t-h3 { font: 600 1rem/1.5rem var(--font); margin: 0; }
     p { margin: 0; }
     .t-small { font: 400 0.875rem/1.25rem var(--font); }
     .t-caption { font: 500 0.75rem/1rem var(--font); letter-spacing: 0.0125rem; }
@@ -193,7 +201,6 @@
     }
     .segmented > a.is-active { background: var(--surface); color: var(--text-primary); box-shadow: var(--shadow-sm); }
 
-    .stack-12 { display: flex; flex-direction: column; gap: var(--sp-12); }
     .card {
       background: var(--surface); border: 1px solid var(--border);
       border-radius: var(--radius-md); padding: var(--sp-16);
@@ -204,141 +211,219 @@
 
     .badge {
       display: inline-flex; align-items: center; height: 1.5rem; padding: 0 var(--sp-8);
-      border-radius: var(--radius-full); font: 500 .75rem/1rem var(--font); letter-spacing: .0125rem;
-      background: var(--surface-sunken); color: var(--text-secondary); white-space: nowrap;
+      border-radius: var(--radius-full); font: 600 .75rem/1rem var(--font); letter-spacing: .0125rem;
+      white-space: nowrap;
     }
-    .badge--progress { background: var(--accent-soft); color: var(--accent-text); }
+    .badge--urgent { background: var(--error-soft); color: var(--error); border: 1px solid var(--error-ring); }
+    .badge--upcoming { background: var(--accent-soft); color: var(--accent-text); }
+    .badge--normal { background: var(--surface-sunken); color: var(--text-secondary); }
 
-    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .progress { height: .375rem; background: var(--surface-sunken); border-radius: var(--radius-full); overflow: hidden; }
+    .progress__bar { height: 100%; width: var(--val, 0%); background: var(--accent); border-radius: var(--radius-full); }
 
     .btn {
       display: inline-flex; align-items: center; justify-content: center; gap: var(--sp-8);
-      min-height: 3rem; height: 3rem; padding: 0 var(--sp-24);
-      font: 500 1rem/1.5rem var(--font);
-      border: 1px solid transparent; border-radius: var(--radius-md);
+      min-height: 2.75rem; height: 2.75rem; padding: 0 var(--sp-16);
+      font: 500 0.9375rem/1.25rem var(--font);
+      border: 1px solid transparent; border-radius: var(--radius-sm);
       cursor: pointer; text-decoration: none; white-space: nowrap;
-      transition: background-color .15s ease, border-color .15s ease, transform .05s ease;
-      box-sizing: border-box;
     }
     .btn--block { width: 100%; }
-    .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-    .btn--primary { background: var(--accent); color: var(--on-accent); box-shadow: var(--shadow-sm); }
+    .btn--primary { background: var(--accent); color: var(--on-accent); }
     .btn--primary:hover { background: var(--accent-hover); }
-    .btn--primary:active { background: var(--accent-active); transform: translateY(1px); }
-    .btn--ghost { background: transparent; color: var(--text-secondary); }
-    .btn--ghost:hover { background: var(--surface-hover); color: var(--text-primary); }
+    .btn--primary:active { background: var(--accent-active); }
+    .btn--secondary { background: var(--surface); color: var(--text-primary); border-color: var(--border-control); }
+    .btn--secondary:hover { background: var(--surface-hover); }
+    .btn--secondary:active { background: var(--surface-active); }
 
     /* Overlay Sheet */
-    .sheet-overlay { display: none; position: fixed; inset: 0; z-index: 30; }
-    .sheet-overlay:target { display: block; }
-    .scrim-close { position: fixed; inset: 0; background: var(--scrim); cursor: default; }
-    .sheet {
-      position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); z-index: 31;
-      width: min(100%, 430px); max-height: 90dvh; overflow-y: auto;
-      background: var(--surface); border: 1px solid var(--border); border-bottom: 0;
-      border-radius: var(--radius-lg) var(--radius-lg) 0 0; box-shadow: var(--shadow-sheet);
-      padding: var(--sp-8) var(--sp-16) calc(var(--sp-24) + env(safe-area-inset-bottom, 0px));
-      display: flex; flex-direction: column; gap: var(--sp-16);
+    .sheet-overlay {
+      position: fixed; inset: 0; z-index: 100;
+      background: var(--scrim);
+      display: none; align-items: flex-end; justify-content: center;
     }
-    .sheet__handle { width: 2.5rem; height: .25rem; border-radius: var(--radius-full); background: var(--border-strong); margin: 0 auto; }
+    .sheet-overlay:target { display: flex; }
+    .scrim-close { position: absolute; inset: 0; cursor: default; }
+    .sheet {
+      position: relative; z-index: 101; width: 100%; max-width: 430px;
+      max-height: 90vh; overflow-y: auto; background: var(--surface);
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      padding: var(--sp-24) var(--sp-16) calc(var(--sp-24) + env(safe-area-inset-bottom, 0px));
+      box-shadow: var(--shadow-sheet); display: flex; flex-direction: column; gap: var(--sp-16);
+    }
+    .sheet__handle {
+      width: 2.5rem; height: 4px; background: var(--border-strong);
+      border-radius: var(--radius-full); margin: 0 auto var(--sp-8);
+    }
 
-    .field { display: flex; flex-direction: column; gap: var(--sp-8); }
+    .field { display: flex; flex-direction: column; gap: var(--sp-4); }
     .field__label { font: 500 .875rem/1.25rem var(--font); color: var(--text-primary); }
     .input, .select {
-      width: 100%; min-height: 3rem; height: 3rem; padding: 0 var(--sp-16);
+      width: 100%; min-height: 2.75rem; padding: var(--sp-8) var(--sp-12);
       font: 400 1rem/1.5rem var(--font); color: var(--text-primary);
-      background: var(--surface); border: 1px solid var(--border-strong);
-      border-radius: var(--radius-md); box-shadow: var(--shadow-sm);
-      appearance: none; -webkit-appearance: none;
+      background: var(--surface); border: 1px solid var(--border-control);
+      border-radius: var(--radius-sm);
     }
-    .input:focus, .select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-ring); }
-    .select-wrap { position: relative; }
-    .select { padding-right: 2.75rem; }
-    .select-wrap > svg { position: absolute; right: var(--sp-16); top: 50%; width: 20px; height: 20px;
-      transform: translateY(-50%); color: var(--text-secondary); pointer-events: none; }
+    .input:focus, .select:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-12); }
+    .qa-card {
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--sp-8);
+      padding: var(--sp-16); border-radius: var(--radius-md); background: var(--surface-sunken);
+      border: 1px solid var(--border); text-decoration: none; color: var(--text-primary); min-height: 5.5rem;
+    }
+    .qa-card:hover { background: var(--surface-hover); }
+    .qa-icon {
+      width: 2.25rem; height: 2.25rem; border-radius: var(--radius-full);
+      background: var(--surface); display: inline-grid; place-items: center; color: var(--accent);
+    }
+    .qa-icon svg { width: 18px; height: 18px; }
+    .qa-label { font: 500 0.8125rem/1.125rem var(--font); text-align: center; }
 
     /* Bottom Nav */
     .bottom-nav {
       position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
-      width: min(100%, 430px); z-index: 20;
-      height: calc(var(--nav-h) + env(safe-area-inset-bottom, 0px)); padding-bottom: env(safe-area-inset-bottom, 0px);
-      display: grid; grid-template-columns: repeat(5, 1fr); align-items: center;
+      width: 100%; max-width: 430px; height: var(--nav-h);
       background: var(--surface); border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-around;
+      z-index: 50; padding: 0 var(--sp-8) env(safe-area-inset-bottom, 0px);
     }
     .nav-item {
-      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--sp-4);
-      min-height: 44px; height: var(--nav-h); color: var(--text-secondary); text-decoration: none;
-      font: 500 .75rem/1rem var(--font); letter-spacing: .0125rem;
+      flex: 1; height: 100%; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: var(--sp-4);
+      color: var(--text-secondary); text-decoration: none; font: 500 0.6875rem/0.875rem var(--font);
+      min-width: 44px; min-height: 44px;
     }
-    .nav-item svg { width: 24px; height: 24px; }
-    .nav-item[aria-current="page"] { color: var(--accent-text); }
+    .nav-item svg { width: 20px; height: 20px; }
+    .nav-item[aria-current="page"] { color: var(--accent); font-weight: 600; }
     .nav-add {
-      justify-self: center; display: grid; place-items: center;
-      width: 3rem; height: 3rem; min-width: 44px; min-height: 44px; border-radius: var(--radius-full);
-      background: var(--accent); color: var(--on-accent); border: 0; box-shadow: var(--shadow-md); cursor: pointer; text-decoration: none;
+      width: 2.75rem; height: 2.75rem; min-width: 44px; min-height: 44px;
+      border-radius: var(--radius-full); background: var(--accent); color: var(--on-accent);
+      display: inline-grid; place-items: center; text-decoration: none; box-shadow: var(--shadow-md);
+      margin: 0 var(--sp-4);
     }
-    .nav-add:hover { background: var(--accent-hover); }
-    .nav-add:active { background: var(--accent-active); }
-    .nav-add svg { width: 24px; height: 24px; }
+    .nav-add svg { width: 22px; height: 22px; }
   </style>
 </head>
 <body>
   <div class="app">
-    <main class="screen screen--nav">
-      <header class="app-header">
-        <h1 class="t-h1">Plan</h1>
-        <div style="width: 2.75rem;"></div>
-      </header>
-
-      <!-- Unified Plan Segmented Navigation -->
-      <div class="segmented" role="navigation" aria-label="Academic views">
-        <a href="today.html">Today's Focus</a>
-        <a href="plan.html">All Tasks</a>
-        <a href="assignments.html">Assignments</a>
-        <a href="exams.html" class="is-active" aria-current="page">Exams</a>
-      </div>
-
-      <div class="stack-12" role="region" aria-label="Upcoming Exams">
-        <article class="card">
-          <div class="card__head">
-            <h3 class="t-h3">Computer Networks Midterm</h3>
-            <span class="badge badge--progress num">In 4 days</span>
-          </div>
-          <p class="t-small t-muted num">Sun, 25 Oct 2026 · 10:00 AM – 12:00 PM</p>
-          <p class="t-small t-muted">Venue: Hall B-204 · Closed book</p>
-        </article>
-
-        <article class="card">
-          <div class="card__head">
-            <h3 class="t-h3">Database Systems Endsem</h3>
-            <span class="badge badge--progress num">In 12 days</span>
-          </div>
-          <p class="t-small t-muted num">Mon, 02 Nov 2026 · 2:00 PM – 5:00 PM</p>
-          <p class="t-small t-muted">Venue: Auditorium 1 · 1 cheat sheet allowed</p>
-        </article>
-
-        <article class="card">
-          <div class="card__head">
-            <h3 class="t-h3">Linear Algebra Quiz 2</h3>
-            <span class="badge badge--progress num">In 18 days</span>
-          </div>
-          <p class="t-small t-muted num">Sun, 08 Nov 2026 · 9:30 AM – 11:30 AM</p>
-          <p class="t-small t-muted">Venue: Hall A-102 · Calculator permitted</p>
-        </article>
-      </div>
-
-      <a href="#add-exam" class="btn btn--primary btn--block">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width: 20px; height: 20px;">
+    <!-- Header -->
+    <header class="app-header">
+      <h1 class="t-h1">Study</h1>
+      <a href="#add-exam" class="icon-btn" aria-label="Add exam">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <line x1="12" y1="5" x2="12" y2="19"/>
           <line x1="5" y1="12" x2="19" y2="12"/>
         </svg>
-        <span>Add Exam</span>
+      </a>
+    </header>
+
+    <main class="screen screen--nav">
+      <!-- 4-facet Study Tab Group Segmented Navigation -->
+      <nav class="segmented" aria-label="Study sections">
+        <a href="today.html">Today's Focus</a>
+        <a href="assignments.html">Assignments</a>
+        <a href="exams.html" class="is-active" aria-current="page">Exams</a>
+        <a href="timetable.html">Timetable</a>
+      </nav>
+
+      <!-- Exam Week Buffer Note Banner -->
+      <section class="card" style="background: var(--accent-soft); border-color: var(--accent-ring);">
+        <div style="display: flex; gap: var(--sp-12); align-items: center;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 22px; height: 22px; color: var(--accent); flex: none;" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          <div style="flex: 1;">
+            <p style="font-weight: 600; color: var(--accent-text);">Exam week in 4 days</p>
+            <p class="t-caption t-muted">₹ 300 emergency snack buffer reserved in Money.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Upcoming Exams List -->
+      <div style="display: flex; flex-direction: column; gap: var(--sp-12);" role="region" aria-label="Upcoming Exams">
+        <!-- Exam 1 -->
+        <article class="card">
+          <div class="card__head">
+            <div>
+              <h2 class="t-h3">Computer Networks Midterm</h2>
+              <span class="t-caption t-muted">CS 302</span>
+            </div>
+            <span class="badge badge--urgent num">In 4 days</span>
+          </div>
+          <p class="t-small t-muted num">Sun, 25 Oct 2026 · 10:00 AM – 12:00 PM</p>
+          <p class="t-small t-muted">Venue: Hall B-204 · Closed book exam</p>
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--sp-4);">
+              <span class="t-caption t-muted">Syllabus revision</span>
+              <span class="t-caption num" style="font-weight: 600;">75%</span>
+            </div>
+            <div class="progress">
+              <div class="progress__bar" style="--val: 75%;"></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Exam 2 -->
+        <article class="card">
+          <div class="card__head">
+            <div>
+              <h2 class="t-h3">Database Systems Endsem</h2>
+              <span class="t-caption t-muted">CS 301</span>
+            </div>
+            <span class="badge badge--upcoming num">In 12 days</span>
+          </div>
+          <p class="t-small t-muted num">Mon, 02 Nov 2026 · 2:00 PM – 5:00 PM</p>
+          <p class="t-small t-muted">Venue: Auditorium 1 · 1 cheat sheet permitted</p>
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--sp-4);">
+              <span class="t-caption t-muted">Syllabus revision</span>
+              <span class="t-caption num" style="font-weight: 600;">40%</span>
+            </div>
+            <div class="progress">
+              <div class="progress__bar" style="--val: 40%;"></div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Exam 3 -->
+        <article class="card">
+          <div class="card__head">
+            <div>
+              <h2 class="t-h3">Linear Algebra Quiz 2</h2>
+              <span class="t-caption t-muted">MA 201</span>
+            </div>
+            <span class="badge badge--normal num">In 18 days</span>
+          </div>
+          <p class="t-small t-muted num">Sun, 08 Nov 2026 · 9:30 AM – 11:30 AM</p>
+          <p class="t-small t-muted">Venue: Hall A-102 · Scientific calculator allowed</p>
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--sp-4);">
+              <span class="t-caption t-muted">Syllabus revision</span>
+              <span class="t-caption num" style="font-weight: 600;">20%</span>
+            </div>
+            <div class="progress">
+              <div class="progress__bar" style="--val: 20%;"></div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- Single Primary Action -->
+      <a href="#add-exam" class="btn btn--primary btn--block">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width: 18px; height: 18px;">
+          <line x1="12" y1="5" x2="12" y2="19"/>
+          <line x1="5" y1="12" x2="19" y2="12"/>
+        </svg>
+        <span>+ Add Exam Countdown</span>
       </a>
     </main>
 
     <!-- Add Exam Bottom Sheet Modal -->
     <div id="add-exam" class="sheet-overlay">
-      <a href="#" class="scrim-close" aria-label="Close modal"></a>
+      <a href="#" class="scrim-close" aria-label="Close Add Exam modal"></a>
       <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="modal-exam-title">
         <div class="sheet__handle" aria-hidden="true"></div>
         <h2 class="t-h2" id="modal-exam-title">Add Exam</h2>
@@ -366,20 +451,17 @@
 
           <div class="field">
             <label class="field__label" for="exam-reminder">Reminder</label>
-            <div class="select-wrap">
-              <select class="select" id="exam-reminder" name="reminder">
-                <option value="7d">7 days &amp; 1 day before</option>
-                <option value="1d">1 day before</option>
-                <option value="none">No reminder</option>
-              </select>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <polyline points="6 9 12 15 18 9"/>
-              </svg>
-            </div>
+            <select class="select" id="exam-reminder" name="reminder">
+              <option value="7d">7 days &amp; 1 day before</option>
+              <option value="1d">1 day before</option>
+              <option value="none">No reminder</option>
+            </select>
           </div>
 
-          <a href="exams.html" class="btn btn--primary btn--block">Save Exam</a>
-          <a href="#" class="btn btn--ghost btn--block">Cancel</a>
+          <div style="display: flex; flex-direction: column; gap: var(--sp-8); margin-top: var(--sp-8);">
+            <button type="submit" class="btn btn--primary btn--block">Save Exam</button>
+            <a href="#" class="btn btn--secondary btn--block">Cancel</a>
+          </div>
         </form>
       </div>
     </div>
@@ -402,14 +484,14 @@
         <span>Money</span>
       </a>
 
-      <a href="quick-add.html" class="nav-add" aria-label="Quick Add">
+      <a href="#quick-add" class="nav-add" aria-label="Quick Add">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <line x1="12" y1="5" x2="12" y2="19"/>
           <line x1="5" y1="12" x2="19" y2="12"/>
         </svg>
       </a>
 
-      <a href="plan.html" class="nav-item" aria-current="page">
+      <a href="today.html" class="nav-item" aria-current="page">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="m3 17 2 2 4-4"/>
           <path d="m3 7 2 2 4-4"/>
@@ -417,7 +499,7 @@
           <path d="M13 12h8"/>
           <path d="M13 18h8"/>
         </svg>
-        <span>Plan</span>
+        <span>Study</span>
       </a>
 
       <a href="settings.html" class="nav-item">
@@ -426,9 +508,45 @@
           <circle cx="19" cy="12" r="1"/>
           <circle cx="5" cy="12" r="1"/>
         </svg>
-        <span>More</span>
+        <span>Settings</span>
       </a>
     </nav>
+
+    <!-- Contextual Quick Add Sheet -->
+    <div id="quick-add" class="sheet-overlay">
+      <a href="#" class="scrim-close" aria-label="Close Quick Add"></a>
+      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="qa-title">
+        <div class="sheet__handle" aria-hidden="true"></div>
+        <h2 class="t-h2" id="qa-title">Quick Add</h2>
+        <div class="grid-2">
+          <a href="add-expense.html" class="qa-card">
+            <span class="qa-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg>
+            </span>
+            <span class="qa-label">Log Expense</span>
+          </a>
+          <a href="quick-capture.html" class="qa-card">
+            <span class="qa-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            </span>
+            <span class="qa-label">Add Task</span>
+          </a>
+          <a href="split.html#add-split" class="qa-card">
+            <span class="qa-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </span>
+            <span class="qa-label">Split Bill</span>
+          </a>
+          <a href="assignments.html#add-assignment" class="qa-card">
+            <span class="qa-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            </span>
+            <span class="qa-label">Add Assignment</span>
+          </a>
+        </div>
+        <a href="#" class="btn btn--secondary btn--block">Cancel</a>
+      </div>
+    </div>
   </div>
 </body>
 </html>

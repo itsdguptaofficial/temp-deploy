@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Timetable · Super App</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Surfaces */
+      --bg: #FAFAFA;
+      --surface: #FFFFFF;
+      --surface-sunken: #F2F2F2;
+      --surface-hover: #F5F5F5;
+      --surface-active: #EDEDED;
+
+      /* Borders */
+      --border: #EAEAEA;
+      --border-strong: #D4D4D4;
+      --border-control: #A3A3A3;
+
+      /* Text */
+      --text-primary: #111111;
+      --text-secondary: #5C5C5C;
+      --text-placeholder: #737373;
+
+      /* Accent */
+      --accent: #2563EB;
+      --accent-hover: #1D4ED8;
+      --accent-active: #1E40AF;
+      --accent-soft: #EFF4FF;
+      --accent-text: #1D4ED8;
+      --accent-ring: rgba(37, 99, 235, 0.20);
+      --on-accent: #FFFFFF;
+
+      /* Status */
+      --success: #15803D;
+      --success-soft: #F0FDF4;
+      --error: #B91C1C;
+      --error-soft: #FEF2F2;
+      --error-ring: rgba(185, 28, 28, 0.18);
+
+      /* Disabled */
+      --disabled-bg: #F2F2F2;
+      --disabled-text: #8A8A8A;
+
+      /* Effects */
+      --scrim: rgba(0, 0, 0, 0.40);
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+      --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06);
+      --shadow-sheet: 0 -8px 24px rgba(0, 0, 0, 0.08);
+
+      /* Radius */
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-full: 999px;
+
+      /* Spacing */
+      --sp-4: 0.25rem;
+      --sp-8: 0.5rem;
+      --sp-12: 0.75rem;
+      --sp-16: 1rem;
+      --sp-24: 1.5rem;
+      --sp-32: 2rem;
+      --sp-48: 3rem;
+      --nav-h: 4rem;
+
+      --font: "Inter", "Roboto", system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #0A0A0A;
+        --surface: #141414;
+        --surface-sunken: #1F1F1F;
+        --surface-hover: #1A1A1A;
+        --surface-active: #262626;
+        --border: #262626;
+        --border-strong: #3A3A3A;
+        --border-control: #6B6B6B;
+        --text-primary: #EDEDED;
+        --text-secondary: #A3A3A3;
+        --text-placeholder: #8A8A8A;
+        --accent: #60A5FA;
+        --accent-hover: #93C5FD;
+        --accent-active: #BFDBFE;
+        --accent-soft: #16233F;
+        --accent-text: #93C5FD;
+        --accent-ring: rgba(96, 165, 250, 0.30);
+        --on-accent: #0A0A0A;
+        --success: #4ADE80;
+        --success-soft: #0F2A1A;
+        --error: #F87171;
+        --error-soft: #331416;
+        --error-ring: rgba(248, 113, 113, 0.25);
+        --disabled-bg: #1F1F1F;
+        --disabled-text: #6B6B6B;
+        --scrim: rgba(0, 0, 0, 0.60);
+        --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.40);
+        --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.40);
+        --shadow-sheet: 0 -8px 24px rgba(0, 0, 0, 0.50);
+      }
+    }
+
+    :root[data-theme="dark"] {
+      --bg: #0A0A0A;
+      --surface: #141414;
+      --surface-sunken: #1F1F1F;
+      --surface-hover: #1A1A1A;
+      --surface-active: #262626;
+      --border: #262626;
+      --border-strong: #3A3A3A;
+      --border-control: #6B6B6B;
+      --text-primary: #EDEDED;
+      --text-secondary: #A3A3A3;
+      --text-placeholder: #8A8A8A;
+      --accent: #60A5FA;
+      --accent-hover: #93C5FD;
+      --accent-active: #BFDBFE;
+      --accent-soft: #16233F;
+      --accent-text: #93C5FD;
+      --accent-ring: rgba(96, 165, 250, 0.30);
+      --on-accent: #0A0A0A;
+      --success: #4ADE80;
+      --success-soft: #0F2A1A;
+      --error: #F87171;
+      --error-soft: #331416;
+      --error-ring: rgba(248, 113, 113, 0.25);
+      --disabled-bg: #1F1F1F;
+      --disabled-text: #6B6B6B;
+      --scrim: rgba(0, 0, 0, 0.60);
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.40);
+      --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.40);
+      --shadow-sheet: 0 -8px 24px rgba(0, 0, 0, 0.50);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { font-size: 100%; -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text-primary);
+      font: 400 1rem/1.5rem var(--font);
+      -webkit-font-smoothing: antialiased;
+    }
+    .num { font-variant-numeric: tabular-nums; }
+    button, input, select, textarea { font: inherit; color: inherit; }
+
+    .app {
+      max-width: 430px;
+      margin: 0 auto;
+      min-height: 100dvh;
+      background: var(--bg);
+      position: relative;
+    }
+    @media (min-width: 480px) {
+      body { background: var(--surface-sunken); }
+      .app { border-left: 1px solid var(--border); border-right: 1px solid var(--border); }
+    }
+
+    .screen {
+      padding: 0 var(--sp-16) var(--sp-24);
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-24);
+    }
+    .screen--nav {
+      padding-bottom: calc(var(--nav-h) + var(--sp-24) + env(safe-area-inset-bottom, 0px));
+    }
+
+    .app-header {
+      position: sticky; top: 0; z-index: 10; background: var(--bg);
+      display: flex; align-items: center; justify-content: space-between; gap: var(--sp-12);
+      min-height: 3.5rem; padding: var(--sp-8) var(--sp-16); margin: 0 calc(var(--sp-16) * -1);
+    }
+
+    .icon-btn {
+      display: inline-grid; place-items: center; width: 2.75rem; height: 2.75rem; min-width: 44px; min-height: 44px;
+      background: transparent; color: var(--text-primary); border: 0; border-radius: var(--radius-full); cursor: pointer; text-decoration: none;
+    }
+    .icon-btn:hover { background: var(--surface-hover); }
+    .icon-btn:active { background: var(--surface-active); }
+    .icon-btn svg { width: 20px; height: 20px; }
+
+    h1, .t-h1 { font: 600 1.75rem/2.125rem var(--font); letter-spacing: -0.0375rem; margin: 0; }
+    h2, .t-h2 { font: 600 1.125rem/1.5rem var(--font); letter-spacing: -0.025rem; margin: 0; }
+    h3, .t-h3 { font: 600 0.9375rem/1.375rem var(--font); margin: 0; }
+    p { margin: 0; }
+    .t-small { font: 400 0.875rem/1.25rem var(--font); }
+    .t-caption { font: 500 0.75rem/1rem var(--font); letter-spacing: 0.0125rem; }
+    .t-muted { color: var(--text-secondary); }
+
+    .segmented { display: flex; gap: var(--sp-4); padding: var(--sp-4); background: var(--surface-sunken); border-radius: var(--radius-md); }
+    .segmented > a {
+      flex: 1; min-height: 2.75rem; height: 2.75rem; border: 0; border-radius: var(--radius-sm); cursor: pointer;
+      background: transparent; color: var(--text-secondary); font: 500 .8125rem/1.25rem var(--font);
+      display: inline-flex; align-items: center; justify-content: center; text-decoration: none; text-align: center;
+    }
+    .segmented > a.is-active { background: var(--surface); color: var(--text-primary); box-shadow: var(--shadow-sm); }
+
+    .day-selector {
+      display: flex; gap: var(--sp-8); overflow-x: auto; padding: var(--sp-4) 0;
+      scrollbar-width: none; -ms-overflow-style: none;
+    }
+    .day-selector::-webkit-scrollbar { display: none; }
+    .day-chip {
+      flex: 1; min-width: 3.5rem; min-height: 3rem; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; border-radius: var(--radius-sm);
+      background: var(--surface); border: 1px solid var(--border); color: var(--text-secondary);
+      text-decoration: none; font: 500 0.75rem/1rem var(--font);
+    }
+    .day-chip--active {
+      background: var(--accent-soft); border-color: var(--accent); color: var(--accent-text); font-weight: 600;
+    }
+
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: var(--sp-16);
+      box-shadow: var(--shadow-sm);
+      display: flex; flex-direction: column; gap: var(--sp-12);
+    }
+
+    .class-card {
+      display: flex; gap: var(--sp-16); padding: var(--sp-16);
+      border: 1px solid var(--border); border-radius: var(--radius-md);
+      background: var(--surface); box-shadow: var(--shadow-sm);
+    }
+    .class-card__time {
+      display: flex; flex-direction: column; justify-content: center;
+      min-width: 4.5rem; border-right: 2px solid var(--accent); padding-right: var(--sp-12);
+    }
+    .class-card__body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--sp-4); }
+
+    .badge {
+      display: inline-flex; align-items: center; height: 1.5rem; padding: 0 var(--sp-8);
+      border-radius: var(--radius-full); font: 500 .75rem/1rem var(--font); letter-spacing: .0125rem;
+      background: var(--surface-sunken); color: var(--text-secondary); width: fit-content;
+    }
+    .badge--lab { background: var(--accent-soft); color: var(--accent-text); }
+    .badge--lecture { background: var(--surface-sunken); color: var(--text-primary); }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: var(--sp-8);
+      min-height: 2.75rem; height: 2.75rem; padding: 0 var(--sp-16);
+      font: 500 0.9375rem/1.25rem var(--font);
+      border: 1px solid transparent; border-radius: var(--radius-sm);
+      cursor: pointer; text-decoration: none; white-space: nowrap;
+    }
+    .btn--block { width: 100%; }
+    .btn--primary { background: var(--accent); color: var(--on-accent); }
+    .btn--primary:hover { background: var(--accent-hover); }
+    .btn--primary:active { background: var(--accent-active); }
+    .btn--secondary { background: var(--surface); color: var(--text-primary); border-color: var(--border-control); }
+    .btn--secondary:hover { background: var(--surface-hover); }
+    .btn--secondary:active { background: var(--surface-active); }
+
+    /* Overlay Sheet */
+    .sheet-overlay {
+      position: fixed; inset: 0; z-index: 100;
+      background: var(--scrim);
+      display: none; align-items: flex-end; justify-content: center;
+    }
+    .sheet-overlay:target { display: flex; }
+    .scrim-close { position: absolute; inset: 0; cursor: default; }
+    .sheet {
+      position: relative; z-index: 101; width: 100%; max-width: 430px;
+      max-height: 90vh; overflow-y: auto; background: var(--surface);
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      padding: var(--sp-24) var(--sp-16) calc(var(--sp-24) + env(safe-area-inset-bottom, 0px));
+      box-shadow: var(--shadow-sheet); display: flex; flex-direction: column; gap: var(--sp-16);
+    }
+    .sheet__handle {
+      width: 2.5rem; height: 4px; background: var(--border-strong);
+      border-radius: var(--radius-full); margin: 0 auto var(--sp-8);
+    }
+
+    .field { display: flex; flex-direction: column; gap: var(--sp-4); }
+    .field__label { font: 500 .875rem/1.25rem var(--font); color: var(--text-primary); }
+    .input, .select {
+      width: 100%; min-height: 2.75rem; padding: var(--sp-8) var(--sp-12);
+      font: 400 1rem/1.5rem var(--font); color: var(--text-primary);
+      background: var(--surface); border: 1px solid var(--border-control);
+      border-radius: var(--radius-sm);
+    }
+    .input:focus, .select:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-12); }
+    .qa-card {
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--sp-8);
+      padding: var(--sp-16); border-radius: var(--radius-md); background: var(--surface-sunken);
+      border: 1px solid var(--border); text-decoration: none; color: var(--text-primary); min-height: 5.5rem;
+    }
+    .qa-card:hover { background: var(--surface-hover); }
+    .qa-icon {
+      width: 2.25rem; height: 2.25rem; border-radius: var(--radius-full);
+      background: var(--surface); display: inline-grid; place-items: center; color: var(--accent);
+    }
+    .qa-icon svg { width: 18px; height: 18px; }
+    .qa-label { font: 500 0.8125rem/1.125rem var(--font); text-align: center; }
+
+    /* Bottom Nav */
+    .bottom-nav {
+      position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 100%; max-width: 430px; height: var(--nav-h);
+      background: var(--surface); border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-around;
+      z-index: 50; padding: 0 var(--sp-8) env(safe-area-inset-bottom, 0px);
+    }
+    .nav-item {
+      flex: 1; height: 100%; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: var(--sp-4);
+      color: var(--text-secondary); text-decoration: none; font: 500 0.6875rem/0.875rem var(--font);
+      min-width: 44px; min-height: 44px;
+    }
+    .nav-item svg { width: 20px; height: 20px; }
+    .nav-item[aria-current="page"] { color: var(--accent); font-weight: 600; }
+    .nav-add {
+      width: 2.75rem; height: 2.75rem; min-width: 44px; min-height: 44px;
+      border-radius: var(--radius-full); background: var(--accent); color: var(--on-accent);
+      display: inline-grid; place-items: center; text-decoration: none; box-shadow: var(--shadow-md);
+      margin: 0 var(--sp-4);
+    }
+    .nav-add svg { width: 22px; height: 22px; }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <!-- Header -->
+    <header class="app-header">
+      <h1 class="t-h1">Study</h1>
+      <a href="#add-class" class="icon-btn" aria-label="Add class slot">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="12" y1="5" x2="12" y2="19"/>
+          <line x1="5" y1="12" x2="19" y2="12"/>
+        </svg>
+      </a>
+    </header>
+
+    <main class="screen screen--nav">
+      <!-- 4-facet Study Tab Group Segmented Navigation -->
+      <nav class="segmented" aria-label="Study sections">
+        <a href="today.html">Today's Focus</a>
+        <a href="assignments.html">Assignments</a>
+        <a href="exams.html">Exams</a>
+        <a href="timetable.html" class="is-active" aria-current="page">Timetable</a>
+      </nav>
+
+      <!-- Day Selector Bar -->
+      <div class="day-selector" role="tablist" aria-label="Select day of week">
+        <button type="button" class="day-chip" role="tab" aria-selected="false">
+          <span>MON</span>
+          <span class="num">19</span>
+        </button>
+        <button type="button" class="day-chip" role="tab" aria-selected="false">
+          <span>TUE</span>
+          <span class="num">20</span>
+        </button>
+        <button type="button" class="day-chip day-chip--active" role="tab" aria-selected="true">
+          <span>WED</span>
+          <span class="num">21</span>
+        </button>
+        <button type="button" class="day-chip" role="tab" aria-selected="false">
+          <span>THU</span>
+          <span class="num">22</span>
+        </button>
+        <button type="button" class="day-chip" role="tab" aria-selected="false">
+          <span>FRI</span>
+          <span class="num">23</span>
+        </button>
+      </div>
+
+      <!-- Today's Schedule Overview -->
+      <div style="display: flex; justify-content: space-between; align-items: baseline;">
+        <h2 class="t-h2">Wednesday Schedule</h2>
+        <span class="t-caption t-muted">3 sessions (5 hrs)</span>
+      </div>
+
+      <!-- Schedule List -->
+      <div style="display: flex; flex-direction: column; gap: var(--sp-12);">
+        <!-- Slot 1 -->
+        <article class="class-card">
+          <div class="class-card__time">
+            <span class="num" style="font-weight: 600; font-size: 0.9375rem;">09:00</span>
+            <span class="t-caption t-muted num">10:30 AM</span>
+          </div>
+          <div class="class-card__body">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+              <h3 class="t-h3">Computer Networks</h3>
+              <span class="badge badge--lecture">Lecture</span>
+            </div>
+            <p class="t-small t-muted">Prof. V. Sharma · CS 302</p>
+            <p class="t-caption" style="color: var(--accent-text);">Room: Lecture Hall 3</p>
+          </div>
+        </article>
+
+        <!-- Slot 2 -->
+        <article class="class-card">
+          <div class="class-card__time">
+            <span class="num" style="font-weight: 600; font-size: 0.9375rem;">11:00</span>
+            <span class="t-caption t-muted num">12:30 PM</span>
+          </div>
+          <div class="class-card__body">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+              <h3 class="t-h3">Linear Algebra</h3>
+              <span class="badge badge--lecture">Lecture</span>
+            </div>
+            <p class="t-small t-muted">Dr. K. Rao · MA 201</p>
+            <p class="t-caption" style="color: var(--accent-text);">Room: Hall A-102</p>
+          </div>
+        </article>
+
+        <!-- Slot 3 -->
+        <article class="class-card">
+          <div class="class-card__time">
+            <span class="num" style="font-weight: 600; font-size: 0.9375rem;">02:00</span>
+            <span class="t-caption t-muted num">04:00 PM</span>
+          </div>
+          <div class="class-card__body">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+              <h3 class="t-h3">Database Systems Lab</h3>
+              <span class="badge badge--lab">Practical Lab</span>
+            </div>
+            <p class="t-small t-muted">SQL &amp; Schema Practice · CS 301</p>
+            <p class="t-caption" style="color: var(--accent-text);">Venue: Systems Lab 2 (Workstation 14)</p>
+          </div>
+        </article>
+      </div>
+
+      <!-- Single Primary Action -->
+      <a href="#add-class" class="btn btn--primary btn--block">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width: 18px; height: 18px;">
+          <line x1="12" y1="5" x2="12" y2="19"/>
+          <line x1="5" y1="12" x2="19" y2="12"/>
+        </svg>
+        <span>+ Add Class / Lab Slot</span>
+      </a>
+    </main>
+
+    <!-- Add Class Modal Sheet -->
+    <div id="add-class" class="sheet-overlay">
+      <a href="#" class="scrim-close" aria-label="Close Add Class modal"></a>
+      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="add-class-title">
+        <div class="sheet__handle" aria-hidden="true"></div>
+        <h2 class="t-h2" id="add-class-title">Add Class Slot</h2>
+
+        <form action="timetable.html" method="get" style="display: flex; flex-direction: column; gap: var(--sp-16);">
+          <div class="field">
+            <label class="field__label" for="class-subject">Course / Subject Name</label>
+            <input class="input" type="text" id="class-subject" name="subject" placeholder="e.g. Operating Systems" required>
+          </div>
+
+          <div class="grid-2">
+            <div class="field">
+              <label class="field__label" for="class-day">Day of Week</label>
+              <select class="select" id="class-day" name="day">
+                <option value="wed" selected>Wednesday</option>
+                <option value="mon">Monday</option>
+                <option value="tue">Tuesday</option>
+                <option value="thu">Thursday</option>
+                <option value="fri">Friday</option>
+              </select>
+            </div>
+            <div class="field">
+              <label class="field__label" for="class-type">Type</label>
+              <select class="select" id="class-type" name="type">
+                <option value="lecture">Lecture</option>
+                <option value="lab">Lab</option>
+                <option value="tutorial">Tutorial</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="field">
+              <label class="field__label" for="class-start">Start Time</label>
+              <input class="input" type="time" id="class-start" name="start_time" value="09:00" required>
+            </div>
+            <div class="field">
+              <label class="field__label" for="class-end">End Time</label>
+              <input class="input" type="time" id="class-end" name="end_time" value="10:30" required>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="class-venue">Classroom / Hall Venue</label>
+            <input class="input" type="text" id="class-venue" name="venue" placeholder="e.g. Lecture Hall 4" required>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: var(--sp-8); margin-top: var(--sp-8);">
+            <button type="submit" class="btn btn--primary btn--block">Save to Timetable</button>
+            <a href="#" class="btn btn--secondary btn--block">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Bottom Nav -->
+    <nav class="bottom-nav" aria-label="Main navigation">
+      <a href="home.html" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+          <polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+        <span>Home</span>
+      </a>
+
+      <a href="money.html" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/>
+          <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/>
+        </svg>
+        <span>Money</span>
+      </a>
+
+      <a href="#quick-add" class="nav-add" aria-label="Quick Add">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="12" y1="5" x2="12" y2="19"/>
+          <line x1="5" y1="12" x2="19" y2="12"/>
+        </svg>
+      </a>
+
+      <a href="today.html" class="nav-item" aria-current="page">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="m3 17 2 2 4-4"/>
+          <path d="m3 7 2 2 4-4"/>
+          <path d="M13 6h8"/>
+          <path d="M13 12h8"/>
+          <path d="M13 18h8"/>
+        </svg>
+        <span>Study</span>
+      </a>
+
+      <a href="settings.html" class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="1"/>
+          <circle cx="19" cy="12" r="1"/>
+          <circle cx="5" cy="12" r="1"/>
+        </svg>
+        <span>Settings</span>
+      </a>
+    </nav>
+
+    <!-- Contextual Quick Add Sheet -->
+    <div id="quick-add" class="sheet-overlay">
+      <a href="#" class="scrim-close" aria-label="Close Quick Add"></a>
+      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="qa-title">
+        <div class="sheet__handle" aria-hidden="true"></div>
+        <h2 class="t-h2" id="qa-title">Quick Add</h2>
+        <div class="grid-2">
+          <a href="add-expense.html" class="qa-card">
+            <span class="qa-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg>
+            </span>
+            <span class="qa-label">Log Expense</span>
+          </a>
+          <a href="quick-capture.html" class="qa-card">
+            <span class="qa-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            </span>
+            <span class="qa-label">Add Task</span>
+          </a>
+          <a href="split.html#add-split" class="qa-card">
+            <span class="qa-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </span>
+            <span class="qa-label">Split Bill</span>
+          </a>
+          <a href="assignments.html#add-assignment" class="qa-card">
+            <span class="qa-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            </span>
+            <span class="qa-label">Add Assignment</span>
+          </a>
+        </div>
+        <a href="#" class="btn btn--secondary btn--block">Cancel</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

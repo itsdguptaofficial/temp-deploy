@@ -26,7 +26,7 @@
       --text-secondary: #5C5C5C;
       --text-placeholder: #737373;
 
-      /* Accent (the only brand color) */
+      /* Accent */
       --accent: #2563EB;
       --accent-hover: #1D4ED8;
       --accent-active: #1E40AF;
@@ -176,8 +176,17 @@
       min-height: 3.5rem; padding: var(--sp-8) var(--sp-16); margin: 0 calc(var(--sp-16) * -1);
     }
 
+    .icon-btn {
+      display: inline-grid; place-items: center; width: 2.75rem; height: 2.75rem; min-width: 44px; min-height: 44px;
+      background: transparent; color: var(--text-primary); border: 0; border-radius: var(--radius-full); cursor: pointer; text-decoration: none;
+    }
+    .icon-btn:hover { background: var(--surface-hover); }
+    .icon-btn:active { background: var(--surface-active); }
+    .icon-btn svg { width: 20px; height: 20px; }
+
     h1, .t-h1 { font: 600 1.75rem/2.125rem var(--font); letter-spacing: -0.0375rem; margin: 0; }
-    h2, .t-h2 { font: 600 1.375rem/1.75rem var(--font); letter-spacing: -0.025rem; margin: 0; }
+    h2, .t-h2 { font: 600 1.125rem/1.5rem var(--font); letter-spacing: -0.025rem; margin: 0; }
+    h3, .t-h3 { font: 600 0.9375rem/1.375rem var(--font); margin: 0; }
     p { margin: 0; }
     .t-small { font: 400 0.875rem/1.25rem var(--font); }
     .t-caption { font: 500 0.75rem/1rem var(--font); letter-spacing: 0.0125rem; }
@@ -191,21 +200,46 @@
     }
     .segmented > a.is-active { background: var(--surface); color: var(--text-primary); box-shadow: var(--shadow-sm); }
 
-    .group-label { font: 500 .75rem/1rem var(--font); letter-spacing: .0125rem; color: var(--text-secondary); margin: 0 0 var(--sp-8); }
+    .group-label { font: 600 .75rem/1rem var(--font); letter-spacing: .025rem; color: var(--text-secondary); margin: 0 0 var(--sp-8); }
     .list { list-style: none; margin: 0; padding: 0; background: var(--surface); border: 1px solid var(--border);
       border-radius: var(--radius-md); box-shadow: var(--shadow-sm); overflow: hidden; }
     .row { display: flex; align-items: center; gap: var(--sp-12); min-height: 4rem; padding: var(--sp-12) var(--sp-16);
       color: inherit; text-decoration: none; }
     .row + .row { border-top: 1px solid var(--border); }
     .row__body { flex: 1; min-width: 0; }
-    .row__title { font: 500 1rem/1.5rem var(--font); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .row__meta { font: 400 .875rem/1.25rem var(--font); color: var(--text-secondary); }
+    .row__title { font: 500 0.9375rem/1.375rem var(--font); }
+    .row__meta { font: 400 .8125rem/1.25rem var(--font); color: var(--text-secondary); }
 
+    /* Pure-CSS Checkbox & Strikethrough */
+    .check {
+      display: inline-grid; place-items: center; width: 2.75rem; height: 2.75rem; min-width: 44px; min-height: 44px;
+      flex: none; cursor: pointer;
+    }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    .check__box {
+      width: 1.375rem; height: 1.375rem; border: 2px solid var(--border-control); border-radius: 6px;
+      background: var(--surface); position: relative;
+    }
+    .check input:checked + .check__box { background: var(--accent); border-color: var(--accent); }
+    .check input:checked + .check__box::after {
+      content: ""; position: absolute; left: 5px; top: 1px; width: 5px; height: 10px;
+      border: solid var(--on-accent); border-width: 0 2px 2px 0; transform: rotate(45deg);
+    }
+    .row:has(.check input:checked) .row__title {
+      color: var(--text-secondary); text-decoration: line-through;
+    }
+    .row:has(.check input:checked) {
+      background: var(--surface-hover);
+    }
+
+    /* Overdue Card */
     .card--overdue {
       border: 2px solid var(--error) !important;
       border-radius: var(--radius-md);
-      margin-bottom: var(--sp-8);
       background: var(--surface);
+      padding: var(--sp-16);
+      box-shadow: var(--shadow-sm);
+      display: flex; flex-direction: column; gap: var(--sp-12);
     }
 
     .badge {
@@ -215,120 +249,164 @@
     }
     .badge--progress { background: var(--accent-soft); color: var(--accent-text); }
     .badge--done { background: var(--success-soft); color: var(--success); }
-    .badge--overdue { background: var(--error-soft); color: var(--error); }
-
-    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    .badge--overdue { background: var(--error-soft); color: var(--error); border: 1px solid var(--error-ring); }
 
     .btn {
       display: inline-flex; align-items: center; justify-content: center; gap: var(--sp-8);
-      min-height: 3rem; height: 3rem; padding: 0 var(--sp-24);
-      font: 500 1rem/1.5rem var(--font);
-      border: 1px solid transparent; border-radius: var(--radius-md);
+      min-height: 2.75rem; height: 2.75rem; padding: 0 var(--sp-16);
+      font: 500 0.9375rem/1.25rem var(--font);
+      border: 1px solid transparent; border-radius: var(--radius-sm);
       cursor: pointer; text-decoration: none; white-space: nowrap;
-      transition: background-color .15s ease, border-color .15s ease, transform .05s ease;
-      box-sizing: border-box;
     }
     .btn--block { width: 100%; }
-    .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-    .btn--primary { background: var(--accent); color: var(--on-accent); box-shadow: var(--shadow-sm); }
-    .btn--primary:hover { background: var(--accent-hover); }
-    .btn--primary:active { background: var(--accent-active); transform: translateY(1px); }
-    .btn--secondary { background: var(--surface); color: var(--text-primary); border-color: var(--border-strong); }
-    .btn--secondary:hover { background: var(--surface-hover); }
-    .btn--secondary:active { background: var(--surface-active); transform: translateY(1px); }
     .btn--sm { min-height: 2.75rem; height: 2.75rem; padding: 0 var(--sp-12); font-size: .8125rem; }
-    .btn--ghost { background: transparent; color: var(--text-secondary); }
-    .btn--ghost:hover { background: var(--surface-hover); color: var(--text-primary); }
+    .btn--primary { background: var(--accent); color: var(--on-accent); }
+    .btn--primary:hover { background: var(--accent-hover); }
+    .btn--primary:active { background: var(--accent-active); }
+    .btn--secondary { background: var(--surface); color: var(--text-primary); border-color: var(--border-control); }
+    .btn--secondary:hover { background: var(--surface-hover); }
+    .btn--secondary:active { background: var(--surface-active); }
 
-    /* Overlay Sheet */
-    .sheet-overlay { display: none; position: fixed; inset: 0; z-index: 30; }
-    .sheet-overlay:target { display: block; }
-    .scrim-close { position: fixed; inset: 0; background: var(--scrim); cursor: default; }
-    .sheet {
-      position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); z-index: 31;
-      width: min(100%, 430px); max-height: 90dvh; overflow-y: auto;
-      background: var(--surface); border: 1px solid var(--border); border-bottom: 0;
-      border-radius: var(--radius-lg) var(--radius-lg) 0 0; box-shadow: var(--shadow-sheet);
-      padding: var(--sp-8) var(--sp-16) calc(var(--sp-24) + env(safe-area-inset-bottom, 0px));
-      display: flex; flex-direction: column; gap: var(--sp-16);
+    /* Collapsed Details */
+    details.completed-section {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-md); overflow: hidden;
     }
-    .sheet__handle { width: 2.5rem; height: .25rem; border-radius: var(--radius-full); background: var(--border-strong); margin: 0 auto; }
+    details.completed-section summary {
+      padding: var(--sp-12) var(--sp-16); font: 500 0.875rem/1.25rem var(--font);
+      color: var(--text-secondary); cursor: pointer; user-select: none;
+      min-height: 2.75rem; display: flex; align-items: center; justify-content: space-between;
+    }
+    details.completed-section summary:hover { background: var(--surface-hover); }
 
-    .field { display: flex; flex-direction: column; gap: var(--sp-8); }
+    /* Overlay Sheets */
+    .sheet-overlay {
+      position: fixed; inset: 0; z-index: 100;
+      background: var(--scrim);
+      display: none; align-items: flex-end; justify-content: center;
+    }
+    .sheet-overlay:target { display: flex; }
+    .scrim-close { position: absolute; inset: 0; cursor: default; }
+    .sheet {
+      position: relative; z-index: 101; width: 100%; max-width: 430px;
+      max-height: 90vh; overflow-y: auto; background: var(--surface);
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      padding: var(--sp-24) var(--sp-16) calc(var(--sp-24) + env(safe-area-inset-bottom, 0px));
+      box-shadow: var(--shadow-sheet); display: flex; flex-direction: column; gap: var(--sp-16);
+    }
+    .sheet__handle {
+      width: 2.5rem; height: 4px; background: var(--border-strong);
+      border-radius: var(--radius-full); margin: 0 auto var(--sp-8);
+    }
+
+    .field { display: flex; flex-direction: column; gap: var(--sp-4); }
     .field__label { font: 500 .875rem/1.25rem var(--font); color: var(--text-primary); }
     .input, .select {
-      width: 100%; min-height: 3rem; height: 3rem; padding: 0 var(--sp-16);
+      width: 100%; min-height: 2.75rem; padding: var(--sp-8) var(--sp-12);
       font: 400 1rem/1.5rem var(--font); color: var(--text-primary);
-      background: var(--surface); border: 1px solid var(--border-strong);
-      border-radius: var(--radius-md); box-shadow: var(--shadow-sm);
-      appearance: none; -webkit-appearance: none;
+      background: var(--surface); border: 1px solid var(--border-control);
+      border-radius: var(--radius-sm);
     }
-    .input:focus, .select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-ring); }
-    .select-wrap { position: relative; }
-    .select { padding-right: 2.75rem; }
-    .select-wrap > svg { position: absolute; right: var(--sp-16); top: 50%; width: 20px; height: 20px;
-      transform: translateY(-50%); color: var(--text-secondary); pointer-events: none; }
+    .input:focus, .select:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+
+    .chips-select { display: flex; gap: var(--sp-8); overflow-x: auto; padding: var(--sp-4) 0; }
+    .chips-select label {
+      cursor: pointer; min-height: 2.75rem; display: inline-flex; align-items: center; padding: 0 var(--sp-12);
+      border: 1px solid var(--border); border-radius: var(--radius-full); background: var(--surface);
+      font: 500 0.8125rem/1.25rem var(--font); white-space: nowrap; user-select: none;
+    }
+    .chips-select input { position: absolute; opacity: 0; width: 0; height: 0; }
+    .chips-select input:checked + span { color: var(--accent); font-weight: 600; }
+    .chips-select label:has(input:checked) {
+      background: var(--accent-soft); border-color: var(--accent);
+    }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-12); }
+    .qa-card {
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--sp-8);
+      padding: var(--sp-16); border-radius: var(--radius-md); background: var(--surface-sunken);
+      border: 1px solid var(--border); text-decoration: none; color: var(--text-primary); min-height: 5.5rem;
+    }
+    .qa-card:hover { background: var(--surface-hover); }
+    .qa-icon {
+      width: 2.25rem; height: 2.25rem; border-radius: var(--radius-full);
+      background: var(--surface); display: inline-grid; place-items: center; color: var(--accent);
+    }
+    .qa-icon svg { width: 18px; height: 18px; }
+    .qa-label { font: 500 0.8125rem/1.125rem var(--font); text-align: center; }
 
     /* Bottom Nav */
     .bottom-nav {
       position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
-      width: min(100%, 430px); z-index: 20;
-      height: calc(var(--nav-h) + env(safe-area-inset-bottom, 0px)); padding-bottom: env(safe-area-inset-bottom, 0px);
-      display: grid; grid-template-columns: repeat(5, 1fr); align-items: center;
+      width: 100%; max-width: 430px; height: var(--nav-h);
       background: var(--surface); border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-around;
+      z-index: 50; padding: 0 var(--sp-8) env(safe-area-inset-bottom, 0px);
     }
     .nav-item {
-      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--sp-4);
-      min-height: 44px; height: var(--nav-h); color: var(--text-secondary); text-decoration: none;
-      font: 500 .75rem/1rem var(--font); letter-spacing: .0125rem;
+      flex: 1; height: 100%; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: var(--sp-4);
+      color: var(--text-secondary); text-decoration: none; font: 500 0.6875rem/0.875rem var(--font);
+      min-width: 44px; min-height: 44px;
     }
-    .nav-item svg { width: 24px; height: 24px; }
-    .nav-item[aria-current="page"] { color: var(--accent-text); }
+    .nav-item svg { width: 20px; height: 20px; }
+    .nav-item[aria-current="page"] { color: var(--accent); font-weight: 600; }
     .nav-add {
-      justify-self: center; display: grid; place-items: center;
-      width: 3rem; height: 3rem; min-width: 44px; min-height: 44px; border-radius: var(--radius-full);
-      background: var(--accent); color: var(--on-accent); border: 0; box-shadow: var(--shadow-md); cursor: pointer; text-decoration: none;
+      width: 2.75rem; height: 2.75rem; min-width: 44px; min-height: 44px;
+      border-radius: var(--radius-full); background: var(--accent); color: var(--on-accent);
+      display: inline-grid; place-items: center; text-decoration: none; box-shadow: var(--shadow-md);
+      margin: 0 var(--sp-4);
     }
-    .nav-add:hover { background: var(--accent-hover); }
-    .nav-add:active { background: var(--accent-active); }
-    .nav-add svg { width: 24px; height: 24px; }
+    .nav-add svg { width: 22px; height: 22px; }
   </style>
 </head>
 <body>
   <div class="app">
-    <main class="screen screen--nav">
-      <header class="app-header">
-        <h1 class="t-h1">Plan</h1>
-        <div style="width: 2.75rem;"></div>
-      </header>
+    <!-- Header -->
+    <header class="app-header">
+      <h1 class="t-h1">Study</h1>
+      <a href="#add-assignment" class="icon-btn" aria-label="Add assignment">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="12" y1="5" x2="12" y2="19"/>
+          <line x1="5" y1="12" x2="19" y2="12"/>
+        </svg>
+      </a>
+    </header>
 
-      <!-- Unified Plan Segmented Navigation -->
-      <div class="segmented" role="navigation" aria-label="Academic views">
+    <main class="screen screen--nav">
+      <!-- 4-facet Study Tab Group Segmented Navigation -->
+      <nav class="segmented" aria-label="Study sections">
         <a href="today.html">Today's Focus</a>
-        <a href="plan.html">All Tasks</a>
         <a href="assignments.html" class="is-active" aria-current="page">Assignments</a>
         <a href="exams.html">Exams</a>
-      </div>
+        <a href="timetable.html">Timetable</a>
+      </nav>
 
-      <!-- Course Group 1 -->
-      <div>
-        <p class="group-label">COMPUTER NETWORKS (CS 302)</p>
-        <div class="card card--overdue" style="padding: var(--sp-12) var(--sp-16);">
-          <div class="row" style="padding: 0; min-height: auto;">
-            <div class="row__body">
-              <div class="row__title" style="font-weight: 600;">Socket Programming Lab</div>
-              <div class="row__meta">Due Yesterday, 11:59 PM</div>
+      <!-- Course Group 1: CS 302 -->
+      <section aria-labelledby="group-cs302">
+        <h2 class="group-label" id="group-cs302">COMPUTER NETWORKS (CS 302)</h2>
+
+        <!-- Overdue Card with 2px error border -->
+        <article class="card--overdue">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: var(--sp-8);">
+            <div>
+              <h3 class="t-h3">Socket Programming Lab</h3>
+              <p class="row__meta" style="color: var(--error); font-weight: 500;">Due Yesterday, 11:59 PM</p>
             </div>
             <span class="badge badge--overdue">Overdue</span>
           </div>
-          <div style="display: flex; gap: var(--sp-8); margin-top: var(--sp-12);">
+          <div style="display: flex; gap: var(--sp-8);">
             <a href="today.html" class="btn btn--sm btn--primary" style="flex: 1;">+ Pin to Today</a>
-            <a href="#add-assignment" class="btn btn--sm btn--secondary" style="flex: 1;">Reschedule</a>
+            <a href="#reschedule" class="btn btn--sm btn--secondary" style="flex: 1;">Reschedule</a>
           </div>
-        </div>
+        </article>
 
-        <ul class="list" role="list">
+        <ul class="list" role="list" style="margin-top: var(--sp-8);">
           <li class="row">
+            <label class="check" for="assign-wire">
+              <input type="checkbox" id="assign-wire" class="sr-only" aria-label="Mark Wireshark Packet Analysis complete">
+              <span class="check__box" aria-hidden="true"></span>
+            </label>
             <div class="row__body">
               <div class="row__title">Wireshark Packet Analysis</div>
               <div class="row__meta">Due Oct 26, 5:00 PM</div>
@@ -336,42 +414,102 @@
             <span class="badge badge--progress">In progress</span>
           </li>
         </ul>
-      </div>
+      </section>
 
-      <!-- Course Group 2 -->
-      <div>
-        <p class="group-label">DATABASE SYSTEMS (CS 301)</p>
+      <!-- Course Group 2: CS 301 -->
+      <section aria-labelledby="group-cs301">
+        <h2 class="group-label" id="group-cs301">DATABASE SYSTEMS (CS 301)</h2>
         <ul class="list" role="list">
           <li class="row">
+            <label class="check" for="assign-er">
+              <input type="checkbox" id="assign-er" class="sr-only" aria-label="Mark ER Diagram &amp; Schema Design complete">
+              <span class="check__box" aria-hidden="true"></span>
+            </label>
             <div class="row__body">
               <div class="row__title">ER Diagram &amp; Schema Design</div>
               <div class="row__meta">Due Nov 02, 11:59 PM</div>
             </div>
             <span class="badge">Not started</span>
           </li>
-
-          <li class="row">
-            <div class="row__body">
-              <div class="row__title">SQL Query Optimization</div>
-              <div class="row__meta">Submitted Oct 18</div>
-            </div>
-            <span class="badge badge--done">Done</span>
-          </li>
         </ul>
-      </div>
+      </section>
 
+      <!-- Collapsed Completed Group -->
+      <section aria-labelledby="group-completed">
+        <details class="completed-section">
+          <summary id="group-completed">
+            <span>Completed (1 assignment)</span>
+            <span class="t-caption t-muted">&#9662;</span>
+          </summary>
+          <ul class="list" role="list" style="border: 0; border-top: 1px solid var(--border); border-radius: 0;">
+            <li class="row">
+              <label class="check" for="assign-sql">
+                <input type="checkbox" id="assign-sql" class="sr-only" checked aria-label="Mark SQL Query Optimization complete">
+                <span class="check__box" aria-hidden="true"></span>
+              </label>
+              <div class="row__body">
+                <div class="row__title">SQL Query Optimization</div>
+                <div class="row__meta">Submitted Oct 18 · CS 301</div>
+              </div>
+              <span class="badge badge--done">Done</span>
+            </li>
+          </ul>
+        </details>
+      </section>
+
+      <!-- Single Primary Action -->
       <a href="#add-assignment" class="btn btn--primary btn--block">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width: 20px; height: 20px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width: 18px; height: 18px;">
           <line x1="12" y1="5" x2="12" y2="19"/>
           <line x1="5" y1="12" x2="19" y2="12"/>
         </svg>
-        <span>Add Assignment</span>
+        <span>+ Add Assignment</span>
       </a>
     </main>
 
+    <!-- Reschedule Pure-CSS Sheet -->
+    <div id="reschedule" class="sheet-overlay">
+      <a href="#" class="scrim-close" aria-label="Close Reschedule Sheet"></a>
+      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="reschedule-title">
+        <div class="sheet__handle" aria-hidden="true"></div>
+        <h2 class="t-h2" id="reschedule-title">Reschedule Assignment</h2>
+        <p class="t-small t-muted">Socket Programming Lab (CS 302)</p>
+
+        <form action="#" method="get" style="display: flex; flex-direction: column; gap: var(--sp-16);">
+          <div class="field">
+            <span class="field__label">Quick Reschedule Options</span>
+            <div class="chips-select">
+              <label>
+                <input type="radio" name="resched_date" value="tomorrow" checked>
+                <span>Tomorrow</span>
+              </label>
+              <label>
+                <input type="radio" name="resched_date" value="weekend">
+                <span>This weekend</span>
+              </label>
+              <label>
+                <input type="radio" name="resched_date" value="nextweek">
+                <span>Next Monday</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="custom-resched-date">Or Pick Custom Date</label>
+            <input class="input" type="date" id="custom-resched-date" value="2026-10-23">
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: var(--sp-8); margin-top: var(--sp-8);">
+            <a href="assignments.html" class="btn btn--primary btn--block">Save New Date</a>
+            <a href="#" class="btn btn--secondary btn--block">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
     <!-- Add Assignment Bottom Sheet Modal -->
     <div id="add-assignment" class="sheet-overlay">
-      <a href="#" class="scrim-close" aria-label="Close modal"></a>
+      <a href="#" class="scrim-close" aria-label="Close Add Assignment modal"></a>
       <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="modal-title">
         <div class="sheet__handle" aria-hidden="true"></div>
         <h2 class="t-h2" id="modal-title">Add Assignment</h2>
@@ -384,16 +522,11 @@
 
           <div class="field">
             <label class="field__label" for="assign-course">Course</label>
-            <div class="select-wrap">
-              <select class="select" id="assign-course" name="course">
-                <option value="cs302">Computer Networks (CS 302)</option>
-                <option value="cs301">Database Systems (CS 301)</option>
-                <option value="ma201">Linear Algebra (MA 201)</option>
-              </select>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <polyline points="6 9 12 15 18 9"/>
-              </svg>
-            </div>
+            <select class="select" id="assign-course" name="course">
+              <option value="cs302">Computer Networks (CS 302)</option>
+              <option value="cs301">Database Systems (CS 301)</option>
+              <option value="ma201">Linear Algebra (MA 201)</option>
+            </select>
           </div>
 
           <div class="field">
@@ -403,34 +536,17 @@
 
           <div class="field">
             <label class="field__label" for="assign-status">Status</label>
-            <div class="select-wrap">
-              <select class="select" id="assign-status" name="status">
-                <option value="not_started">Not started</option>
-                <option value="in_progress">In progress</option>
-                <option value="done">Done</option>
-              </select>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <polyline points="6 9 12 15 18 9"/>
-              </svg>
-            </div>
+            <select class="select" id="assign-status" name="status">
+              <option value="not_started">Not started</option>
+              <option value="in_progress">In progress</option>
+              <option value="done">Done</option>
+            </select>
           </div>
 
-          <div class="field">
-            <label class="field__label" for="assign-reminder">Reminder</label>
-            <div class="select-wrap">
-              <select class="select" id="assign-reminder" name="reminder">
-                <option value="1d">1 day before</option>
-                <option value="2h">2 hours before</option>
-                <option value="none">No reminder</option>
-              </select>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <polyline points="6 9 12 15 18 9"/>
-              </svg>
-            </div>
+          <div style="display: flex; flex-direction: column; gap: var(--sp-8); margin-top: var(--sp-8);">
+            <button type="submit" class="btn btn--primary btn--block">Save Assignment</button>
+            <a href="#" class="btn btn--secondary btn--block">Cancel</a>
           </div>
-
-          <a href="assignments.html" class="btn btn--primary btn--block">Save Assignment</a>
-          <a href="#" class="btn btn--ghost btn--block">Cancel</a>
         </form>
       </div>
     </div>
@@ -453,14 +569,14 @@
         <span>Money</span>
       </a>
 
-      <a href="quick-add.html" class="nav-add" aria-label="Quick Add">
+      <a href="#quick-add" class="nav-add" aria-label="Quick Add">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <line x1="12" y1="5" x2="12" y2="19"/>
           <line x1="5" y1="12" x2="19" y2="12"/>
         </svg>
       </a>
 
-      <a href="plan.html" class="nav-item" aria-current="page">
+      <a href="today.html" class="nav-item" aria-current="page">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="m3 17 2 2 4-4"/>
           <path d="m3 7 2 2 4-4"/>
@@ -468,7 +584,7 @@
           <path d="M13 12h8"/>
           <path d="M13 18h8"/>
         </svg>
-        <span>Plan</span>
+        <span>Study</span>
       </a>
 
       <a href="settings.html" class="nav-item">
@@ -477,9 +593,45 @@
           <circle cx="19" cy="12" r="1"/>
           <circle cx="5" cy="12" r="1"/>
         </svg>
-        <span>More</span>
+        <span>Settings</span>
       </a>
     </nav>
+
+    <!-- Contextual Quick Add Sheet -->
+    <div id="quick-add" class="sheet-overlay">
+      <a href="#" class="scrim-close" aria-label="Close Quick Add"></a>
+      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="qa-title">
+        <div class="sheet__handle" aria-hidden="true"></div>
+        <h2 class="t-h2" id="qa-title">Quick Add</h2>
+        <div class="grid-2">
+          <a href="add-expense.html" class="qa-card">
+            <span class="qa-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg>
+            </span>
+            <span class="qa-label">Log Expense</span>
+          </a>
+          <a href="quick-capture.html" class="qa-card">
+            <span class="qa-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            </span>
+            <span class="qa-label">Add Task</span>
+          </a>
+          <a href="split.html#add-split" class="qa-card">
+            <span class="qa-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </span>
+            <span class="qa-label">Split Bill</span>
+          </a>
+          <a href="assignments.html#add-assignment" class="qa-card">
+            <span class="qa-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            </span>
+            <span class="qa-label">Add Assignment</span>
+          </a>
+        </div>
+        <a href="#" class="btn btn--secondary btn--block">Cancel</a>
+      </div>
+    </div>
   </div>
 </body>
 </html>

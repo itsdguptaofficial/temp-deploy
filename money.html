@@ -317,7 +317,7 @@
       font: 500 .75rem/1rem var(--font); letter-spacing: .0125rem;
     }
     .nav-item svg { width: 24px; height: 24px; }
-    .nav-item[aria-current="page"] { color: var(--accent-text); }
+    .nav-item[aria-current="page"] { color: var(--accent); font-weight: 600; }
     .nav-add {
       justify-self: center; display: grid; place-items: center;
       width: 3rem; height: 3rem; min-width: 44px; min-height: 44px; border-radius: var(--radius-full);
@@ -395,12 +395,12 @@
       </section>
 
       <!-- Money Tab Group Navigation -->
-      <div class="segmented" role="navigation" aria-label="Money view">
+      <nav class="segmented" aria-label="Money sections">
         <a href="money.html" class="is-active" aria-current="page">Ledger</a>
         <a href="budget.html">Budget</a>
         <a href="insights.html">Insights</a>
         <a href="split.html">Split</a>
-      </div>
+      </nav>
 
       <!-- Category Filter Chips -->
       <div class="chips-row" role="navigation" aria-label="Filter transactions by envelope">

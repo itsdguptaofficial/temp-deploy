@@ -175,6 +175,7 @@
       position: sticky; top: 0; z-index: 10; background: var(--bg);
       display: flex; align-items: center; justify-content: space-between; gap: var(--sp-12);
       min-height: 3.5rem; padding: var(--sp-8) var(--sp-16); margin: 0 calc(var(--sp-16) * -1);
+      border-bottom: 1px solid var(--border);
     }
 
     .icon-btn {
@@ -328,6 +329,105 @@
 </head>
 <body>
   <div class="app">
+
+    <!-- Add Class Modal Sheet -->
+    <div id="add-class" class="sheet-overlay">
+      <a href="timetable.html" class="scrim-close" aria-label="Close Add Class modal"></a>
+      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="add-class-title">
+        <div class="sheet__handle" aria-hidden="true"></div>
+        <h2 class="t-h2" id="add-class-title">Add Class Slot</h2>
+
+        <form action="timetable.html" method="get" style="display: flex; flex-direction: column; gap: var(--sp-16);">
+          <div class="field">
+            <label class="field__label" for="class-subject">Course / Subject Name</label>
+            <input class="input" type="text" id="class-subject" name="subject" placeholder="e.g. Operating Systems" required>
+          </div>
+
+          <div class="grid-2">
+            <div class="field">
+              <label class="field__label" for="class-day">Day of Week</label>
+              <select class="select" id="class-day" name="day">
+                <option value="wed" selected>Wednesday</option>
+                <option value="mon">Monday</option>
+                <option value="tue">Tuesday</option>
+                <option value="thu">Thursday</option>
+                <option value="fri">Friday</option>
+              </select>
+            </div>
+            <div class="field">
+              <label class="field__label" for="class-type">Type</label>
+              <select class="select" id="class-type" name="type">
+                <option value="lecture">Lecture</option>
+                <option value="lab">Lab</option>
+                <option value="tutorial">Tutorial</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div class="field">
+              <label class="field__label" for="class-start">Start Time</label>
+              <input class="input" type="time" id="class-start" name="start_time" value="09:00" required>
+            </div>
+            <div class="field">
+              <label class="field__label" for="class-end">End Time</label>
+              <input class="input" type="time" id="class-end" name="end_time" value="10:30" required>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="class-venue">Classroom / Hall Venue</label>
+            <input class="input" type="text" id="class-venue" name="venue" placeholder="e.g. Lecture Hall 4" required>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: var(--sp-8); margin-top: var(--sp-8);">
+            <button type="submit" class="btn btn--primary btn--block">Save to Timetable</button>
+            <a href="timetable.html" class="btn btn--secondary btn--block">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+
+    <!-- Contextual Quick Add Sheet -->
+    <div id="quick-add" class="sheet-overlay">
+      <a href="timetable.html" class="scrim-close" aria-label="Close Quick Add"></a>
+      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="qa-title">
+        <div class="sheet__handle" aria-hidden="true"></div>
+        <h2 class="t-h2" id="qa-title">Quick Add</h2>
+        <div class="grid-2">
+          <a href="add-expense.html" class="qa-card">
+            <span class="qa-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg>
+            </span>
+            <span class="qa-label">Log Expense</span>
+          </a>
+          <a href="quick-capture.html" class="qa-card">
+            <span class="qa-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            </span>
+            <span class="qa-label">Add Task</span>
+          </a>
+          <a href="split.html#add-split" class="qa-card">
+            <span class="qa-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </span>
+            <span class="qa-label">Split Bill</span>
+          </a>
+          <a href="assignments.html#add-assignment" class="qa-card">
+            <span class="qa-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            </span>
+            <span class="qa-label">Add Assignment</span>
+          </a>
+        </div>
+        <a href="timetable.html" class="btn btn--secondary btn--block">Cancel</a>
+      </div>
+    </div>
+
+
+    <main class="screen screen--nav">
     <!-- Header -->
     <header class="app-header">
       <h1 class="t-h1">Study</h1>
@@ -339,7 +439,7 @@
       </a>
     </header>
 
-    <main class="screen screen--nav">
+
       <!-- 4-facet Study Tab Group Segmented Navigation -->
       <nav class="segmented" aria-label="Study sections">
         <a href="today.html">Today's Focus</a>
@@ -439,63 +539,6 @@
       </a>
     </main>
 
-    <!-- Add Class Modal Sheet -->
-    <div id="add-class" class="sheet-overlay">
-      <a href="#" class="scrim-close" aria-label="Close Add Class modal"></a>
-      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="add-class-title">
-        <div class="sheet__handle" aria-hidden="true"></div>
-        <h2 class="t-h2" id="add-class-title">Add Class Slot</h2>
-
-        <form action="timetable.html" method="get" style="display: flex; flex-direction: column; gap: var(--sp-16);">
-          <div class="field">
-            <label class="field__label" for="class-subject">Course / Subject Name</label>
-            <input class="input" type="text" id="class-subject" name="subject" placeholder="e.g. Operating Systems" required>
-          </div>
-
-          <div class="grid-2">
-            <div class="field">
-              <label class="field__label" for="class-day">Day of Week</label>
-              <select class="select" id="class-day" name="day">
-                <option value="wed" selected>Wednesday</option>
-                <option value="mon">Monday</option>
-                <option value="tue">Tuesday</option>
-                <option value="thu">Thursday</option>
-                <option value="fri">Friday</option>
-              </select>
-            </div>
-            <div class="field">
-              <label class="field__label" for="class-type">Type</label>
-              <select class="select" id="class-type" name="type">
-                <option value="lecture">Lecture</option>
-                <option value="lab">Lab</option>
-                <option value="tutorial">Tutorial</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="grid-2">
-            <div class="field">
-              <label class="field__label" for="class-start">Start Time</label>
-              <input class="input" type="time" id="class-start" name="start_time" value="09:00" required>
-            </div>
-            <div class="field">
-              <label class="field__label" for="class-end">End Time</label>
-              <input class="input" type="time" id="class-end" name="end_time" value="10:30" required>
-            </div>
-          </div>
-
-          <div class="field">
-            <label class="field__label" for="class-venue">Classroom / Hall Venue</label>
-            <input class="input" type="text" id="class-venue" name="venue" placeholder="e.g. Lecture Hall 4" required>
-          </div>
-
-          <div style="display: flex; flex-direction: column; gap: var(--sp-8); margin-top: var(--sp-8);">
-            <button type="submit" class="btn btn--primary btn--block">Save to Timetable</button>
-            <a href="#" class="btn btn--secondary btn--block">Cancel</a>
-          </div>
-        </form>
-      </div>
-    </div>
 
     <!-- Bottom Nav -->
     <nav class="bottom-nav" aria-label="Main navigation">
@@ -543,41 +586,7 @@
       </a>
     </nav>
 
-    <!-- Contextual Quick Add Sheet -->
-    <div id="quick-add" class="sheet-overlay">
-      <a href="#" class="scrim-close" aria-label="Close Quick Add"></a>
-      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="qa-title">
-        <div class="sheet__handle" aria-hidden="true"></div>
-        <h2 class="t-h2" id="qa-title">Quick Add</h2>
-        <div class="grid-2">
-          <a href="add-expense.html" class="qa-card">
-            <span class="qa-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg>
-            </span>
-            <span class="qa-label">Log Expense</span>
-          </a>
-          <a href="quick-capture.html" class="qa-card">
-            <span class="qa-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-            </span>
-            <span class="qa-label">Add Task</span>
-          </a>
-          <a href="split.html#add-split" class="qa-card">
-            <span class="qa-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            </span>
-            <span class="qa-label">Split Bill</span>
-          </a>
-          <a href="assignments.html#add-assignment" class="qa-card">
-            <span class="qa-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-            </span>
-            <span class="qa-label">Add Assignment</span>
-          </a>
-        </div>
-        <a href="#" class="btn btn--secondary btn--block">Cancel</a>
-      </div>
-    </div>
+
   </div>
 </body>
 </html>

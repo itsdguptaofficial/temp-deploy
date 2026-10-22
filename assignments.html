@@ -174,6 +174,7 @@
       position: sticky; top: 0; z-index: 10; background: var(--bg);
       display: flex; align-items: center; justify-content: space-between; gap: var(--sp-12);
       min-height: 3.5rem; padding: var(--sp-8) var(--sp-16); margin: 0 calc(var(--sp-16) * -1);
+      border-bottom: 1px solid var(--border);
     }
 
     .icon-btn {
@@ -362,6 +363,131 @@
 </head>
 <body>
   <div class="app">
+
+    <!-- Reschedule Pure-CSS Sheet -->
+    <div id="reschedule" class="sheet-overlay">
+      <a href="assignments.html" class="scrim-close" aria-label="Close Reschedule Sheet"></a>
+      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="reschedule-title">
+        <div class="sheet__handle" aria-hidden="true"></div>
+        <h2 class="t-h2" id="reschedule-title">Reschedule Assignment</h2>
+        <p class="t-small t-muted">Socket Programming Lab (CS 302)</p>
+
+        <form action="assignments.html" method="get" style="display: flex; flex-direction: column; gap: var(--sp-16);">
+          <div class="field">
+            <span class="field__label">Quick Reschedule Options</span>
+            <div class="chips-select">
+              <label>
+                <input type="radio" name="resched_date" value="tomorrow" checked>
+                <span>Tomorrow</span>
+              </label>
+              <label>
+                <input type="radio" name="resched_date" value="weekend">
+                <span>This weekend</span>
+              </label>
+              <label>
+                <input type="radio" name="resched_date" value="nextweek">
+                <span>Next Monday</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="custom-resched-date">Or Pick Custom Date</label>
+            <input class="input" type="date" id="custom-resched-date" value="2026-10-23">
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: var(--sp-8); margin-top: var(--sp-8);">
+            <a href="assignments.html" class="btn btn--primary btn--block">Save New Date</a>
+            <a href="assignments.html" class="btn btn--secondary btn--block">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+    <!-- Add Assignment Bottom Sheet Modal -->
+    <div id="add-assignment" class="sheet-overlay">
+      <a href="assignments.html" class="scrim-close" aria-label="Close Add Assignment modal"></a>
+      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="sheet__handle" aria-hidden="true"></div>
+        <h2 class="t-h2" id="modal-title">Add Assignment</h2>
+
+        <form action="assignments.html" method="get" style="display: flex; flex-direction: column; gap: var(--sp-16);">
+          <div class="field">
+            <label class="field__label" for="assign-title">Assignment Title</label>
+            <input class="input" type="text" id="assign-title" name="title" placeholder="e.g. Distributed Consensus Lab" required>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="assign-course">Course</label>
+            <select class="select" id="assign-course" name="course">
+              <option value="cs302">Computer Networks (CS 302)</option>
+              <option value="cs301">Database Systems (CS 301)</option>
+              <option value="ma201">Linear Algebra (MA 201)</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="assign-due">Due Date</label>
+            <input class="input" type="date" id="assign-due" name="due_date" value="2026-10-28">
+          </div>
+
+          <div class="field">
+            <label class="field__label" for="assign-status">Status</label>
+            <select class="select" id="assign-status" name="status">
+              <option value="not_started">Not started</option>
+              <option value="in_progress">In progress</option>
+              <option value="done">Done</option>
+            </select>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: var(--sp-8); margin-top: var(--sp-8);">
+            <button type="submit" class="btn btn--primary btn--block">Save Assignment</button>
+            <a href="assignments.html" class="btn btn--secondary btn--block">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+    <!-- Contextual Quick Add Sheet -->
+    <div id="quick-add" class="sheet-overlay">
+      <a href="assignments.html" class="scrim-close" aria-label="Close Quick Add"></a>
+      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="qa-title">
+        <div class="sheet__handle" aria-hidden="true"></div>
+        <h2 class="t-h2" id="qa-title">Quick Add</h2>
+        <div class="grid-2">
+          <a href="add-expense.html" class="qa-card">
+            <span class="qa-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg>
+            </span>
+            <span class="qa-label">Log Expense</span>
+          </a>
+          <a href="quick-capture.html" class="qa-card">
+            <span class="qa-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            </span>
+            <span class="qa-label">Add Task</span>
+          </a>
+          <a href="split.html#add-split" class="qa-card">
+            <span class="qa-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </span>
+            <span class="qa-label">Split Bill</span>
+          </a>
+          <a href="assignments.html#add-assignment" class="qa-card">
+            <span class="qa-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            </span>
+            <span class="qa-label">Add Assignment</span>
+          </a>
+        </div>
+        <a href="assignments.html" class="btn btn--secondary btn--block">Cancel</a>
+      </div>
+    </div>
+
+
+    <main class="screen screen--nav">
     <!-- Header -->
     <header class="app-header">
       <h1 class="t-h1">Study</h1>
@@ -373,7 +499,7 @@
       </a>
     </header>
 
-    <main class="screen screen--nav">
+
       <!-- 4-facet Study Tab Group Segmented Navigation -->
       <nav class="segmented" aria-label="Study sections">
         <a href="today.html">Today's Focus</a>
@@ -467,89 +593,6 @@
       </a>
     </main>
 
-    <!-- Reschedule Pure-CSS Sheet -->
-    <div id="reschedule" class="sheet-overlay">
-      <a href="#" class="scrim-close" aria-label="Close Reschedule Sheet"></a>
-      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="reschedule-title">
-        <div class="sheet__handle" aria-hidden="true"></div>
-        <h2 class="t-h2" id="reschedule-title">Reschedule Assignment</h2>
-        <p class="t-small t-muted">Socket Programming Lab (CS 302)</p>
-
-        <form action="#" method="get" style="display: flex; flex-direction: column; gap: var(--sp-16);">
-          <div class="field">
-            <span class="field__label">Quick Reschedule Options</span>
-            <div class="chips-select">
-              <label>
-                <input type="radio" name="resched_date" value="tomorrow" checked>
-                <span>Tomorrow</span>
-              </label>
-              <label>
-                <input type="radio" name="resched_date" value="weekend">
-                <span>This weekend</span>
-              </label>
-              <label>
-                <input type="radio" name="resched_date" value="nextweek">
-                <span>Next Monday</span>
-              </label>
-            </div>
-          </div>
-
-          <div class="field">
-            <label class="field__label" for="custom-resched-date">Or Pick Custom Date</label>
-            <input class="input" type="date" id="custom-resched-date" value="2026-10-23">
-          </div>
-
-          <div style="display: flex; flex-direction: column; gap: var(--sp-8); margin-top: var(--sp-8);">
-            <a href="assignments.html" class="btn btn--primary btn--block">Save New Date</a>
-            <a href="#" class="btn btn--secondary btn--block">Cancel</a>
-          </div>
-        </form>
-      </div>
-    </div>
-
-    <!-- Add Assignment Bottom Sheet Modal -->
-    <div id="add-assignment" class="sheet-overlay">
-      <a href="#" class="scrim-close" aria-label="Close Add Assignment modal"></a>
-      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-        <div class="sheet__handle" aria-hidden="true"></div>
-        <h2 class="t-h2" id="modal-title">Add Assignment</h2>
-
-        <form action="assignments.html" method="get" style="display: flex; flex-direction: column; gap: var(--sp-16);">
-          <div class="field">
-            <label class="field__label" for="assign-title">Assignment Title</label>
-            <input class="input" type="text" id="assign-title" name="title" placeholder="e.g. Distributed Consensus Lab" required>
-          </div>
-
-          <div class="field">
-            <label class="field__label" for="assign-course">Course</label>
-            <select class="select" id="assign-course" name="course">
-              <option value="cs302">Computer Networks (CS 302)</option>
-              <option value="cs301">Database Systems (CS 301)</option>
-              <option value="ma201">Linear Algebra (MA 201)</option>
-            </select>
-          </div>
-
-          <div class="field">
-            <label class="field__label" for="assign-due">Due Date</label>
-            <input class="input" type="date" id="assign-due" name="due_date" value="2026-10-28">
-          </div>
-
-          <div class="field">
-            <label class="field__label" for="assign-status">Status</label>
-            <select class="select" id="assign-status" name="status">
-              <option value="not_started">Not started</option>
-              <option value="in_progress">In progress</option>
-              <option value="done">Done</option>
-            </select>
-          </div>
-
-          <div style="display: flex; flex-direction: column; gap: var(--sp-8); margin-top: var(--sp-8);">
-            <button type="submit" class="btn btn--primary btn--block">Save Assignment</button>
-            <a href="#" class="btn btn--secondary btn--block">Cancel</a>
-          </div>
-        </form>
-      </div>
-    </div>
 
     <!-- Bottom Nav -->
     <nav class="bottom-nav" aria-label="Main navigation">
@@ -597,41 +640,7 @@
       </a>
     </nav>
 
-    <!-- Contextual Quick Add Sheet -->
-    <div id="quick-add" class="sheet-overlay">
-      <a href="#" class="scrim-close" aria-label="Close Quick Add"></a>
-      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="qa-title">
-        <div class="sheet__handle" aria-hidden="true"></div>
-        <h2 class="t-h2" id="qa-title">Quick Add</h2>
-        <div class="grid-2">
-          <a href="add-expense.html" class="qa-card">
-            <span class="qa-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg>
-            </span>
-            <span class="qa-label">Log Expense</span>
-          </a>
-          <a href="quick-capture.html" class="qa-card">
-            <span class="qa-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-            </span>
-            <span class="qa-label">Add Task</span>
-          </a>
-          <a href="split.html#add-split" class="qa-card">
-            <span class="qa-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            </span>
-            <span class="qa-label">Split Bill</span>
-          </a>
-          <a href="assignments.html#add-assignment" class="qa-card">
-            <span class="qa-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-            </span>
-            <span class="qa-label">Add Assignment</span>
-          </a>
-        </div>
-        <a href="#" class="btn btn--secondary btn--block">Cancel</a>
-      </div>
-    </div>
+
   </div>
 </body>
 </html>

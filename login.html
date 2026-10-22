@@ -327,6 +327,29 @@
 </head>
 <body>
   <div class="app">
+
+    <div id="forgot-pin" class="sheet-overlay">
+      <a href="login.html" class="scrim-close" aria-label="Close forgot pin modal"></a>
+      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="forgot-title">
+        <div class="sheet__handle" aria-hidden="true"></div>
+        <h2 class="t-h2" id="forgot-title">Reset Local PIN</h2>
+        
+        <div style="padding: var(--sp-12); background: var(--error-soft); border: 1px solid var(--error-ring); border-radius: var(--radius-sm);">
+          <p class="t-small" style="color: var(--error); font-weight: 500;">
+            ⚠️ Data Privacy Notice: Your data is stored only on this device. We do not store your PIN on any remote server.
+          </p>
+        </div>
+
+        <p class="t-small t-muted">
+          Resetting your PIN will clear your local app profile and require you to set up a new account. Your previous logs cannot be recovered from the cloud.
+        </p>
+
+        <a href="signup.html" class="btn btn--destructive btn--block">Reset PIN &amp; Clear Data</a>
+        <a href="login.html" class="btn btn--secondary btn--block">Cancel</a>
+      </div>
+    </div>
+
+
     <header class="app-header">
       <a href="index.html" class="icon-btn" aria-label="Back to welcome screen">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -336,6 +359,7 @@
       </a>
       <div style="width: 2.75rem;"></div>
     </header>
+
 
     <main class="screen">
       <div>
@@ -396,26 +420,7 @@
     </main>
 
     <!-- Forgot PIN Sheet Modal -->
-    <div id="forgot-pin" class="sheet-overlay">
-      <a href="#" class="scrim-close" aria-label="Close forgot pin modal"></a>
-      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="forgot-title">
-        <div class="sheet__handle" aria-hidden="true"></div>
-        <h2 class="t-h2" id="forgot-title">Reset Local PIN</h2>
-        
-        <div style="padding: var(--sp-12); background: var(--error-soft); border: 1px solid var(--error-ring); border-radius: var(--radius-sm);">
-          <p class="t-small" style="color: var(--error); font-weight: 500;">
-            ⚠️ Data Privacy Notice: Your data is stored only on this device. We do not store your PIN on any remote server.
-          </p>
-        </div>
 
-        <p class="t-small t-muted">
-          Resetting your PIN will clear your local app profile and require you to set up a new account. Your previous logs cannot be recovered from the cloud.
-        </p>
-
-        <a href="signup.html" class="btn btn--destructive btn--block">Reset PIN &amp; Clear Data</a>
-        <a href="#" class="btn btn--secondary btn--block">Cancel</a>
-      </div>
-    </div>
   </div>
 </body>
 </html>

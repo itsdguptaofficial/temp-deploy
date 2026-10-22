@@ -174,6 +174,7 @@
       position: sticky; top: 0; z-index: 10; background: var(--bg);
       display: flex; align-items: center; justify-content: space-between; gap: var(--sp-12);
       min-height: 3.5rem; padding: var(--sp-8) var(--sp-16); margin: 0 calc(var(--sp-16) * -1);
+      border-bottom: 1px solid var(--border);
     }
     .month-switch { display: inline-flex; align-items: center; gap: var(--sp-4); }
     .month-switch__label { font: 500 .875rem/1.25rem var(--font); min-width: 6.5rem; text-align: center; }
@@ -300,6 +301,43 @@
 </head>
 <body>
   <div class="app">
+
+    <div id="quick-add" class="sheet-overlay">
+      <a href="insights.html" class="scrim-close" aria-label="Close Quick Add"></a>
+      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="qa-title">
+        <div class="sheet__handle" aria-hidden="true"></div>
+        <h2 class="t-h2" id="qa-title">Quick Add</h2>
+        <div class="grid-2">
+          <a href="add-expense.html" class="qa-card">
+            <span class="qa-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg>
+            </span>
+            <span class="qa-label">Log Expense</span>
+          </a>
+          <a href="quick-capture.html" class="qa-card">
+            <span class="qa-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            </span>
+            <span class="qa-label">Add Task</span>
+          </a>
+          <a href="split.html#add-split" class="qa-card">
+            <span class="qa-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </span>
+            <span class="qa-label">Split Bill</span>
+          </a>
+          <a href="assignments.html#add-assignment" class="qa-card">
+            <span class="qa-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            </span>
+            <span class="qa-label">Add Assignment</span>
+          </a>
+        </div>
+        <a href="insights.html" class="btn btn--secondary btn--block">Cancel</a>
+      </div>
+    </div>
+
+
     <main class="screen screen--nav">
       <header class="app-header">
         <h1 class="t-h1">Money</h1>
@@ -383,6 +421,7 @@
       </div>
     </main>
 
+
     <!-- Bottom Nav -->
     <nav class="bottom-nav" aria-label="Main navigation">
       <a href="home.html" class="nav-item">
@@ -430,40 +469,7 @@
     </nav>
 
     <!-- Contextual Quick Add Sheet -->
-    <div id="quick-add" class="sheet-overlay">
-      <a href="#" class="scrim-close" aria-label="Close Quick Add"></a>
-      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="qa-title">
-        <div class="sheet__handle" aria-hidden="true"></div>
-        <h2 class="t-h2" id="qa-title">Quick Add</h2>
-        <div class="grid-2">
-          <a href="add-expense.html" class="qa-card">
-            <span class="qa-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg>
-            </span>
-            <span class="qa-label">Log Expense</span>
-          </a>
-          <a href="quick-capture.html" class="qa-card">
-            <span class="qa-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-            </span>
-            <span class="qa-label">Add Task</span>
-          </a>
-          <a href="split.html#add-split" class="qa-card">
-            <span class="qa-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            </span>
-            <span class="qa-label">Split Bill</span>
-          </a>
-          <a href="assignments.html#add-assignment" class="qa-card">
-            <span class="qa-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-            </span>
-            <span class="qa-label">Add Assignment</span>
-          </a>
-        </div>
-        <a href="#" class="btn btn--secondary btn--block">Cancel</a>
-      </div>
-    </div>
+
   </div>
 </body>
 </html>

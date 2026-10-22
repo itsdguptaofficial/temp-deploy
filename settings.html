@@ -174,6 +174,7 @@
       position: sticky; top: 0; z-index: 10; background: var(--bg);
       display: flex; align-items: center; justify-content: space-between; gap: var(--sp-12);
       min-height: 3.5rem; padding: var(--sp-8) var(--sp-16); margin: 0 calc(var(--sp-16) * -1);
+      border-bottom: 1px solid var(--border);
     }
 
     h1, .t-h1 { font: 600 1.75rem/2.125rem var(--font); letter-spacing: -0.0375rem; margin: 0; }
@@ -302,6 +303,75 @@
 </head>
 <body>
   <div class="app">
+
+    <div id="full-policy" class="sheet-overlay">
+      <a href="settings.html" class="scrim-close" aria-label="Close Privacy Policy"></a>
+      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="policy-title">
+        <div class="sheet__handle" aria-hidden="true"></div>
+        <h2 class="t-h2" id="policy-title">Privacy Promise</h2>
+
+        <div style="display: flex; flex-direction: column; gap: var(--sp-12);">
+          <div class="trust-card">
+            <h3>No Advertisements</h3>
+            <p>We do not display ads, affiliate banners, or sponsored suggestions.</p>
+          </div>
+
+          <div class="trust-card">
+            <h3>No Data Selling</h3>
+            <p>Your academic schedule and transactions are stored strictly in local device storage.</p>
+          </div>
+
+          <div class="trust-card">
+            <h3>You Control SMS Access</h3>
+            <p>SMS auto-tracking is disabled by default. When enabled, parsing happens on-device only.</p>
+          </div>
+        </div>
+
+        <div style="margin-top: var(--sp-8);">
+          <a href="settings.html" class="btn btn--primary btn--block">Got it</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contextual Quick Add Sheet -->
+
+
+    <div id="quick-add" class="sheet-overlay">
+      <a href="settings.html" class="scrim-close" aria-label="Close Quick Add"></a>
+      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="qa-title">
+        <div class="sheet__handle" aria-hidden="true"></div>
+        <h2 class="t-h2" id="qa-title">Quick Add</h2>
+        <div class="grid-2">
+          <a href="add-expense.html" class="qa-card">
+            <span class="qa-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg>
+            </span>
+            <span class="qa-label">Log Expense</span>
+          </a>
+          <a href="quick-capture.html" class="qa-card">
+            <span class="qa-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            </span>
+            <span class="qa-label">Add Task</span>
+          </a>
+          <a href="split.html#add-split" class="qa-card">
+            <span class="qa-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </span>
+            <span class="qa-label">Split Bill</span>
+          </a>
+          <a href="assignments.html#add-assignment" class="qa-card">
+            <span class="qa-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            </span>
+            <span class="qa-label">Add Assignment</span>
+          </a>
+        </div>
+        <a href="settings.html" class="btn btn--secondary btn--block">Cancel</a>
+      </div>
+    </div>
+
+
     <main class="screen screen--nav">
       <!-- Header -->
       <header class="app-header">
@@ -541,70 +611,7 @@
     </nav>
 
     <!-- In-Page Privacy Policy Sheet (#full-policy) -->
-    <div id="full-policy" class="sheet-overlay">
-      <a href="#" class="scrim-close" aria-label="Close Privacy Policy"></a>
-      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="policy-title">
-        <div class="sheet__handle" aria-hidden="true"></div>
-        <h2 class="t-h2" id="policy-title">Privacy Promise</h2>
 
-        <div style="display: flex; flex-direction: column; gap: var(--sp-12);">
-          <div class="trust-card">
-            <h3>No Advertisements</h3>
-            <p>We do not display ads, affiliate banners, or sponsored suggestions.</p>
-          </div>
-
-          <div class="trust-card">
-            <h3>No Data Selling</h3>
-            <p>Your academic schedule and transactions are stored strictly in local device storage.</p>
-          </div>
-
-          <div class="trust-card">
-            <h3>You Control SMS Access</h3>
-            <p>SMS auto-tracking is disabled by default. When enabled, parsing happens on-device only.</p>
-          </div>
-        </div>
-
-        <div style="margin-top: var(--sp-8);">
-          <a href="#" class="btn btn--primary btn--block">Got it</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Contextual Quick Add Sheet -->
-    <div id="quick-add" class="sheet-overlay">
-      <a href="#" class="scrim-close" aria-label="Close Quick Add"></a>
-      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="qa-title">
-        <div class="sheet__handle" aria-hidden="true"></div>
-        <h2 class="t-h2" id="qa-title">Quick Add</h2>
-        <div class="grid-2">
-          <a href="add-expense.html" class="qa-card">
-            <span class="qa-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg>
-            </span>
-            <span class="qa-label">Log Expense</span>
-          </a>
-          <a href="quick-capture.html" class="qa-card">
-            <span class="qa-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-            </span>
-            <span class="qa-label">Add Task</span>
-          </a>
-          <a href="split.html#add-split" class="qa-card">
-            <span class="qa-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            </span>
-            <span class="qa-label">Split Bill</span>
-          </a>
-          <a href="assignments.html#add-assignment" class="qa-card">
-            <span class="qa-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-            </span>
-            <span class="qa-label">Add Assignment</span>
-          </a>
-        </div>
-        <a href="#" class="btn btn--secondary btn--block">Cancel</a>
-      </div>
-    </div>
   </div>
 </body>
 </html>

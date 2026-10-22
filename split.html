@@ -175,7 +175,10 @@
       position: sticky; top: 0; z-index: 10; background: var(--bg);
       display: flex; align-items: center; justify-content: space-between; gap: var(--sp-12);
       min-height: 3.5rem; padding: var(--sp-8) var(--sp-16); margin: 0 calc(var(--sp-16) * -1);
+      border-bottom: 1px solid var(--border);
     }
+    .month-switch { display: inline-flex; align-items: center; gap: var(--sp-4); }
+    .month-switch__label { font: 500 .875rem/1.25rem var(--font); min-width: 6.5rem; text-align: center; }
 
     .icon-btn {
       display: inline-grid; place-items: center; width: 2.75rem; height: 2.75rem; min-width: 44px; min-height: 44px;
@@ -336,39 +339,170 @@
       margin: 0 var(--sp-4);
     }
     .nav-add svg { width: 22px; height: 22px; }
-
-    /* Status Toast */
-    .toast {
-      position: fixed; bottom: calc(var(--nav-h) + var(--sp-16)); left: 50%;
-      transform: translateX(-50%); width: calc(100% - var(--sp-32)); max-width: 398px;
-      background: var(--text-primary); color: var(--bg);
-      border-radius: var(--radius-md); padding: var(--sp-12) var(--sp-16);
-      box-shadow: var(--shadow-md); display: none; align-items: center;
-      justify-content: space-between; z-index: 45; font: 500 0.875rem/1.25rem var(--font);
-    }
-    .toast:target { display: flex; }
-    .toast__action {
-      color: var(--accent-text); background: transparent; border: 0;
-      padding: var(--sp-4) var(--sp-8); min-height: 44px; display: inline-flex;
-      align-items: center; font: 600 0.8125rem/1.25rem var(--font); text-decoration: none;
-    }
   </style>
 </head>
 <body>
   <div class="app">
-    <!-- Header -->
-    <header class="app-header">
-      <h1 class="t-h1">Money</h1>
-      <a href="#add-split" class="icon-btn" aria-label="Split a bill">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <line x1="12" y1="5" x2="12" y2="19"/>
-          <line x1="5" y1="12" x2="19" y2="12"/>
-        </svg>
-      </a>
-    </header>
+    <!-- Add Split Pure-CSS Bottom Sheet (Placed before main to keep scroll position at top) -->
+    <div id="add-split" class="sheet-overlay">
+      <a href="split.html" class="scrim-close" aria-label="Close Add Split Sheet"></a>
+      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="add-split-title">
+        <div class="sheet__handle" aria-hidden="true"></div>
+        <h2 class="t-h2" id="add-split-title">Split a Bill</h2>
 
+        <form action="split.html" method="get" style="display: flex; flex-direction: column; gap: var(--sp-16);">
+          <div class="input-group">
+            <label class="input-label" for="split-title-input">Bill Description</label>
+            <input type="text" id="split-title-input" class="text-input" placeholder="e.g. Canteen Dinner, Wi-Fi" required>
+          </div>
+
+          <div class="input-group">
+            <label class="input-label" for="split-amount-input">Total Amount (₹)</label>
+            <input type="number" id="split-amount-input" class="text-input num" placeholder="e.g. 450" required min="1">
+          </div>
+
+          <div class="input-group">
+            <label class="input-label" for="split-group-select">Select Group</label>
+            <select id="split-group-select" class="select-input">
+              <option value="hostel">Hostel Room 204 (3 members)</option>
+              <option value="project">Semester Project Team (4 members)</option>
+              <option value="other">New / Other Group</option>
+            </select>
+          </div>
+
+          <div class="input-group">
+            <span class="input-label">Paid By</span>
+            <div class="chips-select">
+              <label>
+                <input type="radio" name="paid_by" value="you" checked>
+                <span>You</span>
+              </label>
+              <label>
+                <input type="radio" name="paid_by" value="rohan">
+                <span>Rohan</span>
+              </label>
+              <label>
+                <input type="radio" name="paid_by" value="sneha">
+                <span>Sneha</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <span class="input-label">Split Type</span>
+            <div class="chips-select">
+              <label>
+                <input type="radio" name="split_type" value="equal" checked>
+                <span>Equally</span>
+              </label>
+              <label>
+                <input type="radio" name="split_type" value="custom">
+                <span>Custom / By Item</span>
+              </label>
+            </div>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: var(--sp-8); margin-top: var(--sp-8);">
+            <button type="submit" class="btn btn--primary btn--block">Save &amp; Split</button>
+            <a href="split.html" class="btn btn--secondary btn--block">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Settle Up Pure-CSS Sheet -->
+    <div id="settle-sheet" class="sheet-overlay">
+      <a href="split.html" class="scrim-close" aria-label="Close Settle Sheet"></a>
+      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="settle-title">
+        <div class="sheet__handle" aria-hidden="true"></div>
+        <h2 class="t-h2" id="settle-title">Settle Balance</h2>
+
+        <div class="card" style="background: var(--surface-sunken);">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+              <p style="font-weight: 500;">Pay Rohan</p>
+              <p class="t-caption t-muted">Hostel Room 204 Wi-Fi</p>
+            </div>
+            <p class="t-h2 num" style="color: var(--error);">₹ 120</p>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label class="input-label" for="upi-id-display">Rohan's UPI ID</label>
+          <input type="text" id="upi-id-display" class="text-input" value="rohan.sharma@okhdfcbank" readonly>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: var(--sp-8); margin-top: var(--sp-4);">
+          <a href="upi://pay?pa=rohan.sharma@okhdfcbank&amp;pn=Rohan&amp;am=120&amp;cu=INR" class="btn btn--secondary btn--block">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 18px; height: 18px;" aria-hidden="true">
+              <rect x="2" y="4" width="20" height="16" rx="2"/>
+              <line x1="2" y1="10" x2="22" y2="10"/>
+            </svg>
+            <span>Open in UPI App</span>
+          </a>
+          <a href="split.html" class="btn btn--primary btn--block">Mark as Settled</a>
+          <a href="split.html" class="btn btn--secondary btn--block">Cancel</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contextual Quick Add Sheet -->
+    <div id="quick-add" class="sheet-overlay">
+      <a href="split.html" class="scrim-close" aria-label="Close Quick Add"></a>
+      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="qa-title">
+        <div class="sheet__handle" aria-hidden="true"></div>
+        <h2 class="t-h2" id="qa-title">Quick Add</h2>
+        <div class="grid-2">
+          <a href="add-expense.html" class="qa-card">
+            <span class="qa-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg>
+            </span>
+            <span class="qa-label">Log Expense</span>
+          </a>
+          <a href="quick-capture.html" class="qa-card">
+            <span class="qa-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            </span>
+            <span class="qa-label">Add Task</span>
+          </a>
+          <a href="split.html#add-split" class="qa-card">
+            <span class="qa-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </span>
+            <span class="qa-label">Split Bill</span>
+          </a>
+          <a href="assignments.html#add-assignment" class="qa-card">
+            <span class="qa-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            </span>
+            <span class="qa-label">Add Assignment</span>
+          </a>
+        </div>
+        <a href="split.html" class="btn btn--secondary btn--block">Cancel</a>
+      </div>
+    </div>
+
+    <!-- Main Content Screen -->
     <main class="screen screen--nav">
-      <!-- 4-facet Money Tab Group -->
+      <!-- Consistent Money App Header Inside Main Screen -->
+      <header class="app-header">
+        <h1 class="t-h1">Money</h1>
+        <div class="month-switch" aria-label="Month navigator">
+          <button type="button" class="icon-btn" aria-label="Previous month">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="15 18 9 12 15 6"/>
+            </svg>
+          </button>
+          <span class="month-switch__label">October 2026</span>
+          <button type="button" class="icon-btn" aria-label="Next month">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="9 18 15 12 9 6"/>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- 4-facet Money Tab Group Navigation -->
       <nav class="segmented" aria-label="Money sections">
         <a href="money.html">Ledger</a>
         <a href="budget.html">Budget</a>
@@ -376,7 +510,7 @@
         <a href="split.html" class="is-active" aria-current="page">Split</a>
       </nav>
 
-      <!-- Net Balance Summary Card -->
+      <!-- Net Balance Summary Hero Card -->
       <section class="card card--hero" aria-labelledby="balance-summary-title">
         <div style="display: flex; justify-content: space-between; align-items: flex-start;">
           <div>
@@ -545,145 +679,6 @@
         <span>Settings</span>
       </a>
     </nav>
-
-    <!-- Add Split Pure-CSS Bottom Sheet -->
-    <div id="add-split" class="sheet-overlay">
-      <a href="#" class="scrim-close" aria-label="Close Add Split Sheet"></a>
-      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="add-split-title">
-        <div class="sheet__handle" aria-hidden="true"></div>
-        <h2 class="t-h2" id="add-split-title">Split a Bill</h2>
-
-        <form action="#" method="get" style="display: flex; flex-direction: column; gap: var(--sp-16);">
-          <div class="input-group">
-            <label class="input-label" for="split-title-input">Bill Description</label>
-            <input type="text" id="split-title-input" class="text-input" placeholder="e.g. Canteen Dinner, Wi-Fi" required>
-          </div>
-
-          <div class="input-group">
-            <label class="input-label" for="split-amount-input">Total Amount (₹)</label>
-            <input type="number" id="split-amount-input" class="text-input num" placeholder="e.g. 450" required min="1">
-          </div>
-
-          <div class="input-group">
-            <label class="input-label" for="split-group-select">Select Group</label>
-            <select id="split-group-select" class="select-input">
-              <option value="hostel">Hostel Room 204 (3 members)</option>
-              <option value="project">Semester Project Team (4 members)</option>
-              <option value="other">New / Other Group</option>
-            </select>
-          </div>
-
-          <div class="input-group">
-            <span class="input-label">Paid By</span>
-            <div class="chips-select">
-              <label>
-                <input type="radio" name="paid_by" value="you" checked>
-                <span>You</span>
-              </label>
-              <label>
-                <input type="radio" name="paid_by" value="rohan">
-                <span>Rohan</span>
-              </label>
-              <label>
-                <input type="radio" name="paid_by" value="sneha">
-                <span>Sneha</span>
-              </label>
-            </div>
-          </div>
-
-          <div class="input-group">
-            <span class="input-label">Split Type</span>
-            <div class="chips-select">
-              <label>
-                <input type="radio" name="split_type" value="equal" checked>
-                <span>Equally</span>
-              </label>
-              <label>
-                <input type="radio" name="split_type" value="custom">
-                <span>Custom / By Item</span>
-              </label>
-            </div>
-          </div>
-
-          <div style="display: flex; flex-direction: column; gap: var(--sp-8); margin-top: var(--sp-8);">
-            <button type="submit" class="btn btn--primary btn--block">Save &amp; Split</button>
-            <a href="#" class="btn btn--secondary btn--block">Cancel</a>
-          </div>
-        </form>
-      </div>
-    </div>
-
-    <!-- Settle Up Pure-CSS Sheet -->
-    <div id="settle-sheet" class="sheet-overlay">
-      <a href="#" class="scrim-close" aria-label="Close Settle Sheet"></a>
-      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="settle-title">
-        <div class="sheet__handle" aria-hidden="true"></div>
-        <h2 class="t-h2" id="settle-title">Settle Balance</h2>
-
-        <div class="card" style="background: var(--surface-sunken);">
-          <div style="display: flex; justify-content: space-between; align-items: center;">
-            <div>
-              <p style="font-weight: 500;">Pay Rohan</p>
-              <p class="t-caption t-muted">Hostel Room 204 Wi-Fi</p>
-            </div>
-            <p class="t-h2 num" style="color: var(--error);">₹ 120</p>
-          </div>
-        </div>
-
-        <div class="input-group">
-          <label class="input-label" for="upi-id-display">Rohan's UPI ID</label>
-          <input type="text" id="upi-id-display" class="text-input" value="rohan.sharma@okhdfcbank" readonly>
-        </div>
-
-        <div style="display: flex; flex-direction: column; gap: var(--sp-8); margin-top: var(--sp-4);">
-          <a href="upi://pay?pa=rohan.sharma@okhdfcbank&amp;pn=Rohan&amp;am=120&amp;cu=INR" class="btn btn--secondary btn--block">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 18px; height: 18px;" aria-hidden="true">
-              <rect x="2" y="4" width="20" height="16" rx="2"/>
-              <line x1="2" y1="10" x2="22" y2="10"/>
-            </svg>
-            <span>Open in UPI App</span>
-          </a>
-          <a href="#" class="btn btn--primary btn--block">Mark as Settled</a>
-          <a href="#" class="btn btn--secondary btn--block">Cancel</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Contextual Quick Add Sheet -->
-    <div id="quick-add" class="sheet-overlay">
-      <a href="#" class="scrim-close" aria-label="Close Quick Add"></a>
-      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="qa-title">
-        <div class="sheet__handle" aria-hidden="true"></div>
-        <h2 class="t-h2" id="qa-title">Quick Add</h2>
-        <div class="grid-2">
-          <a href="add-expense.html" class="qa-card">
-            <span class="qa-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1"/><path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4"/></svg>
-            </span>
-            <span class="qa-label">Log Expense</span>
-          </a>
-          <a href="quick-capture.html" class="qa-card">
-            <span class="qa-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-            </span>
-            <span class="qa-label">Add Task</span>
-          </a>
-          <a href="split.html#add-split" class="qa-card">
-            <span class="qa-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            </span>
-            <span class="qa-label">Split Bill</span>
-          </a>
-          <a href="assignments.html#add-assignment" class="qa-card">
-            <span class="qa-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-            </span>
-            <span class="qa-label">Add Assignment</span>
-          </a>
-        </div>
-        <a href="#" class="btn btn--secondary btn--block">Cancel</a>
-      </div>
-    </div>
   </div>
 </body>
 </html>

@@ -5,3 +5,8 @@ Design.md
 RULES.md
 tasks.md
 *.md
+*.json
+*.py
+*.ps1
+*.js
+verify.ps1

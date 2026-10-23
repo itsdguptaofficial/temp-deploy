@@ -177,6 +177,8 @@
       min-height: 3.5rem; padding: var(--sp-8) var(--sp-16); margin: 0 calc(var(--sp-16) * -1);
       border-bottom: 1px solid var(--border);
     }
+    .header-brand { display: flex; align-items: center; gap: var(--sp-12); }
+    .header-logo { width: 2.25rem; height: 2.25rem; border-radius: var(--radius-sm); object-fit: contain; flex: none; }
 
     .icon-btn {
       display: inline-grid; place-items: center; width: 2.75rem; height: 2.75rem; min-width: 44px; min-height: 44px;
@@ -409,9 +411,12 @@
     <main class="screen screen--nav">
       <!-- Header with Financial-Academic Connection -->
       <header class="app-header">
-        <div>
-          <span class="t-caption t-muted num">Daily Pacing: ₹ 485 safe spend today</span>
-          <h1 class="t-h1">Wed, 21 Oct</h1>
+        <div class="header-brand">
+          <img src="assets/logo.png" alt="Super App" class="header-logo">
+          <div>
+            <span class="t-caption t-muted num">Daily Pacing: ₹ 485 safe spend today</span>
+            <h1 class="t-h1">Wed, 21 Oct</h1>
+          </div>
         </div>
         <a href="quick-capture.html" class="icon-btn" aria-label="Quick capture new task">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">

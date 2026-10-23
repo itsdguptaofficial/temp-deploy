@@ -172,6 +172,7 @@
       display: flex; align-items: center; justify-content: space-between; gap: var(--sp-12);
       min-height: 3.5rem; padding: var(--sp-8) var(--sp-16); margin: 0 calc(var(--sp-16) * -1);
     }
+    .header-logo { width: 2.25rem; height: 2.25rem; border-radius: var(--radius-sm); object-fit: contain; flex: none; }
     .app-header__title { font: 600 1.0625rem/1.5rem var(--font); text-align: center; flex: 1; }
 
     .icon-btn {
@@ -242,7 +243,7 @@
           </svg>
         </a>
         <div class="app-header__title">Quick Capture</div>
-        <div style="width: 2.75rem;"></div>
+        <img src="assets/logo.png" alt="Super App" class="header-logo">
       </header>
 
       <form action="today.html" method="get" style="display: flex; flex-direction: column; gap: var(--sp-24); flex: 1;">

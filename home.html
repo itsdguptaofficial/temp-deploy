@@ -177,6 +177,8 @@
       min-height: 3.5rem; padding: var(--sp-8) var(--sp-16); margin: 0 calc(var(--sp-16) * -1);
       border-bottom: 1px solid var(--border);
     }
+    .header-brand { display: flex; align-items: center; gap: var(--sp-12); }
+    .header-logo { width: 2.25rem; height: 2.25rem; border-radius: var(--radius-sm); object-fit: contain; flex: none; }
     .greeting { display: flex; flex-direction: column; }
 
     .icon-btn {
@@ -366,9 +368,12 @@
 
     <main class="screen screen--nav">
       <header class="app-header">
-        <div class="greeting">
-          <span class="t-small t-muted">Good evening</span>
-          <h1 class="t-h1">Divyansh</h1>
+        <div class="header-brand">
+          <img src="assets/logo.png" alt="Super App" class="header-logo">
+          <div class="greeting">
+            <span class="t-small t-muted">Good evening</span>
+            <h1 class="t-h1">Divyansh</h1>
+          </div>
         </div>
         <a href="settings.html" class="icon-btn" aria-label="Settings">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">

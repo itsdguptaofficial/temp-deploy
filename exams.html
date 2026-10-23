@@ -177,6 +177,8 @@
       min-height: 3.5rem; padding: var(--sp-8) var(--sp-16); margin: 0 calc(var(--sp-16) * -1);
       border-bottom: 1px solid var(--border);
     }
+    .header-brand { display: flex; align-items: center; gap: var(--sp-12); }
+    .header-logo { width: 2.25rem; height: 2.25rem; border-radius: var(--radius-sm); object-fit: contain; flex: none; }
 
     .icon-btn {
       display: inline-grid; place-items: center; width: 2.75rem; height: 2.75rem; min-width: 44px; min-height: 44px;
@@ -396,7 +398,10 @@
     <main class="screen screen--nav">
     <!-- Header -->
     <header class="app-header">
-      <h1 class="t-h1">Study</h1>
+      <div class="header-brand">
+        <img src="assets/logo.png" alt="Super App" class="header-logo">
+        <h1 class="t-h1">Study</h1>
+      </div>
       <a href="#add-exam" class="icon-btn" aria-label="Add exam">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <line x1="12" y1="5" x2="12" y2="19"/>

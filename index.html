@@ -198,11 +198,13 @@
     .btn--secondary:hover { background: var(--surface-hover); }
     .btn--secondary:active { background: var(--surface-active); transform: translateY(1px); }
 
-    .logo-box {
-      width: 4.5rem; height: 4.5rem; display: grid; place-items: center;
-      background: var(--accent); color: var(--on-accent);
-      border-radius: var(--radius-lg); font: 600 2rem/2.25rem var(--font);
-      margin: var(--sp-48) auto 0; box-shadow: var(--shadow-md);
+    .app-logo {
+      width: 4.5rem; height: 4.5rem;
+      border-radius: var(--radius-lg);
+      margin: var(--sp-48) auto 0;
+      box-shadow: var(--shadow-md);
+      object-fit: contain;
+      display: block;
     }
     .brand-hero { display: flex; flex-direction: column; align-items: center; text-align: center; gap: var(--sp-12); }
   </style>
@@ -210,7 +212,7 @@
 <body>
   <div class="app">
     <main class="screen--onboarding">
-      <div class="logo-box" aria-hidden="true">₹</div>
+      <img src="assets/logo.png" alt="Super App" class="app-logo">
 
       <div class="brand-hero">
         <h1 class="t-h1">Money + studies, one place</h1>
